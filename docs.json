@@ -38,6 +38,7 @@
         "group": "Operations",
         "pages": [
           "operations/command-reference",
+          "operations/best-buy-promise-date-resend",
           "operations/support-runbook",
           "operations/publish-and-deployment",
           "operations/data-flow"

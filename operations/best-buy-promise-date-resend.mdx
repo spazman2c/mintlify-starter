@@ -1,0 +1,110 @@
+---
+title: "Best Buy Promise Date Resend"
+description: "How to force missing PARTpoint promise date updates through the Best Buy voupdates feed."
+---
+
+# Best Buy Promise Date Resend
+
+Use this runbook when PARTpoint reports that SO promise date changes were entered in IQ Reseller but Best Buy did not receive the updated ETA through the MRP/Symphony interface.
+
+The promise date field is read from `st.deliverydate`. IQ Connect sends it to Best Buy in the `voupdates` XML feed as `ExpectedActivityDate`.
+
+## Confirm the affected SOs
+
+The customer usually provides Best Buy PO numbers. Map those to IQ SOIDs first:
+
+```sql
+SELECT
+    q.soid,
+    q.mktsoid AS [BestBuy_PO],
+    q.custsoid,
+    q.status AS iqconnect_status,
+    q.eta AS [Last_ETA_Sent_By_IQConnect],
+    s.deliverydate AS [Current_SO_Promise_Date],
+    s.status AS so_status,
+    q.datecreatedutc
+FROM iqconnect_so q
+LEFT JOIN st s
+    ON s.stid = q.soid
+WHERE q.mktsoid IN (
+    '1035839','1040230','1050264','1052620','1054855','1054909',
+    '1055212','1055314','1055491','1055619','1055722','1055801',
+    '1055814','1056414','1056452','1056517','1056659','1060401'
+)
+ORDER BY q.mktsoid;
+```
+
+The normal scheduled `soupdate` job only scans a limited status set. If the promise date changed but `iqconnect_status` is no longer eligible for the normal scan, use the resend table and manual command below.
+
+## Queue the resend rows
+
+Insert the IQ SOIDs into `iqconnect_batch_soupdate_resend`:
+
+```sql
+INSERT INTO iqconnect_batch_soupdate_resend (soid)
+VALUES
+(956134),
+(956590),
+(958079),
+(958532),
+(958530),
+(958527),
+(958545),
+(958544),
+(958612),
+(958620),
+(958627),
+(958624),
+(958630),
+(958655),
+(958689),
+(958685),
+(958697);
+```
+
+Confirm the rows are queued:
+
+```sql
+SELECT *
+FROM iqconnect_batch_soupdate_resend;
+```
+
+## Run the manual resend
+
+Open Kudu for the App Service:
+
+```text
+Azure Portal -> beta007-iqconnect -> Development Tools -> Advanced Tools -> Go -> Debug console -> CMD
+```
+
+Run the command from Kudu CMD:
+
+```cmd
+"D:\home\site\wwwroot\App_Data\jobs\common\partpoint-bbsym\IqSync.exe" to-bestbuy resendsoupdate ec87ce03-5eaf-42ae-b9bf-9ad88e2a2cbf production delta
+```
+
+If the executable path changes, locate it first:
+
+```cmd
+cd /d D:\home\site\wwwroot
+dir /s /b IqSync.exe
+```
+
+The Best Buy executable to use is normally:
+
+```text
+D:\home\site\wwwroot\App_Data\jobs\common\partpoint-bbsym\IqSync.exe
+```
+
+## Verify completion
+
+After the command finishes, the resend table should be empty for processed SOIDs:
+
+```sql
+SELECT *
+FROM iqconnect_batch_soupdate_resend;
+```
+
+Then confirm a new `Ppnt_*_voupdates.xml` file was created and sent through the Best Buy/Symphony output path.
+
+If `iqconnect_so.eta` already equals `st.deliverydate`, IQ Connect may treat the ETA as already sent. In that case, confirm whether Best Buy actually received the file before changing data.

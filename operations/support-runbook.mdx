@@ -15,6 +15,7 @@ Use this page when a customer reports a missing order, shipment, invoice, or lin
 | Order not posted | Confirm inbound command, tenant context, mirror payload, and IQ API response. | Original partner PO, mirror file, WebJob log, IQ sales order lookup. |
 | Shipment not sent | Confirm unshipped SO query results, delta flags, ASN formatting, and SFTP delivery. | SO ID, shipment command, generated ASN, SFTP output folder. |
 | Invoice not sent | Confirm uninvoiced SO query results, invoice command, and sync flags. | Invoice command, generated invoice payload, sync flag rows. |
+| Best Buy promise date not sent | Compare `st.deliverydate` to `iqconnect_so.eta`, queue SOIDs in `iqconnect_batch_soupdate_resend`, and run the Kudu resend command. | Best Buy PO, IQ SOID, promise date, `voupdates` file, Kudu/WebJob output. |
 | Incorrect line item number | Compare IQ line item comments against expected partner reference tokens. | SO line comments, partner PO line number, generated outbound payload. |
 
 ## Standard execution flow
@@ -35,6 +36,10 @@ Use this page when a customer reports a missing order, shipment, invoice, or lin
 ## Support images
 
 See [Support Assets](/resources/support-assets) for screenshots of proactive alerts, folders, publish views, and SQL Server allowlisting.
+
+## Best Buy promise date resend
+
+Use [Best Buy Promise Date Resend](/operations/best-buy-promise-date-resend) when PARTpoint reports that SO promise date updates were not received by Best Buy. The manual recovery command runs from Kudu CMD against the `partpoint-bbsym` `IqSync.exe`.
 
 ## Source note excerpt
 
