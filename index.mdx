@@ -1,38 +1,28 @@
 ---
 title: "IQ Connect Knowledge Base"
-description: "Searchable knowledge-transfer documentation for IQ Connect operations, integrations, architecture, source inventory, and recordings."
+description: "Searchable operational documentation for IQ Connect support, integrations, architecture, and developer reference."
 ---
-
 
 # IQ Connect Knowledge Base
 
-This Mintlify site turns the raw KT folder into a navigable documentation system. Start with the operational runbooks when you need to support a customer flow, use the integration pages for partner-specific behavior, and use the recordings only when you need original meeting context.
+This Mintlify site is the clean operational layer for IQ Connect knowledge transfer. It keeps runbooks, architecture notes, command patterns, and integration behavior searchable without publishing raw transcripts, source archives, customer identifiers, tenant keys, or deployment secrets.
 
 ## What is covered
 
-- **27 recording assets** with transcript pages for the KT sessions.
-- **131 developer reference files** covering IQConnect, IQR, BrokerBin, Web API, and related architecture notes.
-- **82 integration files** across Channable, HubSpot, SPS Commerce, and Best Buy Symphony.
-- **17769 source archive entries** inventoried from `iqconnect-master.zip`.
+| Area | What to use it for |
+| --- | --- |
+| Start Here | Orientation, system map, and publishing/security rules. |
+| Operations | Production command patterns, support triage, resend procedures, and deployment guidance. |
+| Integrations | Partner-specific behavior for fulfillment, CRM, catalog, and marketplace flows. |
+| Developer Reference | Code-level concepts, component responsibilities, and database tables. |
 
 ## Recommended path
 
-1. Read [System Map](/start-here/system-map) for the high-level architecture.
-2. Use [Command Reference](/operations/command-reference) for production and support commands.
-3. Jump to a specific integration page when investigating a customer flow.
-4. Search the docs for command names, table names, file names, partner names, or transcript phrases.
+1. Read [System Map](/start-here/system-map) for the architecture.
+2. Read [Security Boundary](/start-here/security-boundary) before publishing, sharing, or adding source material.
+3. Use [Command Reference](/operations/command-reference) for job syntax.
+4. Use the integration pages and [Support Runbook](/operations/support-runbook) during incidents.
 
-## Knowledge areas
+## Publication rule
 
-| Area | Files |
-| --- | ---: |
-| Developer Reference | 131 |
-| Channable | 54 |
-| Recordings | 27 |
-| Symphony | 19 |
-| Support | 9 |
-| HubSpot | 7 |
-| Publish | 3 |
-| Session Notes | 2 |
-| SPS Commerce | 2 |
-| Source Code | 1 |
+This site is written as if it may be visible without password protection. Do not add raw meeting transcripts, customer names, tenant identifiers, API keys, publish settings, screenshots containing customer data, or exact production file names. Use placeholders such as `<tenant-key>`, `<customer-alias>`, `<app-service-name>`, and `<webjob-folder>` instead.

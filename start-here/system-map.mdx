@@ -5,7 +5,7 @@ description: "A compact architecture map of IQ Connect, IqSync, Azure WebJobs, F
 
 # System Map
 
-IQ Connect is organized around a hub-and-spoke model. `IqSync` is the hub, and each partner/customer integration is a spoke that translates IQ Reseller data into external protocols and formats.
+IQ Connect is organized around a hub-and-spoke model. `IqSync` is the hub, and each integration wrapper translates IQ Reseller data into an external protocol, file format, or API shape.
 
 ## Core Flow
 
@@ -27,26 +27,26 @@ flowchart LR
 | `IqSync` | Command-line orchestration engine deployed as Azure WebJobs. |
 | `CheatSheet` | Runtime settings object for tenant, IQ API, Azure, and integration configuration. |
 | `IqReader` | Reads IQ Reseller source data and feed-specific SQL/API query results. |
-| Integration wrappers | Format partner-specific payloads for Best Buy, SPS, HubSpot, Channable, and other integrations. |
+| Integration wrappers | Format partner-specific payloads for fulfillment, CRM, catalog, and marketplace feeds. |
 | `VssLastMile` | Azure service used for SQL query execution and SFTP marshaling. |
-| Azure Functions | Receive webhook-style inbound events, especially HubSpot quote flows. |
+| Azure Functions | Receive webhook-style inbound events, especially quote-to-order flows. |
 | `iqconnect_*` tables | Store sync state, mappings, feed history, resend queues, and CRM tracking. |
 
-## Active Integrations
+## Integration Categories
 
-| Integration | Customer | Purpose |
-| --- | --- | --- |
-| Best Buy Symphony | PARTpoint | Catalog, inventory, pricing, POs, SO updates, ASN, invoices, returns, and cancellations. |
-| SPS Commerce | OSI Global | EDI order, shipment, invoice, and acknowledgement workflow. |
-| HubSpot | DHD, OSI Global, and others | CRM company/contact/deal sync plus quote-to-order webhooks. |
-| Channable | Renewtech | Product catalog feed for marketplace distribution. |
+| Category | Purpose |
+| --- | --- |
+| Fulfillment / Symphony | Catalog, inventory, pricing, POs, SO updates, ASN, invoices, returns, and cancellations. |
+| EDI / SPS | Order, shipment, invoice, and acknowledgement workflow. |
+| CRM / HubSpot | Company, contact, deal, line item, gross margin, and quote-to-order workflows. |
+| Catalog / Channable | Product catalog feed generation for marketplace distribution. |
 
 ## Direction Conventions
 
 | Command Prefix | Direction | Example |
 | --- | --- | --- |
-| `from-bestbuy` | Best Buy to IQ Reseller | Best Buy sends a PO to IQ. |
-| `to-bestbuy` | IQ Reseller to Best Buy | IQ sends ASN, invoices, catalog, or ETA updates. |
+| `from-bestbuy` | External partner to IQ Reseller | Partner sends a PO to IQ. |
+| `to-bestbuy` | IQ Reseller to external partner | IQ sends ASN, invoices, catalog, or ETA updates. |
 | `from-sps` / `to-sps` | Bidirectional with SPS Commerce | SPS orders in; ASN and invoices out. |
 | `to-hubspot` | IQ Reseller to HubSpot | Deals, companies, contacts, and gross margin sync. |
 | `to-channable` | IQ Reseller to Channable | Catalog feed generation. |

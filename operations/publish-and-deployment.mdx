@@ -1,35 +1,35 @@
 ---
 title: "Publish and Deployment"
-description: "Publish settings, deployment assets, and deployment troubleshooting references."
+description: "Deployment guidance without publishing credentials or customer-specific artifacts."
 ---
-
 
 # Publish and Deployment
 
-The KT bundle includes publish settings and screenshots used to understand the latest-known-good deployment state.
+Deployment material must stay separate from the published docs. Publish profiles, screenshots, Kudu paths, and exact App Service names can expose production structure or credentials.
 
-## Publish settings
+## Safe Deployment Notes
 
-| Resource | Type | Size |
-| --- | --- | --- |
-| `9-Publish/beta007-iqconnect-channable.PublishSettings` | Data or Config | 2.2 KB |
-| `9-Publish/beta007-iqconnect-crm.PublishSettings` | Data or Config | 2.1 KB |
-| `9-Publish/beta007-iqconnect.PublishSettings` | Data or Config | 2.1 KB |
+| Topic | Guidance |
+| --- | --- |
+| App Service | Refer to `<app-service-name>` unless the reader is already inside the private Azure portal. |
+| Kudu | Document the navigation path, not account-specific URLs or screenshots. |
+| Publish profiles | Do not publish `.PublishSettings` files or their filenames. They may contain sensitive deployment metadata. |
+| Screenshots | Avoid publishing screenshots of Azure, SQL, SFTP, or Kudu unless they are redacted. |
+| WebJob paths | Use placeholders such as `<webjob-folder>` unless the exact path is required inside a private runbook. |
 
-## Deployment support references
+## Kudu Pattern
 
-| Resource | Type | Size |
-| --- | --- | --- |
-| `9-Support/OSI-ErrorFolder.png` | Image | 21.1 KB |
-| `9-Support/OSI-SPS-ProactiveAlert-Action-Commandline.png` | Image | 58.1 KB |
-| `9-Support/OSI-SPS-ProactiveAlert-Action-LocalFolder.png` | Image | 68.2 KB |
-| `9-Support/OSI-SPS-ProactiveAlert.png` | Image | 105.1 KB |
-| `9-Support/PPNT-01.png` | Image | 51.0 KB |
-| `9-Support/Publish-LKG.png` | Image | 28.7 KB |
-| `9-Support/Publish-wwwroot.png` | Image | 25.5 KB |
-| `9-Support/Screenshot 2026-06-03 193051.png` | Image | 28.7 KB |
-| `9-Support/SqlServerWhiteListing.png` | Image | 106.1 KB |
+```text
+Azure Portal -> <app-service-name> -> Development Tools -> Advanced Tools -> Go -> Debug console -> CMD
+```
 
-## Handling publish settings
+From Kudu CMD, locate an executable when needed:
 
-Publish settings can contain environment-specific configuration. Keep them out of public examples and only use them in the intended deployment context.
+```cmd
+cd /d D:\home\site\wwwroot
+dir /s /b IqSync.exe
+```
+
+## If Credentials Were Exposed
+
+Rotate the credential, remove the file from the current tree, and consider repository history cleanup if the repository was public or broadly accessible.

@@ -13,16 +13,7 @@
     "dark": "/images/iqrlogo.png"
   },
   "navbar": {
-    "links": [
-      {
-        "label": "Resource Index",
-        "href": "/resources/library"
-      },
-      {
-        "label": "Source Inventory",
-        "href": "/source-code/inventory"
-      }
-    ]
+    "links": []
   },
   "navigation": {
     "groups": [
@@ -31,7 +22,8 @@
         "pages": [
           "index",
           "start-here/how-to-use",
-          "start-here/system-map"
+          "start-here/system-map",
+          "start-here/security-boundary"
         ]
       },
       {
@@ -71,28 +63,6 @@
           "developer-reference/iqsync",
           "developer-reference/lastmile",
           "developer-reference/sellercloud"
-        ]
-      },
-      {
-        "group": "Recordings",
-        "pages": [
-          "recordings/overview",
-          "recordings/session-2026-06-03",
-          "recordings/session-2026-05-21",
-          "recordings/session-2026-05-20",
-          "recordings/session-2026-05-15a",
-          "recordings/session-2026-05-14",
-          "recordings/session-2026-05-13",
-          "recordings/session-2026-05-08",
-          "recordings/session-2026-05-07"
-        ]
-      },
-      {
-        "group": "Resources",
-        "pages": [
-          "resources/library",
-          "resources/support-assets",
-          "source-code/inventory"
         ]
       }
     ]

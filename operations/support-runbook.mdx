@@ -5,16 +5,16 @@ description: "Troubleshooting checklist for common IQ Connect support cases."
 
 # Support Runbook
 
-Use this page when a customer reports a missing order, missing shipment, missing invoice, promise-date issue, or line-item mismatch.
+Use this page when a customer reports a missing order, shipment, invoice, promise-date update, or line-item mismatch.
 
 ## Common Cases
 
-| Case | First Checks | Evidence To Collect |
+| Case | First Checks | Evidence To Collect Privately |
 | --- | --- | --- |
 | Order not posted | Confirm inbound command, tenant context, mirror payload, and IQ API response. | Partner PO, mirror file, WebJob log, IQ sales order lookup. |
 | Shipment not sent | Confirm unshipped SO query results, delta flags, ASN formatting, and SFTP delivery. | SO ID, shipment command, generated ASN, SFTP output folder. |
 | Invoice not sent | Confirm uninvoiced SO query results, invoice command, and sync flags. | Invoice command, generated invoice payload, sync flag rows. |
-| Best Buy promise date not sent | Compare `st.deliverydate` to `iqconnect_so.eta`, queue SOIDs in `iqconnect_batch_soupdate_resend`, and run the Kudu resend command. | Best Buy PO, IQ SOID, promise date, `voupdates` file, Kudu/WebJob output. |
+| Promise date not sent | Compare `st.deliverydate` to `iqconnect_so.eta`, queue SOIDs in `iqconnect_batch_soupdate_resend`, and run the Kudu resend command. | Partner PO, IQ SOID, promise date, `voupdates` file, Kudu/WebJob output. |
 | Incorrect line item number | Compare IQ line item comments against expected partner reference tokens. | SO line comments, partner PO line number, generated outbound payload. |
 
 ## Standard Execution Flow
@@ -26,28 +26,26 @@ Use this page when a customer reports a missing order, missing shipment, missing
 5. Run the inbound or outbound integration wrapper.
 6. Preserve mirror copies and review sync flags after the run.
 
-## Best Buy Promise Date Resend
+## Promise Date Resend
 
-Use [Best Buy Promise Date Resend](/operations/best-buy-promise-date-resend) when PARTpoint reports that SO promise date updates were not received by Best Buy.
+Use [Promise Date Resend](/operations/best-buy-promise-date-resend) when SO promise date updates were not received by the partner.
 
 The manual recovery flow is:
 
-1. Map Best Buy PO numbers to IQ SOIDs.
+1. Map partner PO numbers to IQ SOIDs.
 2. Confirm `st.deliverydate` has the correct promise date.
 3. Compare it to `iqconnect_so.eta`.
 4. Insert affected SOIDs into `iqconnect_batch_soupdate_resend`.
 5. Run the `resendsoupdate` command from Kudu CMD.
-6. Confirm the resend queue clears and a new `Ppnt_*_voupdates.xml` file is produced.
+6. Confirm the resend queue clears and a new `*_voupdates.xml` file is produced.
 
 ## SPS Line-Item Comment Format
 
-SPS stores partner line information in SO detail comments:
+SPS stores partner line information in SO detail comments. Use this shape when debugging line-number or quantity mismatches:
 
 ```text
-[SPSLN]1[ENDLN][SPSQTY]1[ENDQTY][SPSPO]3888470OD00914[ENDPO][SPSDATE]2026-05-07[ENDDATE][SPSS]DS~88[ENDS][SPSITEM]2800070000SI[ENDITEM]
+[SPSLN]<line>[ENDLN][SPSQTY]<qty>[ENDQTY][SPSPO]<po>[ENDPO][SPSDATE]<date>[ENDDATE][SPSS]<ship-service>[ENDS][SPSITEM]<item>[ENDITEM]
 ```
-
-Use this when debugging SPS line-number or quantity mismatches.
 
 ## Evidence Checklist
 
@@ -60,6 +58,4 @@ Use this when debugging SPS line-number or quantity mismatches.
 | `iqconnect_*` rows | Shows sync status, mappings, and resend queue state. |
 | Source IQ rows | Confirms the current business data in IQ Reseller. |
 
-## Support Images
-
-See [Support Assets](/resources/support-assets) for screenshots of proactive alerts, folders, publish views, and SQL Server allowlisting.
+Keep screenshots, raw payloads, customer reports, and exported query results in private support storage. Do not paste them into this published documentation site.

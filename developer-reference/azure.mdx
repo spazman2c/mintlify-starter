@@ -12,10 +12,10 @@ IQ Connect runs across Azure App Services, WebJobs, Azure Functions, and Azure S
 | Component | Azure Service | Details |
 | --- | --- | --- |
 | `IqSync` | Triggered WebJobs | One executable is reused across feed-specific WebJobs. Commands identify direction, feed, tenant, and mode. |
-| `IqConnectCore` | App Service | Admin/dashboard app deployed at `beta007-iqconnect.azurewebsites.net`. |
+| `IqConnectCore` | App Service | Admin/dashboard app. Use `<app-service-name>` in published docs. |
 | `VssLastMile` | App Service | Provides query and marshal endpoints used by integration jobs. |
 | `IqConnectWebhooks` | Azure Functions | HTTP-triggered webhook endpoints. |
-| `IqConnectWebhooksAsync` | Durable Functions | Multi-step HubSpot quote to IQ SO orchestration. |
+| `IqConnectWebhooksAsync` | Durable Functions | Multi-step quote-to-IQ-SO orchestration. |
 | `SymphonyFunctionApp` | Azure Functions | Timer-triggered Symphony support tasks. |
 | Tenant databases | Azure SQL | Per-tenant IQ Reseller databases. |
 | `IqFeedApi` | App Service | REST API for feed access. |
@@ -25,25 +25,25 @@ IQ Connect runs across Azure App Services, WebJobs, Azure Functions, and Azure S
 WebJobs generally follow this pattern:
 
 ```text
-{integration}-{tenant}-{sequence}-{feedtype}
+{integration}-{customer-alias}-{sequence}-{feedtype}
 ```
 
-Examples:
+Examples should stay generic in published docs:
 
 | WebJob | Meaning |
 | --- | --- |
-| `sym-pp-01-itemsku` | Best Buy Symphony, PARTpoint, item catalog. |
-| `sym-pp-06-so` | Best Buy Symphony, PARTpoint, inbound vendor orders. |
-| `sym-pp-07-so-updates` | Best Buy Symphony, PARTpoint, SO updates / ETA updates. |
-| `sym-pp-08-shipment` | Best Buy Symphony, PARTpoint, ASN. |
-| `sym-pp-11-invoice` | Best Buy Symphony, PARTpoint, invoice. |
+| `sym-<alias>-01-itemsku` | Symphony item catalog. |
+| `sym-<alias>-06-so` | Inbound vendor orders. |
+| `sym-<alias>-07-so-updates` | SO updates / ETA updates. |
+| `sym-<alias>-08-shipment` | ASN. |
+| `sym-<alias>-11-invoice` | Invoice. |
 
 ## Kudu Usage
 
 Use Kudu when a support runbook requires running an executable manually:
 
 ```text
-Azure Portal -> App Service -> Development Tools -> Advanced Tools -> Go -> Debug console -> CMD
+Azure Portal -> <app-service-name> -> Development Tools -> Advanced Tools -> Go -> Debug console -> CMD
 ```
 
-For Best Buy promise-date recovery, see [Best Buy Promise Date Resend](/operations/best-buy-promise-date-resend).
+For promise-date recovery, see [Promise Date Resend](/operations/best-buy-promise-date-resend).

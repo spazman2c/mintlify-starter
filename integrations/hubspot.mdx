@@ -45,15 +45,11 @@ Deal stage metadata is also loaded from `hubspotdealstage`, including the HubSpo
 ## Common Commands
 
 ```bash
-to-hubspot company hubspotdev test delta
-to-hubspot contact hubspotdev test delta
-to-hubspot sp hubspotdev test delta
-to-hubspot spupdate hubspotdev test delta
-to-hubspot sogm hubspotdev test delta
-
-to-hubspot sp osiglobal production delta
-to-hubspot spupdate osiglobal production delta
-to-hubspot sogm osiglobal production delta
+to-hubspot company <customer-alias> <environment> delta
+to-hubspot contact <customer-alias> <environment> delta
+to-hubspot sp <customer-alias> <environment> delta
+to-hubspot spupdate <customer-alias> <environment> delta
+to-hubspot sogm <customer-alias> <environment> delta
 ```
 
 ## Key Tables
@@ -75,14 +71,3 @@ to-hubspot sogm osiglobal production delta
 | Deal did not update | Check `iqconnect_crm_sp`, deal stage mappings, and the `spupdate` job log. |
 | Gross margin did not send | Check the gross margin query and whether `iqconnect_syncflags.grossmargin_done` already marks the SO as handled. |
 | Quote did not create an SO | Check the webhook payload tenant, Azure Function run history, HubSpot API response, and IQ API response. |
-
-## Source Resources
-
-| Resource | Type | Size |
-| --- | --- | --- |
-| `3-HubSpot/HubSpotWebJobs.pdf` | Reference Document | 375.2 KB |
-| `3-HubSpot/SqlScripts/integration_settings_select.sql` | SQL | 212 B |
-| `3-HubSpot/SqlScripts/iqconnect_crm_company_select.sql` | SQL | 149 B |
-| `3-HubSpot/SqlScripts/iqconnect_crm_contact_select.sql` | SQL | 121 B |
-| `3-HubSpot/SqlScripts/iqconnect_crm_duplicate_contacts_select.sql` | SQL | 104 B |
-| `3-HubSpot/SqlScripts/iqconnect_crm_sp_select.sql` | SQL | 272 B |

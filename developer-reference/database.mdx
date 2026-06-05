@@ -5,7 +5,7 @@ description: "IQ Connect tables used for sync state, CRM mappings, marketplace s
 
 # Database
 
-IQ Connect stores integration state inside each tenant's IQ Reseller Azure SQL database. These are tables, not separate databases. For example, `iqconnect_so` is a table in the PARTpoint tenant database.
+IQ Connect stores integration state inside each tenant's IQ Reseller Azure SQL database. These are tables, not separate databases. For example, `iqconnect_so` is a table in the tenant database that tracks external order state.
 
 ## Core Tables
 
@@ -15,8 +15,8 @@ IQ Connect stores integration state inside each tenant's IQ Reseller Azure SQL d
 | `iqconnect_lastsync` | Last sync timestamp, record counts, and initial-load flags by feed. |
 | `iqconnect_so` | Marketplace order mapping, IQ SO ID, external PO number, workflow status, feed GUID, and ETA state. |
 | `iqconnect_sodetail` | SO detail mapping between IQ line numbers and external marketplace line numbers. |
-| `iqconnect_posted_voupdates` | Best Buy vendor order update statuses already posted. |
-| `iqconnect_batch_soupdate_resend` | Manual queue for Best Buy SO update / promise-date resend recovery. |
+| `iqconnect_posted_voupdates` | Vendor order update statuses already posted. |
+| `iqconnect_batch_soupdate_resend` | Manual queue for SO update / promise-date resend recovery. |
 | `iqconnect_inventory` | Inventory availability staging for incremental sync. |
 | `iqconnect_item2` | Pricing staging table. |
 | `iqconnect_sc_*` | SellerCloud staging tables for inventory, items, and PO line items. |
@@ -36,6 +36,6 @@ IQ Connect stores integration state inside each tenant's IQ Reseller Azure SQL d
 
 When a feed appears to have skipped a record, check three things:
 
-1. The source IQ table (`st`, `stdetail`, `inventory`, `item`, or CRM source table).
+1. The source IQ table, such as `st`, `stdetail`, `inventory`, `item`, or CRM source tables.
 2. The relevant `iqconnect_*` tracking table.
 3. The feed history or generated file output.

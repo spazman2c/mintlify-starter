@@ -5,31 +5,31 @@ description: "Migrated IQConnect developer reference page for Helpers."
 
 # Helpers
 
-## VssHelpers &amp; VssHelpers.StdLib — Shared Utility Libraries 
+## VssHelpers &amp; VssHelpers.StdLib — Shared Utility Libraries
 
-Two parallel helper libraries that provide common utilities across the solution. VssHelpers targets .NET Framework 4.7.2 (used by IqSync, VssLastMile). VssHelpers.StdLib targets .NET Standard (used by IqConnectCore, Azure Functions). 
+Two parallel helper libraries that provide common utilities across the solution. VssHelpers targets .NET Framework 4.7.2 (used by IqSync, VssLastMile). VssHelpers.StdLib targets .NET Standard (used by IqConnectCore, Azure Functions).
 
-### VssHelpers (.NET Framework) 
+### VssHelpers (.NET Framework)
 
- | File | Key Functions 
+| File | Key Functions
 | --- | --- |
- | General.cs | ReadSetting(), IsNumeric(), SWIFT/Fedwire tag parsers, ApplicationInstanceId, NormalizeString() 
- | WebApi.cs | PostRequest(), GetValue() — HTTP helpers for VssLastMile query endpoint calls 
- | Xml.cs | XML parsing helpers, GetValueOrEmptyString(), node traversal 
- | Json.cs | JSON utilities 
- | Log.cs | Logging with LogType enum (Information, Diagnostics, Error) 
+| General.cs | ReadSetting(), IsNumeric(), SWIFT/Fedwire tag parsers, ApplicationInstanceId, NormalizeString()
+| WebApi.cs | PostRequest(), GetValue() — HTTP helpers for VssLastMile query endpoint calls
+| Xml.cs | XML parsing helpers, GetValueOrEmptyString(), node traversal
+| Json.cs | JSON utilities
+| Log.cs | Logging with LogType enum (Information, Diagnostics, Error)
 
-### VssHelpers.StdLib (.NET Standard) 
+### VssHelpers.StdLib (.NET Standard)
 
- | File | Key Functions 
+| File | Key Functions
 | --- | --- |
- | Encryption.cs | Encrypt(), Decrypt() — AES encryption for URL parameter security 
- | General.cs | Cross-platform ReadSetting(), utility methods 
- | LastMileServiceClient.cs | HTTP client for VssLastMile API calls from .NET Core projects 
- | Log.cs | .NET Standard logging 
- | WebApi.cs | .NET Standard HTTP helpers 
- | Xml.cs | .NET Standard XML utilities 
+| Encryption.cs | Encrypt(), Decrypt() — AES encryption for URL parameter security
+| General.cs | Cross-platform ReadSetting(), utility methods
+| LastMileServiceClient.cs | HTTP client for VssLastMile API calls from .NET Core projects
+| Log.cs | .NET Standard logging
+| WebApi.cs | .NET Standard HTTP helpers
+| Xml.cs | .NET Standard XML utilities
 
-### VsMarshals (External Dependency) 
+### VsMarshals (External Dependency)
 
 Referenced from outside the IQConnect repo ( ..\VsMarshals\VsMarshals\VsMarshals.csproj ). Provides SFTP operations (Renci.SshNet wrapper) and file marshaling utilities used by VssLastMile and Uhaul. Also exposed via the VsMarshalsWcf WCF service project.

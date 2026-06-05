@@ -11,61 +11,59 @@ IQ Connect commands use a consistent shape:
 <direction> <operation> <tenant-or-customer> <environment> [mode]
 ```
 
+Use real production values only inside the Azure job or private support session. Published docs should use placeholders.
+
 ## Direction Conventions
 
 | Prefix | Meaning |
 | --- | --- |
 | `from-*` | Pulls partner data into IQ Reseller, such as orders, returns, cancellations, or local replay files. |
 | `to-*` | Sends IQ Reseller data outward, such as catalog, inventory, ASN, invoices, CRM data, or order updates. |
-| `bestbuy service` | Service-style Best Buy/Symphony workflow command. |
+| `bestbuy service` | Service-style Symphony workflow command. |
 
-## Best Buy Symphony
+## Symphony / Best Buy
 
-| Purpose | Command |
+| Purpose | Command pattern |
 | --- | --- |
-| Import Best Buy orders | `from-bestbuy so ec87ce03-5eaf-42ae-b9bf-9ad88e2a2cbf production` |
-| Import Best Buy orders, delta mode | `from-bestbuy so ec87ce03-5eaf-42ae-b9bf-9ad88e2a2cbf production delta` |
-| Send SO updates / ETA updates | `to-bestbuy soupdate ec87ce03-5eaf-42ae-b9bf-9ad88e2a2cbf production delta` |
-| Manually resend SO updates / ETA updates | `to-bestbuy resendsoupdate ec87ce03-5eaf-42ae-b9bf-9ad88e2a2cbf production delta` |
-| Resend ASN | `to-bestbuy resendasn ec87ce03-5eaf-42ae-b9bf-9ad88e2a2cbf production delta` |
-| Send availability | `to-bestbuy avl ec87ce03-5eaf-42ae-b9bf-9ad88e2a2cbf production delta` |
+| Import orders | `from-bestbuy so <tenant-key> production` |
+| Import orders, delta mode | `from-bestbuy so <tenant-key> production delta` |
+| Send SO updates / ETA updates | `to-bestbuy soupdate <tenant-key> production delta` |
+| Manually resend SO updates / ETA updates | `to-bestbuy resendsoupdate <tenant-key> production delta` |
+| Resend ASN | `to-bestbuy resendasn <tenant-key> production delta` |
+| Send availability | `to-bestbuy avl <tenant-key> production delta` |
 
-For the Kudu command used to force missing PARTpoint promise date updates, see [Best Buy Promise Date Resend](/operations/best-buy-promise-date-resend).
+For the Kudu command used to force missing promise date updates, see [Promise Date Resend](/operations/best-buy-promise-date-resend).
 
 ## SPS Commerce
 
-| Purpose | Command |
+| Purpose | Command pattern |
 | --- | --- |
-| Import SPS orders | `from-sps so osi production` |
-| Replay local SPS orders | `from-sps solocal osi production delta` |
-| Send shipments / ASN | `to-sps shipment osi production delta` |
-| Send invoices | `to-sps invoice osi production delta` |
-| Resend ASN | `to-sps resendasn osi production delta` |
-| Resend invoices | `to-sps resendinvoice osi production delta` |
-| Resend SO updates | `to-sps resendsoupdate osi production delta` |
+| Import orders | `from-sps so <customer-alias> production` |
+| Replay local orders | `from-sps solocal <customer-alias> production delta` |
+| Send shipments / ASN | `to-sps shipment <customer-alias> production delta` |
+| Send invoices | `to-sps invoice <customer-alias> production delta` |
+| Resend ASN | `to-sps resendasn <customer-alias> production delta` |
+| Resend invoices | `to-sps resendinvoice <customer-alias> production delta` |
+| Resend SO updates | `to-sps resendsoupdate <customer-alias> production delta` |
 
 ## HubSpot
 
-| Purpose | Command |
+| Purpose | Command pattern |
 | --- | --- |
-| Sync OSI sales pipeline deals | `to-hubspot sp osiglobal production delta` |
-| Sync OSI deal updates | `to-hubspot spupdate osiglobal production delta` |
-| Sync OSI gross margin | `to-hubspot sogm osiglobal production delta` |
-| Sync companies in test | `to-hubspot company hubspotdev test delta` |
-| Sync contacts in test | `to-hubspot contact hubspotdev test delta` |
-| Sync sales pipeline in test | `to-hubspot sp hubspotdev test delta` |
-| Sync deal updates in test | `to-hubspot spupdate hubspotdev test delta` |
-| Sync gross margin in test | `to-hubspot sogm hubspotdev test delta` |
+| Sync companies | `to-hubspot company <customer-alias> <environment> delta` |
+| Sync contacts | `to-hubspot contact <customer-alias> <environment> delta` |
+| Sync sales pipeline deals | `to-hubspot sp <customer-alias> <environment> delta` |
+| Sync deal updates | `to-hubspot spupdate <customer-alias> <environment> delta` |
+| Sync gross margin | `to-hubspot sogm <customer-alias> <environment> delta` |
 
 ## Channable
 
-| Purpose | Command |
+| Purpose | Command pattern |
 | --- | --- |
-| Send Renewtech catalog reset | `to-channable catalog renewtech production reset` |
+| Send catalog reset | `to-channable catalog <customer-alias> production reset` |
+| Send catalog delta | `to-channable catalog <customer-alias> production delta` |
 
 ## Execution Flow
-
-Most commands follow this runtime sequence:
 
 1. Resolve the active integration section from the command arguments.
 2. Populate `CheatSheet` with integration, Azure, IQ API, and tenant settings.

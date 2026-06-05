@@ -1,0 +1,43 @@
+---
+title: "Security Boundary"
+description: "What can and cannot be published in this documentation site."
+---
+
+# Security Boundary
+
+Treat this Mintlify site as shareable documentation, not as a protected evidence locker. It should explain how IQ Connect works without exposing customer data, production secrets, or raw support material.
+
+## Do publish
+
+| Content | Safe pattern |
+| --- | --- |
+| Commands | Use real command names with placeholders: `to-bestbuy resendsoupdate <tenant-key> production delta`. |
+| SQL | Use generic filters and example IDs like `<partner-po>` or `<soid>`. |
+| Architecture | Describe services, components, tables, and direction of flow. |
+| Runbooks | Explain support steps without naming specific customers or past incidents. |
+| Troubleshooting | List checks, eligibility rules, and evidence types. |
+
+## Do not publish
+
+| Content | Why |
+| --- | --- |
+| Customer names and customer aliases | Identifies production relationships and tenant-specific behavior. |
+| Tenant GUIDs, API tokens, client secrets, publish profiles, or connection strings | Direct credential or credential-adjacent exposure. |
+| Raw meeting transcripts | Contains names, discussions, customer references, and unreviewed operational detail. |
+| Source inventory dumps | Can expose private file names, customer folders, and implementation details that are not needed for support. |
+| Screenshots of Azure, SQL, SFTP, Kudu, email, or customer reports | Often contain account names, folders, IDs, or production data. |
+
+## Placeholder conventions
+
+| Placeholder | Use for |
+| --- | --- |
+| `<tenant-key>` | Tenant API key or tenant-specific GUID used in job arguments. |
+| `<customer-alias>` | Customer slug used by a job, config section, or folder. |
+| `<app-service-name>` | Azure App Service name. |
+| `<webjob-folder>` | Kudu WebJob folder containing `IqSync.exe`. |
+| `<partner-po>` | External purchase order number. |
+| `<soid>` | IQ Reseller sales order ID. |
+
+## If sensitive content was already published
+
+Rotate the exposed credential, remove the content from the current tree, and consider rewriting repository history if the repository was public or broadly accessible. Removing a file from the latest commit does not remove it from previous commits.

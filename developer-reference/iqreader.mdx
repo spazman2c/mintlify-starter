@@ -5,33 +5,33 @@ description: "Migrated IQConnect developer reference page for Iqreader."
 
 # Iqreader
 
-Back to IqSync 
-## IqReader — IQ API Data Fetcher 
+Back to IqSync
+## IqReader — IQ API Data Fetcher
 
-The data access layer that fetches records from the IQ Reseller Web API. Constructed with an integration type, feed type, and pagination parameters. Produces XML data that integration wrappers consume for transformation. 
-1,666 
-Lines 
+The data access layer that fetches records from the IQ Reseller Web API. Constructed with an integration type, feed type, and pagination parameters. Produces XML data that integration wrappers consume for transformation.
+1,666
+Lines
 
-30+ 
-Feed Constants 
+30+
+Feed Constants
 
-### Responsibilities 
+### Responsibilities
 
-IqReader is the bridge between IQ Reseller's WCF API and the integration wrappers. It: 
+IqReader is the bridge between IQ Reseller's WCF API and the integration wrappers. It:
 
-• Authenticates against the IQ API via IqSessionManager using the tenant API token 
-• Constructs the correct URI from URI templates in CheatSheet.IqApi 
-• Fetches paginated XML data from the IQ API 
-• Exposes RecordCount and IqXmlContent for downstream consumption 
-• Provides static helpers for SO-level queries (unshipped, uninvoiced, resend lists) 
+• Authenticates against the IQ API via IqSessionManager using the tenant API token
+• Constructs the correct URI from URI templates in CheatSheet.IqApi
+• Fetches paginated XML data from the IQ API
+• Exposes RecordCount and IqXmlContent for downstream consumption
+• Provides static helpers for SO-level queries (unshipped, uninvoiced, resend lists)
 
-### Static Utility Methods 
+### Static Utility Methods
 
- | Method | Purpose 
+| Method | Purpose
 | --- | --- |
- | GetUnshippedSoIDsAsList() | Returns SO IDs that have not yet had ASN sent 
- | GetUninvoicedSoIDsAsList() | Returns SO IDs that have not yet been invoiced 
- | GetAsnResendList() | Returns SO IDs queued for ASN retransmission 
- | GetInvoiceResendList() | Returns SO IDs queued for invoice retransmission 
- | GetSoUpdateResendList() | Returns SO IDs queued for order update retransmission 
- | DeleteFromAsnResendList() | Removes a processed SO from the ASN resend queue
+| GetUnshippedSoIDsAsList() | Returns SO IDs that have not yet had ASN sent
+| GetUninvoicedSoIDsAsList() | Returns SO IDs that have not yet been invoiced
+| GetAsnResendList() | Returns SO IDs queued for ASN retransmission
+| GetInvoiceResendList() | Returns SO IDs queued for invoice retransmission
+| GetSoUpdateResendList() | Returns SO IDs queued for order update retransmission
+| DeleteFromAsnResendList() | Removes a processed SO from the ASN resend queue

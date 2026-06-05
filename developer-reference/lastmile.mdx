@@ -5,24 +5,24 @@ description: "Migrated IQConnect developer reference page for Lastmile."
 
 # Lastmile
 
-## VssLastMile — SFTP &amp; SQL Bridge Service 
+## VssLastMile — SFTP &amp; SQL Bridge Service
 
-An ASP.NET Web API 2 application deployed as an Azure App Service. Serves as the "last mile" bridge between Azure-hosted compute and external SFTP servers, and between Azure compute and tenant SQL databases. Two critical controllers handle all traffic. 
+An ASP.NET Web API 2 application deployed as an Azure App Service. Serves as the "last mile" bridge between Azure-hosted compute and external SFTP servers, and between Azure compute and tenant SQL databases. Two critical controllers handle all traffic.
 
-### Controllers 
+### Controllers
 
- | Controller | Endpoint | Purpose 
+| Controller | Endpoint | Purpose
 | --- | --- | --- |
- | MarshalController | /api/Marshal | SFTP operations: list files, download files, upload files. Decrypts encrypted URL params to obtain host/credentials, then uses SSH.NET for SFTP operations. Supports private key authentication. 
- | QueryController | /api/Query | SQL query execution: receives SQL text in POST body, decrypts connection string from URL params, executes against tenant database. Used by IqSync for all post-operation state updates and cross-lookup queries. 
+| MarshalController | /api/Marshal | SFTP operations: list files, download files, upload files. Decrypts encrypted URL params to obtain host/credentials, then uses SSH.NET for SFTP operations. Supports private key authentication.
+| QueryController | /api/Query | SQL query execution: receives SQL text in POST body, decrypts connection string from URL params, executes against tenant database. Used by IqSync for all post-operation state updates and cross-lookup queries.
 
-### Security Model 
+### Security Model
 
-All parameters (SFTP credentials, SQL connection strings) are passed as encrypted URL query parameters using EncryptionHelper.Decrypt() . The encryption key is shared between VssLastMile and IqSync/CheatSheet. Private SSH keys are stored in the CertKey/ folder within the deployed App Service. 
+All parameters (SFTP credentials, SQL connection strings) are passed as encrypted URL query parameters using EncryptionHelper.Decrypt() . The encryption key is shared between VssLastMile and IqSync/CheatSheet. Private SSH keys are stored in the CertKey/ folder within the deployed App Service.
 
-### Why a Separate Service? 
+### Why a Separate Service?
 
-Azure WebJobs (where IqSync runs) cannot directly open outbound SFTP connections to arbitrary external hosts in all App Service configurations. VssLastMile runs on an App Service with the necessary outbound networking permissions, acting as a proxy. It also provides a consistent HTTP interface for SQL operations, decoupling IqSync from direct database connection management. 
+Azure WebJobs (where IqSync runs) cannot directly open outbound SFTP connections to arbitrary external hosts in all App Service configurations. VssLastMile runs on an App Service with the necessary outbound networking permissions, acting as a proxy. It also provides a consistent HTTP interface for SQL operations, decoupling IqSync from direct database connection management.
 
-### Common Dependencies 
+### Common Dependencies
 VssLastMile.Common.Sftp EncryptionHelper Log

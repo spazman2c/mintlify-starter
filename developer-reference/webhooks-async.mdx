@@ -5,49 +5,49 @@ description: "Migrated IQConnect developer reference page for Webhooks Async."
 
 # Webhooks Async
 
-## IqConnectWebhooksAsync — Durable Functions Orchestrator 
+## IqConnectWebhooksAsync — Durable Functions Orchestrator
 
-Azure Durable Functions project that handles long-running, multi-step webhook workflows. Primary use case: converting a HubSpot quote acceptance into an IQ Reseller sales order with full line item resolution and master item creation. 
-~174K 
-Total Size 
+Azure Durable Functions project that handles long-running, multi-step webhook workflows. Primary use case: converting a HubSpot quote acceptance into an IQ Reseller sales order with full line item resolution and master item creation.
+~174K
+Total Size
 
-12 
-C# Files 
+12
+C# Files
 
-### Orchestration Flow 
+### Orchestration Flow
 
-The CrmIntegrationAync.RunOrchestrator() method dispatches based on action type: 
+The CrmIntegrationAync.RunOrchestrator() method dispatches based on action type:
 
- | Action | Activity Function | Description 
+| Action | Activity Function | Description
 | --- | --- | --- |
- | heartbeat | CheckHeartbeat (x3) | Runs 3 sequential heartbeat checks to verify orchestrator health 
- | (default) | CreateSO | Full quote-to-SO conversion workflow 
+| heartbeat | CheckHeartbeat (x3) | Runs 3 sequential heartbeat checks to verify orchestrator health
+| (default) | CreateSO | Full quote-to-SO conversion workflow
 
-### CreateSO Workflow 
-Parse webhook payload 
+### CreateSO Workflow
+Parse webhook payload
 
-Identify tenant (iq_tenant) 
+Identify tenant (iq_tenant)
 
-Load API keys from env vars 
+Load API keys from env vars
 
-Login to IQ API 
+Login to IQ API
 
-Fetch full quote from HubSpot API 
+Fetch full quote from HubSpot API
 
-Resolve line items + master items 
+Resolve line items + master items
 
-Create SO via IQ API 
+Create SO via IQ API
 
-Return result 
+Return result
 
-The autoAddMissingItem flag (from the webhook payload) controls whether unrecognized items are auto-created as master items in IQ Reseller during SO creation. 
+The autoAddMissingItem flag (from the webhook payload) controls whether unrecognized items are auto-created as master items in IQ Reseller during SO creation.
 
-### Shared Code (FromIqSync/) 
+### Shared Code (FromIqSync/)
 
-The FromIqSync/ folder contains code shared with (or derived from) the IqSync project, adapted for the isolated Azure Functions runtime: 
-IqSessionManager IqTenantContext IqSalesOrder MasterItemHelper FormatConverter DatabaseHelper Xml 
+The FromIqSync/ folder contains code shared with (or derived from) the IqSync project, adapted for the isolated Azure Functions runtime:
+IqSessionManager IqTenantContext IqSalesOrder MasterItemHelper FormatConverter DatabaseHelper Xml
 
-### API Capsule 
+### API Capsule
 
-The ApiCapsule/ folder contains data structures for HubSpot API interaction: 
+The ApiCapsule/ folder contains data structures for HubSpot API interaction:
 HubSpotQuote IqWrapper Address

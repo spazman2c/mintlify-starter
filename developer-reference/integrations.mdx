@@ -1,65 +1,33 @@
 ---
 title: "Integrations"
-description: "Migrated IQConnect developer reference page for Integrations."
+description: "Developer notes for IQ Connect integration wrappers."
 ---
 
 # Integrations
 
-## Integration Wrappers 
+Each external system integration is encapsulated in a dedicated wrapper class within `IqSync/ApiWrapper`. These classes handle protocol translation, feed formatting, SFTP/API file management, and post-operation state tracking.
 
-Each external system integration is encapsulated in a dedicated wrapper class within IqSync/ApiWrapper/ . These classes handle protocol translation, feed formatting, SFTP file management, and post-operation state tracking. 
+## Active Integrations
 
-### Active Integrations 
+| Integration | Main Files | Protocol | Feeds |
+| --- | --- | --- | --- |
+| Symphony | `Symphony.cs` | SFTP / XML | Catalog, orders, ASN, invoices, returns, cancellations, ETA updates. |
+| SPS Commerce | `SpsCommerce.cs`, `SpsCommerceDS.cs`, `SpsFormatConverter.cs` | SFTP / XML / JSON | Orders, ASN, invoices, acknowledgements. |
+| HubSpot | `HubSpot.cs` | REST API / JSON / Webhooks | Companies, contacts, deals, line items, gross margin, quote-to-order. |
+| Channable | `Channable.cs` | REST API / feed output | Full product catalog: SKU, brand, condition, pricing, stock, categories. |
 
-#### Best Buy Symphony Active 
+## Inactive / Shell Integrations
 
-Customer: PARTpoint 
-File: Symphony.cs (6,305 lines) 
-Protocol: SFTP (XML files) 
-Feeds: Full bidirectional workflows — catalog, orders, ASN, invoices, returns, cancellations 
+| Integration | Status |
+| --- | --- |
+| SellerCloud | Built but not currently documented as active. |
+| eBay | Placeholder routing only. |
+| Staples | Placeholder routing only. |
 
-#### SPS Commerce Active 
+## Common Integration Pattern
 
-Customer: OSI Global 
-File: SpsCommerce.cs (3,861 lines) + SpsCommerceDS.cs (1,171 lines) + SpsFormatConverter.cs (362 lines) 
-Protocol: SFTP (XML/JSON) 
-Feeds: Orders, ASN, invoices, acknowledgements 
-
-#### HubSpot Active 
-
-Customers: DHD, OSI Global, + others 
-File: HubSpot.cs (2,731 lines) 
-Protocol: REST API (JSON) + Webhooks 
-Feeds: Companies, contacts, deals/pipeline sync + inbound quote-to-SO automation 
-
-#### Channable Active 
-
-Customer: Renewtech 
-File: Channable.cs (801 lines) 
-Protocol: REST API 
-Feeds: Full product catalog push (SKU, brand, condition, pricing, stock, categories) 
-
-### Inactive / Shell Integrations 
-
-#### SellerCloud Not in Use 
-
-File: SellerCloud.cs (3,351 lines) + IqScSoap project 
-Protocol: REST API + SOAP 
-Feeds: Inventory sync, PO creation, order sync. Fully built but no active customers currently. 
-
-#### eBay Shell Only 
-
-Placeholder cases in IqSync routing. No active wrapper code. Reserved for future eBay MIP integration. 
-
-#### Staples Shell Only 
-
-Placeholder cases in IqSync routing. No active wrapper code. Reserved for future Staples Exchange integration. 
-
-### Common Integration Pattern 
-
-All active wrappers follow the same structural pattern: 
-1. Constructor receives IqReader (pre-fetched IQ data) + feedType + CheatSheet (config)
-2. Constructor calls PrepareFeed_[FeedType]() to transform IQ XML into target format
-3. WriteFeed() / WriteSymphonyFeedToFile() writes to SFTP or posts to API
-4. PostOpUpdateQuery is set with SQL to mark records as processed
-5. Caller (IqSync Program.cs) executes PostOpUpdateQuery via VssLastMile
+1. Constructor receives `IqReader`, `feedType`, and `CheatSheet`.
+2. Feed-specific preparation transforms IQ XML or query results into the target format.
+3. Writer method stages the file, posts the API payload, or sends through SFTP.
+4. `PostOpUpdateQuery` is prepared to mark records as processed.
+5. `IqSync` executes the post-operation update through `VssLastMile`.

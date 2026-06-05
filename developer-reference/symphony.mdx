@@ -1,6 +1,6 @@
 ---
 title: "Best Buy Symphony Developer Notes"
-description: "Code-level reference for the PARTpoint Best Buy Symphony integration."
+description: "Code-level reference for the Symphony integration."
 ---
 
 # Best Buy Symphony Developer Notes
@@ -11,11 +11,11 @@ For the operational workflow, supported feeds, commands, and promise-date recove
 
 | Component | Purpose |
 | --- | --- |
-| `IqSync/ApiWrapper/Symphony.cs` | Main wrapper for Best Buy XML generation and feed-specific logic. |
+| `IqSync/ApiWrapper/Symphony.cs` | Main wrapper for XML generation and feed-specific logic. |
 | `IqReader.k_soupdate` | Feed constant used for order acknowledgements and ETA/vendor order updates. |
-| `PrepareFeed_SoUpdate()` | Builds `voupdates` XML from SO status, promise date, and Best Buy order mapping. |
-| `iqconnect_so.eta` | Last ETA value IQ Connect believes was sent to Best Buy. |
-| `st.deliverydate` | IQ SO promise date used as Best Buy `ExpectedActivityDate`. |
+| `PrepareFeed_SoUpdate()` | Builds `voupdates` XML from SO status, promise date, and partner order mapping. |
+| `iqconnect_so.eta` | Last ETA value IQ Connect believes was sent. |
+| `st.deliverydate` | IQ SO promise date used as `ExpectedActivityDate`. |
 | `iqconnect_batch_soupdate_resend` | Manual resend queue for selected SO update records. |
 
 ## Developer Checks
@@ -23,6 +23,6 @@ For the operational workflow, supported feeds, commands, and promise-date recove
 | Area | What To Check |
 | --- | --- |
 | Missing ETA update | Compare `st.deliverydate` to `iqconnect_so.eta`; then check whether the SO is eligible for the normal `soupdate` scan. |
-| Manual recovery | Use [Best Buy Promise Date Resend](/operations/best-buy-promise-date-resend). |
+| Manual recovery | Use [Promise Date Resend](/operations/best-buy-promise-date-resend). |
 | Bad line mapping | Inspect `stdetail.internalcomment` and `iqconnect_sodetail`. |
 | ASN excluded | Check for invalid line number `99999`. |

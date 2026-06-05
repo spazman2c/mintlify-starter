@@ -1,22 +1,22 @@
 ---
-title: "Best Buy Promise Date Resend"
-description: "How to force missing PARTpoint promise date updates through the Best Buy voupdates feed."
+title: "Promise Date Resend"
+description: "How to force missing promise date updates through the Symphony voupdates feed."
 ---
 
-# Best Buy Promise Date Resend
+# Promise Date Resend
 
-Use this runbook when PARTpoint reports that SO promise date changes were entered in IQ Reseller but Best Buy did not receive the updated ETA through the MRP/Symphony interface.
+Use this runbook when SO promise date changes were entered in IQ Reseller but the external partner did not receive the updated ETA through the MRP/Symphony interface.
 
-The promise date field is read from `st.deliverydate`. IQ Connect sends it to Best Buy in the `voupdates` XML feed as `ExpectedActivityDate`.
+The promise date field is read from `st.deliverydate`. IQ Connect sends it in the `voupdates` XML feed as `ExpectedActivityDate`.
 
 ## Confirm the affected SOs
 
-The customer usually provides Best Buy PO numbers. Map those to IQ SOIDs first:
+The customer usually provides partner PO numbers. Map those to IQ SOIDs first:
 
 ```sql
 SELECT
     q.soid,
-    q.mktsoid AS [BestBuy_PO],
+    q.mktsoid AS [Partner_PO],
     q.custsoid,
     q.status AS iqconnect_status,
     q.eta AS [Last_ETA_Sent_By_IQConnect],
@@ -26,40 +26,21 @@ SELECT
 FROM iqconnect_so q
 LEFT JOIN st s
     ON s.stid = q.soid
-WHERE q.mktsoid IN (
-    '1035839','1040230','1050264','1052620','1054855','1054909',
-    '1055212','1055314','1055491','1055619','1055722','1055801',
-    '1055814','1056414','1056452','1056517','1056659','1060401'
-)
+WHERE q.mktsoid IN ('<partner-po-1>', '<partner-po-2>')
 ORDER BY q.mktsoid;
 ```
 
-The normal scheduled `soupdate` job only scans a limited status set. If the promise date changed but `iqconnect_status` is no longer eligible for the normal scan, use the resend table and manual command below.
+The normal scheduled `soupdate` job scans a limited status set. If the promise date changed but the row is no longer eligible for the normal scan, use the resend table and manual command below.
 
 ## Queue the resend rows
 
-Insert the IQ SOIDs into `iqconnect_batch_soupdate_resend`:
+Insert only the affected IQ SOIDs into `iqconnect_batch_soupdate_resend`:
 
 ```sql
 INSERT INTO iqconnect_batch_soupdate_resend (soid)
 VALUES
-(956134),
-(956590),
-(958079),
-(958532),
-(958530),
-(958527),
-(958545),
-(958544),
-(958612),
-(958620),
-(958627),
-(958624),
-(958630),
-(958655),
-(958689),
-(958685),
-(958697);
+(<soid-1>),
+(<soid-2>);
 ```
 
 Confirm the rows are queued:
@@ -74,26 +55,20 @@ FROM iqconnect_batch_soupdate_resend;
 Open Kudu for the App Service:
 
 ```text
-Azure Portal -> beta007-iqconnect -> Development Tools -> Advanced Tools -> Go -> Debug console -> CMD
+Azure Portal -> <app-service-name> -> Development Tools -> Advanced Tools -> Go -> Debug console -> CMD
 ```
 
-Run the command from Kudu CMD:
-
-```cmd
-"D:\home\site\wwwroot\App_Data\jobs\common\partpoint-bbsym\IqSync.exe" to-bestbuy resendsoupdate ec87ce03-5eaf-42ae-b9bf-9ad88e2a2cbf production delta
-```
-
-If the executable path changes, locate it first:
+If you do not know the exact WebJob folder, locate `IqSync.exe` first:
 
 ```cmd
 cd /d D:\home\site\wwwroot
 dir /s /b IqSync.exe
 ```
 
-The Best Buy executable to use is normally:
+Run the resend from Kudu CMD using the matching Symphony WebJob executable:
 
-```text
-D:\home\site\wwwroot\App_Data\jobs\common\partpoint-bbsym\IqSync.exe
+```cmd
+"D:\home\site\wwwroot\App_Data\jobs\common\<webjob-folder>\IqSync.exe" to-bestbuy resendsoupdate <tenant-key> production delta
 ```
 
 ## Verify completion
@@ -105,6 +80,10 @@ SELECT *
 FROM iqconnect_batch_soupdate_resend;
 ```
 
-Then confirm a new `Ppnt_*_voupdates.xml` file was created and sent through the Best Buy/Symphony output path.
+Then confirm a new `*_voupdates.xml` file was created and sent through the configured Symphony output path.
 
-If `iqconnect_so.eta` already equals `st.deliverydate`, IQ Connect may treat the ETA as already sent. In that case, confirm whether Best Buy actually received the file before changing data.
+If `iqconnect_so.eta` already equals `st.deliverydate`, IQ Connect may treat the ETA as already sent. Confirm whether the partner actually received the file before changing data.
+
+## Why updates can be missed
+
+The common failure pattern is not that the promise date field failed to save. The promise date can be present on the SO while the scheduled `soupdate` scan skips the row because its `iqconnect_so.status` or SO status is outside the normal eligibility window. The manual resend queue bypasses that scan by explicitly selecting the SOIDs that need a new `voupdates` file.

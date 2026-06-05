@@ -5,26 +5,26 @@ description: "Migrated IQConnect developer reference page for Sellercloud."
 
 # Sellercloud
 
-## SellerCloud Integration Not Currently Active 
+## SellerCloud Integration Not Currently Active
 
-Marketplace integration with SellerCloud. Fully built with 3,351 lines of wrapper code plus a dedicated SOAP helper project ( IqScSoap ). Handles inventory sync, PO creation, order sync, and item management. No active customers at present. 
+Marketplace integration with SellerCloud. Fully built with 3,351 lines of wrapper code plus a dedicated SOAP helper project ( IqScSoap ). Handles inventory sync, PO creation, order sync, and item management. No active customers at present.
 
-### Components 
+### Components
 
- | File | Lines | Purpose 
+| File | Lines | Purpose
 | --- | --- | --- |
- | IqSync/ApiWrapper/SellerCloud.cs | 3,351 | Main wrapper — inventory push, PO creation, order sync 
- | IqScSoap/ project | ~800 | SOAP API client for SellerCloud's SOAP endpoints 
+| IqSync/ApiWrapper/SellerCloud.cs | 3,351 | Main wrapper — inventory push, PO creation, order sync
+| IqScSoap/ project | ~800 | SOAP API client for SellerCloud's SOAP endpoints
 
-### Supported Feeds 
+### Supported Feeds
 
- | Constant | Description 
+| Constant | Description
 | --- | --- |
- | sc_inventory | Inventory availability sync 
- | sc_itemupdate | Item data updates 
- | sc_all | Combined all-in-one sync 
- | sc_po | Purchase order creation 
- | sc_mfgr | Manufacturer sync 
- | sc_item | Item/SKU sync 
- | sc_condition | Condition code mapping 
- | k_sellercloud_ordersync | Order sync (for inventory reservation)
+| sc_inventory | Inventory availability sync
+| sc_itemupdate | Item data updates
+| sc_all | Combined all-in-one sync
+| sc_po | Purchase order creation
+| sc_mfgr | Manufacturer sync
+| sc_item | Item/SKU sync
+| sc_condition | Condition code mapping
+| k_sellercloud_ordersync | Order sync (for inventory reservation)

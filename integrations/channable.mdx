@@ -1,17 +1,17 @@
 ---
 title: "Channable"
-description: "Renewtech catalog feed for marketplace distribution through Channable."
+description: "Catalog feed for marketplace distribution through Channable."
 ---
 
 # Channable
 
-Channable is the Renewtech catalog integration. IQ Connect builds a flat product feed from IQ Reseller item, inventory, pricing, category, and MaxList data, then publishes it for marketplace distribution through Channable.
+Channable is a catalog integration. IQ Connect builds a flat product feed from IQ Reseller item, inventory, pricing, category, and MaxList data, then publishes it for marketplace distribution through Channable.
 
 ## Feed Overview
 
-| Feed | Direction | Customer | Purpose |
-| --- | --- | --- | --- |
-| `catalog` | IQ to Channable | Renewtech | Sends product catalog, pricing, stock, category, condition, and image data. |
+| Feed | Direction | Purpose |
+| --- | --- | --- |
+| `catalog` | IQ to Channable | Sends product catalog, pricing, stock, category, condition, and image data. |
 
 The feed is generated from the `Uri_FullCatalog` query. That query joins `maxlist_items` with `item` so the outgoing catalog includes both marketplace-listing state and item master data.
 
@@ -33,7 +33,7 @@ The feed is generated from the `Uri_FullCatalog` query. That query joins `maxlis
 ## Invocation
 
 ```bash
-to-channable catalog renewtech production reset
+to-channable catalog <customer-alias> production reset
 ```
 
 The command runs through `GetDataFromVendor_Channable()` and uses `PopulateCheetSheetFromDb()`, so settings are loaded from the database instead of only from `App.config`.
@@ -47,14 +47,3 @@ The command runs through `GetDataFromVendor_Channable()` and uses `PopulateCheet
 | Stock looks wrong | Check available quantity and MaxList listing state. |
 | Category missing | Check category assignments on the item record. |
 | Image missing | Check `imageurl` on the item record. |
-
-## Source Resources
-
-| Resource | Type | Size |
-| --- | --- | --- |
-| `3-Channable/2020.02.11 Channable Fields.xlsx` | Spreadsheet | 13.1 KB |
-| `3-Channable/Channable Fields.xlsx` | Spreadsheet | 11.6 KB |
-| `3-Channable/Channable Fields_Updated.xlsx` | Spreadsheet | 12.9 KB |
-| `3-Channable/IQ API Query.txt` | SQL / API Query | 1.5 KB |
-| `3-Channable/TSQL Query.txt` | SQL | 1.5 KB |
-| `3-Channable/Material List Tutorial.pdf` | Reference Document | 453.2 KB |

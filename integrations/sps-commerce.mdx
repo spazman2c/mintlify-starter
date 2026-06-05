@@ -1,23 +1,23 @@
 ---
 title: "SPS Commerce"
-description: "OSI Global EDI workflow through SPS Commerce, including inbound orders and outbound shipment and invoice messages."
+description: "EDI workflow through SPS Commerce, including inbound orders and outbound shipment and invoice messages."
 ---
 
 # SPS Commerce
 
-SPS Commerce is the OSI Global fulfillment integration. It follows the same general IQ Connect pattern as Best Buy Symphony, but uses SPS-specific XML formats and document rules.
+SPS Commerce is an EDI fulfillment integration. It follows the same general IQ Connect pattern as Symphony, but uses SPS-specific XML formats and document rules.
 
 ## Supported Workflow
 
 | Direction | Command | Purpose |
 | --- | --- | --- |
-| SPS to IQ | `from-sps so osi production` | Import purchase orders and create IQ sales orders. |
-| SPS to IQ | `from-sps solocal osi production delta` | Replay or test local SPS order payloads. |
-| IQ to SPS | `to-sps shipment osi production delta` | Send ASN / shipment notices. |
-| IQ to SPS | `to-sps invoice osi production delta` | Send invoices. |
-| IQ to SPS | `to-sps resendasn osi production delta` | Resend selected shipment notices. |
-| IQ to SPS | `to-sps resendinvoice osi production delta` | Resend selected invoices. |
-| IQ to SPS | `to-sps resendsoupdate osi production delta` | Resend selected order updates. |
+| SPS to IQ | `from-sps so <customer-alias> production` | Import purchase orders and create IQ sales orders. |
+| SPS to IQ | `from-sps solocal <customer-alias> production delta` | Replay or test local SPS order payloads. |
+| IQ to SPS | `to-sps shipment <customer-alias> production delta` | Send ASN / shipment notices. |
+| IQ to SPS | `to-sps invoice <customer-alias> production delta` | Send invoices. |
+| IQ to SPS | `to-sps resendasn <customer-alias> production delta` | Resend selected shipment notices. |
+| IQ to SPS | `to-sps resendinvoice <customer-alias> production delta` | Resend selected invoices. |
+| IQ to SPS | `to-sps resendsoupdate <customer-alias> production delta` | Resend selected order updates. |
 
 ## Source Files
 
@@ -44,14 +44,7 @@ When the feed type is `solocal`, the wrapper reads test payloads from local fold
 
 | Symptom | First Checks |
 | --- | --- |
-| Order did not post | Check the inbound SPS file, local replay path if used, IQ API response, and mirror copy. |
+| Order did not post | Check the inbound file, local replay path if used, IQ API response, and mirror copy. |
 | ASN did not send | Check the unshipped SO list, line-number mapping, shipment data, and generated XML. |
 | Invoice did not send | Check the invoice eligibility query, address length fields, and invoice resend list. |
-| Line number mismatch | Compare SPS PO line numbers against IQ SO detail internal comments. |
-
-## Source Resources
-
-| Resource | Type | Size |
-| --- | --- | --- |
-| `3-SPS Commerce/IQ connect Fulfilment Integrations.pptx` | Presentation | 170.9 KB |
-| `3-SPS Commerce/Samples/OSI/SH_3884675OD00912_20260416113354.xml` | Sample XML | 4.5 KB |
+| Line number mismatch | Compare partner PO line numbers against IQ SO detail internal comments. |
