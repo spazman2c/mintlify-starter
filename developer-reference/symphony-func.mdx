@@ -1,0 +1,22 @@
+---
+title: "Symphony Func"
+description: "Migrated IQConnect developer reference page for Symphony Func."
+---
+
+# Symphony Func
+
+SymphonyFunctionApp — IQConnect Architecture Overview Sync Engine Integrations Azure Database 
+Back to Overview 
+## SymphonyFunctionApp — Timer Trigger 
+
+Minimal Azure Function with a timer trigger that fires every 5 minutes. Used for scheduled Best Buy Symphony tasks. Currently contains a single timer function. 
+
+### Function 
+[FunctionName("Function1")]
+public static void Run([TimerTrigger("0 */5 * * * *")]TimerInfo myTimer, ILogger log)
+&#123;
+ log.LogInformation($"C# Timer trigger function executed at: &#123;DateTime.Now&#125;");
+&#125; 
+This function acts as a heartbeat / scheduler scaffold. The actual WebJob triggering for Symphony feeds is configured through the WebHooks section in IqConnectCore's appsettings, which maps feed types to named WebJobs (e.g., sym-pp-01-itemsku , sym-pp-06-so , etc.). 
+
+IQConnect Architecture Reference — ISV Zen / IQ Reseller — Confidential IQR Dev Reference v5 — ISV Zen / IQ Reseller — Confidential

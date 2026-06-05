@@ -1,0 +1,206 @@
+---
+title: "Command Reference"
+description: "Production and support command patterns captured from the IQ Connect KT notes."
+---
+
+
+# Command Reference
+
+Commands use a consistent shape: direction, operation, tenant/customer identifier, environment, and optional mode such as `delta` or `reset`.
+
+```text
+<direction> <operation> <tenant-or-customer> <environment> [mode]
+```
+
+## Direction conventions
+
+| Prefix | Meaning |
+| --- | --- |
+| `from-*` | Partner system to IQ Reseller, usually inbound orders, returns, cancellations, or local replay. |
+| `to-*` | IQ Reseller to partner system, usually catalog, shipments, invoices, acknowledgements, CRM records, or updates. |
+| `bestbuy service` | Service-style Symphony/Best Buy workflow command. |
+
+## SPS Commerce
+
+```bash
+from-sps so osi production
+to-sps shipment osi production delta
+to-sps invoice osi production delta
+from-sps solocal osi production delta
+to-sps resendasn osi production delta
+to-sps resendinvoice osi production delta
+to-sps resendsoupdate osi production delta
+```
+
+## HubSpot
+
+```bash
+to-hubspot sp osiglobal production delta
+to-hubspot spupdate osiglobal production delta
+to-hubspot sogm osiglobal production delta
+to-hubspot company hubspotdev test delta
+to-hubspot contact hubspotdev test delta
+to-hubspot sp hubspotdev test delta
+to-hubspot spupdate hubspotdev  test delta
+to-hubspot sogm hubspotdev  test delta
+```
+
+## Channable
+
+```bash
+to-channable catalog renewtech production reset
+```
+
+## Best Buy Symphony
+
+```bash
+to-bestbuy resendasn ec87ce03-5eaf-42ae-b9bf-9ad88e2a2cbf production delta
+to-bestbuy soupdate ec87ce03-5eaf-42ae-b9bf-9ad88e2a2cbf production delta
+from-bestbuy so ec87ce03-5eaf-42ae-b9bf-9ad88e2a2cbf production
+to-bestbuy avl ec87ce03-5eaf-42ae-b9bf-9ad88e2a2cbf production delta
+from-bestbuy so ec87ce03-5eaf-42ae-b9bf-9ad88e2a2cbf production delta
+to-bestbuy resendsoupdate ec87ce03-5eaf-42ae-b9bf-9ad88e2a2cbf production delta
+```
+
+## Full note source
+
+```text
+OSI Global
+
+from-sps so osi production
+to-sps shipment osi production delta
+to-sps invoice osi production delta
+
+from-sps solocal osi production delta
+to-sps resendasn osi production delta
+to-sps resendinvoice osi production delta
+to-sps resendsoupdate osi production delta
+
+to-hubspot sp osiglobal production delta
+to-hubspot spupdate osiglobal production delta
+to-hubspot sogm osiglobal production delta
+
+--
+Set activeSection
+Populate cheat sheet for section
+	- Active Integration's settings (from app config and from db)
+	- Azure settings
+	- IQ API settings
+	- IQ Tenant settings 
+Validate tenant context 
+PostDataToVendor()
+	Read inbound PO + save copy in mirror
+	Post SO to IQ 
+	Send PO-ACK + save copy in mirror
+GetDataFromVendor()
+	Get "Unshipped" SO ID list -> IqReader -> Format -> Send + save copy 
+	Get "Uninvoiced" SO ID list -> IqReader -> Format -> Send + save copy
+---
+Support tasks
+		- Order not posted
+		- Invoice not sent
+		- Shipment not sent
+		- Incorrect line item number reported 
+---
+
+Renewtech (Channable Integration)
+
+to-channable catalog renewtech production reset 
+
+--
+Set activeSection
+Populate cheat sheet for section
+	- Active Integration's settings (from app config and from db)
+	- Azure settings
+	- IQ API settings
+	- IQ Tenant settings 
+Validate tenant context 
+GetDataFromVendor()
+	Frame full catalog query -> IqReader -> Enrich + Format -> Send to SFTP 
+---
+
+HubSpot
+
+to-hubspot company hubspotdev test delta
+to-hubspot contact hubspotdev test delta
+to-hubspot sp hubspotdev test delta
+to-hubspot spupdate hubspotdev  test delta
+to-hubspot sogm hubspotdev  test delta
+
+Set activeSection
+Populate cheat sheet for section
+	- Active Integration's settings (from app config and from db)
+	- Azure settings
+	- IQ API settings
+	- IQ Tenant settings 
+Validate tenant context 
+GetCrmDataFromVendor()
+	get SPs -> Enrich + Format -> Send to HubSpot via API (new record)
+	get Contacts -> Enrich + Format -> Send to HubSpot via API (new record)
+	get Companies -> Enrich + Format -> Send to HubSpot via API (new record)
+	get updated SPs -> Enrich + Format -> Send to HubSpot via API (update existing record)
+
+---
+DHD HubSpot integration_settings Table
+
+configsection.hubspot	
+{
+	'apikey': 'pat-na1-.......',
+	'dealstage_open':'13379576', 
+	'dealstage_inactive':'13379577',
+	'custom_rep':'userdefined1',
+	'use_custom_dealstage':'1',
+	'use_dealstage_prob':'1',
+	'use_promisedate_for_closedate':'1'
+}
+
+configsection.iqapi	
+{
+	'sp_old':'180'
+}	
+
+query.grossmargin
+SELECT A.stid, (SUM(A.[unitprice] * A.[qty]) - SUM(B.[unitcost] * A.[qty])) as GrossMargin FROM [dbo].[stdetail] A, inventoryhis B WHERE A.[status] IN (@StatusSet) AND a.selectedinventoryid = B.inventoryid AND a.stid in (select stid FROM st WHERE sqid IN (SELECT iqspid FROM [iqconnect_crm_sp]) AND stid NOT IN (SELECT iqsoid FROM iqconnect_syncflags WHERE [grossmargin_done]=1)) GROUP BY a.stid ORDER BY a.stid
+
+---
+OSI HubSpot
+
+configsection.hubspot
+{
+	'apikey': 'pat-na1-.....',
+	'dealstage_open':'qualifiedtobuy', 
+	'dealstage_inactive':'977777051',	
+	'hubspotid_company':'userdefined1',	
+	'sp_dealtype':'userdefined4',	
+	'sp_internalcomments':'1',
+	'rep':'',
+	'closed_won_reason':'',
+	'closed_lost_reason':'',
+	'delay':'30',
+	'utcflag':'0',
+	'skip_createdate':'1',
+	'ordering_contact':'ordering_contact'
+}
+
+query.grossmargin
+SELECT A.stid, (SUM(A.[unitprice] * A.[qty]) - SUM(B.[unitcost] * A.[qty])) as GrossMargin FROM [dbo].[stdetail] A, inventoryhis B WHERE A.[status] IN (@StatusSet) AND a.selectedinventoryid = B.inventoryid AND a.stid in (select stid FROM st WHERE sqid IN (SELECT iqspid FROM [iqconnect_crm_sp]) AND stid NOT IN (SELECT iqsoid FROM iqconnect_syncflags WHERE [grossmargin_done]=1)) GROUP BY a.stid ORDER BY a.stid
+
+---
+VTS
+configsection.hubspot
+{
+	'apikey': 'pat-na1-....',
+	'dealstage_open':'164767333', 
+	'dealstage_inactive':'164767334'
+}
+---
+Symphony (PARTpoint)
+
+to-bestbuy resendasn ec87ce03-5eaf-42ae-b9bf-9ad88e2a2cbf production delta
+to-bestbuy soupdate ec87ce03-5eaf-42ae-b9bf-9ad88e2a2cbf production delta 
+from-bestbuy so ec87ce03-5eaf-42ae-b9bf-9ad88e2a2cbf production
+bestbuy service ec87ce03-5eaf-42ae-b9bf-9ad88e2a2cbf production delta
+to-bestbuy avl ec87ce03-5eaf-42ae-b9bf-9ad88e2a2cbf production delta
+from-bestbuy so ec87ce03-5eaf-42ae-b9bf-9ad88e2a2cbf production delta
+to-bestbuy resendsoupdate ec87ce03-5eaf-42ae-b9bf-9ad88e2a2cbf production delta
+```

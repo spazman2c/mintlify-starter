@@ -1,0 +1,86 @@
+---
+title: "Iqsync"
+description: "Migrated IQConnect developer reference page for Iqsync."
+---
+
+# Iqsync
+
+IqSync Engine — IQConnect Architecture Overview Sync Engine Integrations Azure Database 
+Back to Overview 
+## IqSync — Core Sync Engine 
+
+The main orchestrator of all IQConnect data flows. A .NET Framework 4.7.2 console application deployed as Azure WebJobs. Dispatches work to integration-specific wrapper classes based on command-line arguments. 
+1,070 
+Lines (Program.cs) 
+
+~23K 
+Lines (All Wrappers) 
+
+20+ 
+Feed Types 
+
+### Command-Line Interface 
+
+IqSync accepts up to 5 positional arguments: 
+IqSync &lt;integrationName&gt; &lt;feedType&gt; [tenantID] [production|test] [reset|delta] 
+ | Arg | Purpose | Examples 
+ | integrationName | Which integration to invoke | from-bestbuy, to-bestbuy, to-hubspot, from-sps, to-channable 
+ | feedType | Which data feed to process | itemsku, bom, subs, avl, price, so, shipment, invoice, returns, sp, catalog 
+ | tenantID | IQ Reseller tenant identifier (loads API key from CertKey/&#123;tenantID&#125;.apitoken) | partpoint, renewtech, osiglobal 
+ | mode | "production" for live, omit for test | production 
+ | reset | "reset" for full data reload, default is incremental delta | reset 
+
+### Execution Flow 
+Parse Args 
+
+PopulateCheatSheet 
+
+Validate Tenant 
+
+Dispatch to Handler 
+
+Post-Op Update 
+
+The Main() method is essentially a large switch statement over integrationName . Each case populates the CheatSheet configuration object, validates tenant context, then delegates to one of three handler methods: 
+
+ | Handler | Direction | Used By 
+ | GetDataFromVendor() | Reads from IQ API, writes to external system | to-bestbuy, to-sps, to-staples, to-ebay 
+ | PostDataToVendor() | Reads from external system, writes to IQ API | from-bestbuy, from-sps, from-sellercloud 
+ | GetCrmDataFromIqr() | Reads from IQ API, pushes to CRM (HubSpot) | to-hubspot (companies, contacts, deals) 
+ | GetDataFromVendor_Channable() | Reads IQ catalog, formats for Channable | to-channable 
+ | GetDataFromVendorInLoop() | Per-SO loop for ASN/invoice processing | to-bestbuy (shipment, invoice), to-sps (shipment, invoice) 
+
+### Key Internal Classes 
+CheatSheet IqReader Symphony SpsCommerce HubSpot Channable SellerCloud Uhaul (SFTP file mover) FormatConverter Constants IqSessionManager IqTenantContext LocalSftpWrapper 
+
+### Feed Types Reference 
+
+ | Constant | Feed Type | Description 
+ | k_itemsku | itemsku | Master item / SKU catalog 
+ | k_bom | bom | Bill of Materials (part associations) 
+ | k_subs | subs | Item substitutions 
+ | k_avl | avl | Inventory availability 
+ | k_price | price | Pricing feed 
+ | k_so | so | Inbound vendor orders (POs) 
+ | k_soupdate | soupdate | Order status updates (ETA, acknowledgement) 
+ | k_shipment | shipment | ASN (Advanced Shipping Notices) 
+ | k_invoice | invoice | Vendor invoices 
+ | k_returns | returns | Return requests 
+ | k_cancel | cancel | Cancellation requests 
+ | k_returnresp | returnresp | Return response acknowledgement 
+ | k_crm_company | company | CRM company sync (HubSpot) 
+ | k_crm_contact | contact | CRM contact sync (HubSpot) 
+ | k_crm_sp | sp | CRM sales pipeline / deals (HubSpot) 
+ | k_fullcatalog | catalog | Full product catalog (Channable) 
+
+### Override &amp; Resend Mechanism 
+
+IqSync supports manual resending of specific transactions via override commands. When OverrideMode is true, the engine reads SO IDs from a resend queue table in IQ Connect Database Tables rather than scanning for unprocessed records: 
+
+ | Override Feed | Source Table | Purpose 
+ | resendasn | ASN resend list | Re-transmit a specific shipment 
+ | resendinvoice | Invoice resend list | Re-transmit a specific invoice 
+ | resendsoupdate | SO update resend list | Re-transmit a specific order update 
+After each resend, the record is deleted from the resend queue to prevent duplicates. 
+
+IQConnect Architecture Reference — ISV Zen / IQ Reseller — Confidential IQR Dev Reference v5 — ISV Zen / IQ Reseller — Confidential

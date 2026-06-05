@@ -1,0 +1,53 @@
+---
+title: "Hubspot"
+description: "Migrated IQConnect developer reference page for Hubspot."
+---
+
+# Hubspot
+
+HubSpot — IQConnect Architecture Overview Sync Engine Integrations Azure Database 
+Back to Integrations 
+## HubSpot CRM Integration 
+
+Bidirectional CRM synchronization with HubSpot. Pushes company, contact, and sales pipeline data from IQ Reseller into HubSpot deals. Also receives HubSpot quotes via webhook-triggered Durable Functions and auto-creates sales orders in IQ Reseller. Used by DHD, OSI Global , and other customers. 
+2,731 
+Lines 
+
+REST 
+Protocol 
+
+Multi-Tenant 
+Deployment 
+
+### Outbound Sync Feeds (IQ → HubSpot) 
+
+ | Feed | HubSpot Object | Description 
+ | company | Companies | Pushes new CV (customer/vendor) records not yet synced to HubSpot. Tracked in iqconnect_crm_company . 
+ | contact | Contacts | Pushes contacts with valid emails not yet synced. Deduplication via iqconnect_crm_duplicate_contacts . 
+ | sp | Deals | Sales pipeline sync — creates and updates deals with full line items, deal stages, amounts, reps, and dates. Paginated (1,000 records per loop, up to 1M total). 
+ | spupdate | Deals (updates) | Detects status changes in IQ SPs and patches corresponding HubSpot deals. 
+ | spupdateli | Deal line items | Updates deal line item details. 
+ | sogm | Deals | Gross margin data for deals. 
+
+### Inbound Flow (HubSpot → IQ) 
+
+HubSpot quote acceptance triggers a webhook to IqConnectWebhooksAsync , which runs a Durable Functions orchestration that: 
+HubSpot Quote Webhook 
+
+Azure Durable Function 
+
+Retrieve Quote from HubSpot API 
+
+Create SO via IQ API 
+
+Tenant identification is embedded in the webhook payload ( iq_tenant field). API keys are stored as Azure Function environment variables per tenant. 
+
+### Deal Stage Mapping 
+
+Deal stages are loaded from the hubspotdealstage table (per-tenant IQ database). The mapping is populated at runtime by PopulateDealStages() which reads id , hsinternalname , and percentage columns. IQ SP status values are mapped to HubSpot deal stages including auto-voided detection. 
+
+### Authentication 
+
+Supports both API key and Bearer token authentication modes. The _UseBearer flag controls which method is used. HubSpot API calls are made via RestSharp's PatchToHubSpot() method with JSON payloads. 
+
+IQConnect Architecture Reference — ISV Zen / IQ Reseller — Confidential IQR Dev Reference v5 — ISV Zen / IQ Reseller — Confidential

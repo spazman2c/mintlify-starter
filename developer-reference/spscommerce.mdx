@@ -1,0 +1,44 @@
+---
+title: "Spscommerce"
+description: "Migrated IQConnect developer reference page for Spscommerce."
+---
+
+# Spscommerce
+
+SPS Commerce — IQConnect Architecture Overview Sync Engine Integrations Azure Database 
+Back to Integrations 
+## SPS Commerce Integration 
+
+EDI integration via SPS Commerce, used by OSI Global . Added November 2024. Structurally mirrors the Symphony integration pattern (SFTP-based XML) but with SPS-specific formatting and document types. Supports the full order-to-invoice lifecycle. 
+5,394 
+Lines (3 files) 
+
+Nov 2024 
+Added 
+
+### Files 
+
+ | File | Lines | Purpose 
+ | SpsCommerce.cs | 3,861 | Main integration wrapper — feed preparation, XML generation, SFTP transfer 
+ | SpsCommerceDS.cs | 1,171 | Data structures / models for SPS document types 
+ | SpsFormatConverter.cs | 362 | Format conversion utilities (date, address, UOM) 
+
+### Supported Feeds 
+
+Same feed types as Symphony but routed via from-sps / to-sps integration names. Uses identical IqReader constants. 
+
+### Recent Change Log 
+
+From the source header comments: 
+
+ | CR | Date | Description 
+ | CR 125 | 2025-04-20 | Enforcing address field length limits (per Emily's "errored invoices" email) 
+ | CR 126 | 2025-04-20 | PO Line Number vs IQ SO Line Number mismatch fix (Windstream issue) 
+ | CR 126A | 2025-04-20 | Extending CR 126 line number fix to ASN feeds 
+ | CR 129 | 2025-05-02 | Add ItemScheduleDate to ACK file 
+
+### Local Development Support 
+
+When feedType == k_solocal , the wrapper reads from local file system directories instead of SFTP — useful for development and debugging SPS document formats without connecting to the live SFTP server. 
+
+IQConnect Architecture Reference — ISV Zen / IQ Reseller — Confidential IQR Dev Reference v5 — ISV Zen / IQ Reseller — Confidential

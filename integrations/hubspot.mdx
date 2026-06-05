@@ -1,0 +1,135 @@
+---
+title: "HubSpot"
+description: "CRM synchronization for companies, contacts, deals, updates, gross margin, and quote-to-order webhooks."
+---
+
+
+# HubSpot
+
+CRM synchronization for companies, contacts, deals, updates, gross margin, and quote-to-order webhooks.
+
+## Operational summary
+
+HubSpot — IQConnect Architecture Overview Sync Engine Integrations Azure Database 
+Back to Integrations 
+## HubSpot CRM Integration 
+
+Bidirectional CRM synchronization with HubSpot. Pushes company, contact, and sales pipeline data from IQ Reseller into HubSpot deals. Also receives HubSpot quotes via webhook-triggered Durable Functions and auto-creates sales orders in IQ Reseller. Used by DHD, OSI Global , and other customers. 
+2,731 
+Lines 
+
+REST 
+Protocol 
+
+Multi-Tenant 
+Deployment 
+
+### Outbound Sync Feeds (IQ → HubSpot) 
+
+ | Feed | HubSpot Object | Description 
+ | company | Companies | Pushes new CV (customer/vendor) records not yet synced to HubSpot. Tracked in iqconnect_crm_company . 
+ | contact | Contacts | Pushes contacts with valid emails not yet synced. Deduplication via iqconnect_crm_duplicate_contacts . 
+ | sp | Deals | Sales pipeline sync — creates and updates deals with full line items, deal stages, amounts, reps, and dates. Paginated (1,000 records per loop, up to 1M total). 
+ | spupdate | Deals (updates) | Detects status changes in IQ SPs and patches corresponding HubSpot deals. 
+ | spupdateli | Deal line items | Updates deal line item details. 
+ | sogm | Deals | Gross margin data for deals. 
+
+### Inbound Flow (HubSpot → IQ) 
+
+HubSpot quote acceptance triggers a webhook to IqConnectWebhooksAsync , which runs a Durable Functions orchestration that: 
+HubSpot Quote Webhook 
+
+Azure Durable Function 
+
+Retrieve Quote from HubSpot API 
+
+Create SO via IQ API 
+
+Tenant identification is embedded in the webhook payload ( iq_tenant field). API keys are stored as Azure Function environment variables per tenant. 
+
+### Deal Stage Mapping 
+
+Deal stages are loaded from the hubspotdealstage table (per-tenant IQ database). The mapping is populated at runtime by PopulateDealStages() which reads id , hsinternalname , and percentage columns. IQ SP status values are mapped to HubSpot deal stages including auto-voided detection. 
+
+### Authentication 
+
+Supports both API key and Bearer token authentication modes. The _UseBearer flag controls which method is used. HubSpot API calls are made via RestSharp's PatchToHubSpot() method with JSON payloads. 
+
+IQConnect Architecture Reference — ISV Zen / IQ Reseller — Confidential IQR Dev Reference v5 — ISV Zen / IQ Reseller — Confidential
+
+## Command and note hits
+
+```text
+to-hubspot sp osiglobal production delta
+to-hubspot spupdate osiglobal production delta
+to-hubspot sogm osiglobal production delta
+HubSpot
+to-hubspot company hubspotdev test delta
+to-hubspot contact hubspotdev test delta
+to-hubspot sp hubspotdev test delta
+to-hubspot spupdate hubspotdev  test delta
+to-hubspot sogm hubspotdev  test delta
+GetCrmDataFromVendor()
+	get SPs -> Enrich + Format -> Send to HubSpot via API (new record)
+	get Contacts -> Enrich + Format -> Send to HubSpot via API (new record)
+	get Companies -> Enrich + Format -> Send to HubSpot via API (new record)
+	get updated SPs -> Enrich + Format -> Send to HubSpot via API (update existing record)
+DHD HubSpot integration_settings Table
+configsection.hubspot	
+	'dealstage_open':'13379576', 
+	'dealstage_inactive':'13379577',
+	'use_custom_dealstage':'1',
+	'use_dealstage_prob':'1',
+query.grossmargin
+SELECT A.stid, (SUM(A.[unitprice] * A.[qty]) - SUM(B.[unitcost] * A.[qty])) as GrossMargin FROM [dbo].[stdetail] A, inventoryhis B WHERE A.[status] IN (@StatusSet) AND a.selectedinventoryid = B.inventoryid AND a.stid in (select stid FROM st WHERE sqid IN (SELECT iqspid FROM [iqconnect_crm_sp]) AND stid NOT IN (SELECT iqsoid FROM iqconnect_syncflags WHERE [grossmargin_done]=1)) GROUP BY a.stid ORDER BY a.stid
+OSI HubSpot
+configsection.hubspot
+	'dealstage_open':'qualifiedtobuy', 
+	'dealstage_inactive':'977777051',	
+	'hubspotid_company':'userdefined1',	
+	'sp_dealtype':'userdefined4',	
+	'ordering_contact':'ordering_contact'
+query.grossmargin
+SELECT A.stid, (SUM(A.[unitprice] * A.[qty]) - SUM(B.[unitcost] * A.[qty])) as GrossMargin FROM [dbo].[stdetail] A, inventoryhis B WHERE A.[status] IN (@StatusSet) AND a.selectedinventoryid = B.inventoryid AND a.stid in (select stid FROM st WHERE sqid IN (SELECT iqspid FROM [iqconnect_crm_sp]) AND stid NOT IN (SELECT iqsoid FROM iqconnect_syncflags WHERE [grossmargin_done]=1)) GROUP BY a.stid ORDER BY a.stid
+configsection.hubspot
+	'dealstage_open':'164767333', 
+	'dealstage_inactive':'164767334'
+```
+
+## Source resources
+
+| Resource | Type | Size |
+| --- | --- | --- |
+| `3-HubSpot/beta007-iqconnect-crm.PublishSettings` | Data or Config | 2.1 KB |
+| `3-HubSpot/HubSpotWebJobs.pdf` | Reference Document | 375.2 KB |
+| `3-HubSpot/SqlScripts/integration_settings_select.sql` | Data or Config | 212 B |
+| `3-HubSpot/SqlScripts/iqconnect_crm_company_select.sql` | Data or Config | 149 B |
+| `3-HubSpot/SqlScripts/iqconnect_crm_contact_select.sql` | Data or Config | 121 B |
+| `3-HubSpot/SqlScripts/iqconnect_crm_duplicate_contacts_select.sql` | Data or Config | 104 B |
+| `3-HubSpot/SqlScripts/iqconnect_crm_sp_select.sql` | Data or Config | 272 B |
+
+## Extracted source excerpts
+
+### Beta007 Iqconnect Crm
+
+&lt;publishData&gt;&lt;publishProfile profileName="beta007-iqconnect-crm - Web Deploy" publishMethod="MSDeploy" publishUrl="beta007-iqconnect-crm.scm.azurewebsites.net:443" msdeploySite="beta007-iqconnect-crm" userName="$beta007-iqconnect-crm" userPWD="Ghw6i5JXHu4Tw8EEX5kFx62970PXZgzFPdNWwmYm4tv3myW8gxM6djdSmlp6" destinationAppUrl="http://beta007-iqconnect-crm.azurewebsites.net" SQLServerDBConnectionString="" mySQLDBConnectionString="" hostingProviderForumLink="" controlPanelLink="https://portal.azure.com" webSystem="WebSites"&gt;&lt;databases /&gt;&lt;/publishProfile&gt;&lt;publishProfile profileName="beta007-iqconnect-crm - FTP" publishMethod="FTP" publishUrl="ftp://waws-prod-dm1-115.ftp.azurewebsites.windows.net/site/wwwroot" ftpPassiveMode="True" userName="beta007-iqconnect-crm\$beta007-iqconnect-crm" userPWD="Ghw6i5JXHu4Tw8EEX5kFx62970PXZgzFPdNWwmYm4tv3myW8gxM6djdSmlp6" destinationAppUrl="http://beta007-iqconnect-crm.azurewebsites.net" SQLServerDBConnectionString="" mySQLDBConnectionString="" hostingProviderForumLink="" controlPanelLink="https://portal.azure.com" webSystem="WebSites"&gt;&lt;databases /&gt;&lt;/publishProfile&gt;&lt;publishProfile profileName="beta007-iqconnect-crm - Zip Deploy" publishMethod="ZipDeploy"...
+
+### Integration Settings Select
+
+SELECT TOP (1000) [name] ,[settings] ,[extendedsettings] ,[format] ,[recadded_utc] ,[recupdated_utc] ,[rowversion] FROM [dbo].[integration_settings] ORDER BY [name]
+
+### Iqconnect Crm Company Select
+
+SELECT TOP (1000) [id] ,[crm] ,[iqcvid] ,[iqcvcode] ,[iqcvname] ,[crmcvid] FROM [dbo].[iqconnect_crm_company]
+
+### Iqconnect Crm Contact Select
+
+SELECT TOP (1000) [id] ,[crm] ,[iqcontactid] ,[crmcontactid] FROM [dbo].[iqconnect_crm_contact]
+
+### Iqconnect Crm Duplicate Contacts Select
+
+SELECT TOP (1000) [iqcontactid] FROM [dbo].[iqconnect_crm_duplicate_contacts] ORDER BY iqcontactid
+
+### Iqconnect Crm Sp Select
+
+SELECT TOP (1000) [id] ,[crm] ,[iqspid] ,[crmspid] ,[iqspstatus] ,[datecreatedutc] ,[dateupdatedutc] ,[additionalinfo_json] ,[crmcontactid] ,[contactemail] FROM [dbo].[iqconnect_crm_sp] ORDER BY iqspid

@@ -1,0 +1,140 @@
+---
+title: "Best Buy Symphony"
+description: "PARTpoint integration with Best Buy Symphony for catalog, orders, fulfillment, ASN, invoicing, returns, and cancellations."
+---
+
+
+# Best Buy Symphony
+
+PARTpoint integration with Best Buy Symphony for catalog, orders, fulfillment, ASN, invoicing, returns, and cancellations.
+
+## Operational summary
+
+Best Buy Symphony — IQConnect Architecture Overview Sync Engine Integrations Azure Database 
+Back to Integrations 
+## Best Buy Symphony Integration 
+
+Full bidirectional EDI integration with Best Buy's Symphony platform. Used by PARTpoint . Handles the complete vendor lifecycle: catalog data, purchase orders, shipment confirmations (ASN), invoices, returns, and cancellations. All data exchange is via XML files over SFTP. 
+6,305 
+Lines 
+
+12 
+Feed Types 
+
+SFTP 
+Protocol 
+
+### File &amp; Class 
+
+IqSync/ApiWrapper/Symphony.cs — class Symphony 
+
+Supplemental: SymphonyReturnCancel.cs (85 lines) — return/cancel acknowledgement struct 
+
+### Supported Feeds 
+
+ | Feed | Direction | Description 
+ | itemsku | IQ → BBY | Master item catalog (SKU, mfgr, description, UPC) 
+ | bom | IQ → BBY | Part associations (bill of materials) 
+ | subs | IQ → BBY | Item substitutions 
+ | avl | IQ → BBY | Inventory availability (qty, condition code) 
+ | price | IQ → BBY | Pricing feed 
+ | so | BBY → IQ | Vendor orders (purchase orders from Best Buy) 
+ | soupdate | IQ → BBY | Order acknowledgements and ETA updates 
+ | shipment | IQ → BBY | ASN (Advanced Shipping Notices) with tracking 
+ | invoice | IQ → BBY | Financial invoices 
+ | returns | BBY → IQ | Return requests from Best Buy 
+ | cancel | BBY → IQ | Cancellation requests 
+ | returnack | IQ → BBY | Return/cancel acknowledgement 
+
+### SFTP Configuration 
+
+Symphony files are exchanged via Best Buy's managed file transfer (MFT) SFTP server. The Uhaul class handles file staging and transfer, routing through the VssLastMile service for Azure-to-SFTP bridging. 
+
+ | Setting | Production 
+ | Host | mft-tst.bestbuy.com (production varies by environment) 
+ | Auth | SSH private key ( CertKey/iqbb_pp_openssh ) 
+ | Input Folder | /from_bby (inbound POs, returns, cancels) 
+ | Output Folder | /to_bby (outbound catalog, ASN, invoices) 
+ | File Prefix | Ppnt (PARTpoint) 
+
+### Key Behaviors 
+
+Partial void handling: The _ConstPartialVoid = "BBYVOID" marker is used when a line item needs to be voided from an order without cancelling the entire SO. The wrapper generates appropriate void elements in the outbound XML. 
+
+Invalid line number filtering: Records with line number 99999 (constant k_InvalidLineNumber ) are treated as bad records and excluded from ASN feeds. This prevents malformed line items from reaching Best Buy. 
+
+Feed history cleanup: The CleanupDatabase() method in IqSync purges catalog feed content older than 3 days and order feed content older than 42 days from iqconnect_feedhistory to manage database size. 
+
+IQConnect Architecture Reference — ISV Zen / IQ Reseller — Confidential IQR Dev Reference v5 — ISV Zen / IQ Reseller — Confidential
+
+## Command and note hits
+
+```text
+to-sps resendasn osi production delta
+Symphony (PARTpoint)
+to-bestbuy resendasn ec87ce03-5eaf-42ae-b9bf-9ad88e2a2cbf production delta
+to-bestbuy soupdate ec87ce03-5eaf-42ae-b9bf-9ad88e2a2cbf production delta 
+from-bestbuy so ec87ce03-5eaf-42ae-b9bf-9ad88e2a2cbf production
+bestbuy service ec87ce03-5eaf-42ae-b9bf-9ad88e2a2cbf production delta
+to-bestbuy avl ec87ce03-5eaf-42ae-b9bf-9ad88e2a2cbf production delta
+from-bestbuy so ec87ce03-5eaf-42ae-b9bf-9ad88e2a2cbf production delta
+to-bestbuy resendsoupdate ec87ce03-5eaf-42ae-b9bf-9ad88e2a2cbf production delta
+```
+
+## Source resources
+
+| Resource | Type | Size |
+| --- | --- | --- |
+| `3-Symphony/2020-10-21 IQ connect Reference for PARTpoint.docx` | Reference Document | 1.1 MB |
+| `3-Symphony/2020-10-21 IQ connect Reference for PARTpoint.pdf` | Reference Document | 1.1 MB |
+| `3-Symphony/2021-06-06 Resending ASN.docx` | Reference Document | 426.8 KB |
+| `3-Symphony/2021-06-06 Resending ASN.pdf` | Reference Document | 350.0 KB |
+| `3-Symphony/2023-04-23 IQ connect Platform WebJob Reference.docx` | Reference Document | 21.7 KB |
+| `3-Symphony/BB-Symphony-BasicDataSample.rar` | Archive | 9.5 KB |
+| `3-Symphony/Build Packet/Build Pkt Priority List Status.xlsx` | Spreadsheet | 29.9 KB |
+| `3-Symphony/Build Packet/Symphony DataImport 5.1.docx` | Reference Document | 168.6 KB |
+| `3-Symphony/Build Packet/Symphony Image Import 6.1.docx` | Reference Document | 64.9 KB |
+| `3-Symphony/Build Packet/Symphony Invoicing 5.1.docx` | Reference Document | 97.3 KB |
+| `3-Symphony/Build Packet/Symphony Invoicing and Credits 5.1.docx` | Reference Document | 82.2 KB |
+| `3-Symphony/Build Packet/Symphony Order Fulfillment 5.1.docx` | Reference Document | 197.1 KB |
+| `3-Symphony/Build Packet/Symphony Returns and Cancellations 5.1.docx` | Reference Document | 148.8 KB |
+| `3-Symphony/Build Packet/Symphony VMI DataImport 6.1.docx` | Reference Document | 153.2 KB |
+| `3-Symphony/Build Packet/Symphony VMI Invoicing 6.1.docx` | Reference Document | 97.1 KB |
+| `3-Symphony/Build Packet/Symphony VMI Order Fulfillment 6.1.docx` | Reference Document | 213.9 KB |
+| `3-Symphony/Build Packet/Symphony VMI Returns and Cancellations 6.1.docx` | Reference Document | 156.2 KB |
+| `3-Symphony/IQ connect Fulfilment Integrations.pptx` | Reference Document | 170.9 KB |
+| `3-Symphony/Table_LastSync.xlsx` | Spreadsheet | 10.0 KB |
+
+## Extracted source excerpts
+
+### 2020 10 21 Iq Connect Reference For Partpoint
+
+IQ connect Reference for PARTpoint October 2 1, 2020 Contents 1 Introduction to IQ connect Symphony Integration 2 2 What’s Needed to Run the Integration? 2 3 Data Setup Considerations 2 3.1 Data Values 2 3.2 When and How to Set these Data Values 2 4 The Cogs of the Integration 4 4.1 Summary 4 4.2 Background Processes 4 4.3 IQ connect Viewer 5 4.4 Accessing IQ connect Viewer 5 4.5 Managing Master Data and Order Fulfilment 6 4.6 IQ connect Marshal Service 6 4.7 IQ connect Limited Query Service 6 5 The User Interface 7 6 Symphony Data Import Workflow 9 6.1 The Initial Data Load 9 6.2 Incremental Data Loads 9 6.3 Order Retrieval 10 6.4 Order Fulfilment 11 6.5 Vendor-Side Cancellation 11 6.6 Cancellations by Best Buy 11 6.7 Returns Processing 11 7 Multi-Vendor Inventory 13 Appendix A: Import Master Item – New/Update 14 Appendix B: Import – Update Inventory 17 Introduction to IQ connect Symphony Integration IQ connect is an integration program that currently connects PARTpoint’s IQ reseller database to Best Buy’s Symphony program. There are many parts to this program that reside inside and outside of the IQ reseller Cloud application . These are detailed in this document but the most...
+
+### 2021 06 06 Resending Asn
+
+How to Resend ASNs – A Pictorial Guide Note that this is NOT dependent on record-selection in the grid . The button Clear ‘Resend’ Batch clears all the records scheduled to be re-sent and doesn’t depend on the grid records here.
+
+### 2023 04 23 Iq Connect Platform Webjob Reference
+
+IQ connect Platform WebJob Reference Best Buy Symphony PARTpoint Integration ps-pp-01-inbound Triggered Completed 0 25 5-21/2 * * 1-6   ps-pp-01-outbound Triggered Completed 0 0 4-20/8 * * 1-6   sym-pp-01-itemsku Triggered Completed Manual   sym-pp-01-itemsku-delta Triggered Completed 0 10 10 * * 0-6   sym-pp-02-bom Triggered Completed Manual   sym-pp-02-bom-delta Triggered Completed 0 15 10 * * 0-6   sym-pp-03-subs Triggered Completed Manual   sym-pp-03-subs-delta Triggered Completed 0 20 10 * * 0-6   sym-pp-04-avl Triggered Completed 0 25 3 * * 0-6   sym-pp-04-avl-delta Triggered Completed 0 25 5-19/2 * * 0-6   sym-pp-05-price Triggered Completed Manual   sym-pp-05-price-delta Triggered Completed 0 30 3-19/2 * * 0-6   sym-pp-06-so Triggered Completed 0 25 4-20/2 * * 1-6   sym-pp-07-so-updates Triggered Completed 0 40 2-18/2 * * 0-6   sym-pp-08-shipment Triggered Completed 0 30 19 * * 0-6   sym-pp-09-return-cancel Triggered Completed 0 35 2-18/3 * * 1-6   sym-pp-10-return-cancel-ack Triggered Completed 0 55 2-18/2 * * 0-6   sym-pp-11-invoice Triggered Completed 0 0 21 * * 6   sym-pp-12-cleanup Triggered Completed * 55 23 * * *  ...
+
+### Build Pkt Priority List Status
+
+Sheet: BuildPkt Build Packet | Reqd? | Priority | XML Feed | Description | Direction | Update Type | Document Reference Data Import | Required | Priority 1 | ItemSKU (initial bulk upload) | Bulk load of all item part data | Inbound to BBY | Triggered | Symphony DataImport 5.1 Required | Priority 1 | ItemSKU (deltas) | Updates to item part data | Inbound to BBY | Triggered | Symphony DataImport 5.1 Required | Priority 1 | PartAssociation Update (initial bulk upload) | Bulk load of all BOM data for service parts | Inbound to BBY | Triggered | Symphony DataImport 5.1 Required | Priority 1 | PartAssociation Update (deltas) | Updates to BOM data | Inbound to BBY | Triggered | Symphony DataImport 5.1 Required | Priority 1 | Substitutions (initial bulk upload) | Bulk load of all part substitution data | Inbound to BBY | Triggered | Symphony DataImport 5.1 Required | Priority 1 | Substitutions (deltas) | Updates to substitution data | Inbound to BBY | Triggered | Symphony DataImport 5.1 Order Fulfillment | Required | Priority 1 | SKUInventory | Catalog of current inventory on hand | Inbound to BBY | Scheduled | Symphony DataImport 5.1 Required | Priority 1 | SKUPricing | Catalog of...
+
+### Symphony Dataimport 5.1
+
+Symphony Data Import XML Implementation Guide Version 5.1 .1 Last Modified: May 8 , 201 8 Confidential - Best Buy internal use only. Do not copy, publish or distribute. The material in this document is confidential to Best Buy. Table of Contents 1.0 Introduction 4 1.1 Overview 4 1.2 Definitions 4 1.2.1 Usage 4 1.2.2 Terminology 4 2.0 File Names, Data Formats, Transmissions 5 2.1 File Names 5 2.2 Data Formats 6 Character strings 6 Numeric strings 6 Date and Timestamp Strings 6 2.3 Transmissions 6 Transmission method 7 Timing of Transmissions 7 3. Symphony XML Messages 8 3.1 Item/SKU Information Updates 8 3.1.1 Item/SKU Elements: 8 3.1.2 Item / SKU – example XML message 10 3.2 Part Association Updates 11 3.2.1 PartAssociation Elements 11 3.2.2 Part Associations - example XML message 12 3.3 Substitution Updates 13 3.3.1 Substitution Elements 13 3.3.2 Part Substitutions – example XML message 14 3.4 SKU Inventory Updates 15 3.4.1 SKUInventory Updates - Elements 15 3.4.2 SKU Inventory - example XML message 16 3.5 SKU Pricing Updates 16 3.5.1 SKUPricing Elements 16 3.5.2 Pricing – example XML message 19 Document Version History Date Version Update Description Owner 8-May-18 5.1 .1 Added...
+
+### Symphony Image Import 6.1
+
+Symphony Images XML Implementation Guide Version 6.1 Last Modified: May 1, 2018 Confidential - Best Buy internal use only. Do not copy, publish or distribute. The material in this document is confidential to Best Buy. Table of Contents 1.0 Introduction 4 1.1 Overview 4 1.2 Definitions 4 1.2.1 Usage 4 1.2.2 Terminology 4 2.0 File Names, Data Formats, Transmissions 4 2.1 File Names 4 2.2 Data Formats 5 2.2.1 Character strings 5 2.2.2 Numeric strings 5 2.2.3 Date and Timestamp Strings 5 2.3 Transmissions 5 2.3.1 Transmission method 6 2.3.2 Timing of Transmissions 6 3. Symphony XML Messages from Vendor to Best Buy 6 3.1 Image Updates 6 3.1.1 Image Updates - Elements 7 3.1.2 Image - example XML message 8 Document Version History Date Version Update Description Owner 1-May-18 6.1 Update Convergence to Symphony Jon Comer 02 8 -Feb-2018 6.0 Original version Ian Gramaccioni 1. 0 Introduction 1.1 Overview This document provides the vendor impl ementation guidelines for sending of image files to Symphony . Vendors may send picture files and accompany them a n XML message via FTP . This document provide s the guidelines for formatting and trans mitting the part image files vi a XML message...
+
+### Symphony Invoicing 5.1
+
+Symphony Vendor Invoicing XML Implementation Guide Version 5.1 Last Modified: April 26 th , 2018 Confidential - Best Buy internal use only. Do not copy, publish or distribute. The material in this document is confidential to Best Buy. Table of Contents 1 Introduction 4 1.1 Overview 4 1.2 Definitions 4 2 File Names, Data Formats, Transmissions 4 2.1 File names 4 2.2 Data Formats 5 2.2.1 Character strings 5 2.2.2 Numeric strings 5 2.2.3 Date and Timestamp Strings 5 2.3 Transmissions 5 2.3.1 Transmission method 6 2.3.2 Timing of Transmissions 6 3 Vendor Invoice Elements 6 4 Vendor Invoice – Example XML 8 Document Version History Date Version Update Description Owner 26-Apr-18 5.1 Update Entire Document – Changed Convergence to Symphony Jon Comer 19-Apr-18 5.0.3 Section 1.1 Remove wording around credits and adjusted image removing Credit transaction Section 1.2 Remove wording around credits Section 2.3 Remove &lt;TotalCredits&gt; Section 2.3.2 Remove wording around credits Section 3 Update PartsearchOrderNumber to BBYOrderNumber Section 3 Add BBYOrderLineNumber Section 4 Remove Credit Section Section 5 now becomes Section 4 Section 4 Remove “Credit” Update Header record to remove “credit”...
+
+### Symphony Invoicing And Credits 5.1
+
+Symphony Vendor Invoicing &amp; Credits XML Implementation Guide Version 5.1 Last Modified: April 26 , 2018 Confidential - Best Buy internal use only. Do not copy, publish or distribute. The material in this document is confidential to Best Buy. Table of Contents 1 Introduction 4 1.1 Overview 4 1.2 Definitions 4 2 File Names, Data Formats, Transmissions 4 2.1 File names 4 2.2 Data Formats 5 2.2.1 Character strings 5 2.2.2 Numeric strings 5 2.2.3 Date and Timestamp Strings 5 2.3 Transmissions 5 2.3.1 Transmission method 6 2.3.2 Timing of Transmissions 6 3 Vendor Invoice Elements 6 4 Vendor Credit Elements 8 5 Vendor Invoice Credit – Example XML 9 Document Version History Date Version Update Description Owner 26-Apr-18 5.1 Update Entire Document – Changed Convergence to Symphony Jon Comer 25-Apr-18 5.0.3 Section 3 Changed RequestNumber to mandatory = N Section 3 Update PartsearchOrderNumber to BBYOrderNumber Section 3 Add BBYOrderLineNumber Section 4 Update PartsearchOrderNumber to BBYOrderNumber Section 4 Add BBYOrderLineNumber Jon Comer 12-Jan-18 5.0.2 Section 2 Date and Timestamp: changed time zone from EST to CST. Jenny Winter 10-Jan-18 5.0.1 1. Corrected Sender and Receiver IDs....

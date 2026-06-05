@@ -1,0 +1,1247 @@
+---
+title: "Session 2026-06-03"
+description: "Transcript and source file index for the 2026-06-03 IQ Connect KT session."
+---
+
+
+# Session 2026-06-03
+
+Transcript segments: **410**.
+
+## Source files
+
+- `1-Recordings/2026-06-03/IQ Connect KT Formal Wrap-Up-20260603_193914-Meeting Recording.mp4` (119.9 MB)
+- `1-Recordings/2026-06-03/IQ Connect KT_ Formal Wrap-Up.docx` (278.8 KB)
+- `1-Recordings/2026-06-03/IQ Connect KT_ Formal Wrap-Up.vtt` (63.8 KB)
+
+## Transcript
+
+### 00:00:03.738 · Sriram Parthasarathy
+ultimate episode or something like that. I don't know.
+
+### 00:00:07.578 · Cliff Mauer
+Yeah.
+
+### 00:00:08.498 · Cliff Mauer
+I.
+
+### 00:00:09.418 · Sriram Parthasarathy
+I know, I know. These are all very dry dad jokes. My bad.
+
+### 00:00:13.938 · Cliff Mauer
+No.
+
+### 00:00:15.229 · Sriram Parthasarathy
+OK, so quickly walking through these folders.
+
+### 00:00:19.838 · Sriram Parthasarathy
+So this folder I've named them, you know, I've given them number prefixes just to
+
+### 00:00:28.054 · Sriram Parthasarathy
+batch them together.
+
+### 00:00:30.538 · Sriram Parthasarathy
+To show that you know they belong together,
+
+### 00:00:33.616 · Sriram Parthasarathy
+so number one and number one here are recordings and session notes. So,
+
+### 00:00:38.653 · Sriram Parthasarathy
+on the recordings you have, you already have about 10 hours worth of
+
+### 00:00:43.480 · Sriram Parthasarathy
+recording from our seminar 8 sessions so far.
+
+### 00:00:47.898 · Sriram Parthasarathy
+And this session notes is what we have, you know, noted down with, you know,
+
+### 00:00:54.555 · Sriram Parthasarathy
+with the command line parameters, the various sections, you know,
+
+### 00:01:00.261 · Sriram Parthasarathy
+the Swift flow. What are the support tasks normally asked
+
+### 00:01:02.898 · Cliff Mauer
+Yup.
+
+### 00:01:05.275 · Sriram Parthasarathy
+by that specific
+
+### 00:01:06.738 · Sriram Parthasarathy
+customer, and so on and so forth. So you have everything here.
+
+### 00:01:11.197 · Sriram Parthasarathy
+So I don't think there is any personally identifiable information here.
+
+### 00:01:16.293 · Sriram Parthasarathy
+For instance, we remove the API key here, for example, right? So it should be good.
+
+### 00:01:22.238 · Sriram Parthasarathy
+It should be good. So this is a swift reference for you to
+
+### 00:01:25.458 · Cliff Mauer
+Okay.
+
+### 00:01:26.414 · Sriram Parthasarathy
+go through, and those are references that we made
+
+### 00:01:29.953 · Sriram Parthasarathy
+during our session.
+
+### 00:01:32.378 · Sriram Parthasarathy
+And we also have this line item internal comments for reference.
+
+### 00:01:37.276 · Sriram Parthasarathy
+What should be there?
+
+### 00:01:40.098 · Cliff Mauer
+Yep.
+
+### 00:01:41.178 · Sriram Parthasarathy
+And similarly.
+
+### 00:01:44.698 · Sriram Parthasarathy
+Let's go with the developer reference. So you have two here,
+
+### 00:01:49.315 · Sriram Parthasarathy
+two pertains to source code and how the source code is organized.
+
+### 00:01:54.311 · Sriram Parthasarathy
+So basically this is kind of your architecture document. So come in here,
+
+### 00:01:59.912 · Sriram Parthasarathy
+click on index, and you should see, you know, the IQ sync.
+
+### 00:02:04.538 · Sriram Parthasarathy
+link on top here. Oh, hold on one second. I could connect. Sorry.
+
+### 00:02:09.224 · Sriram Parthasarathy
+I could connect link on top here and it has these five links.
+
+### 00:02:13.626 · Sriram Parthasarathy
+The overview shows you the regular flow of the system and what integrations are
+
+### 00:02:19.307 · Sriram Parthasarathy
+active and whatnot, and what are the data flow directions and
+
+### 00:02:23.709 · Sriram Parthasarathy
+so on and so forth.
+
+### 00:02:25.738 · Sriram Parthasarathy
+And you also have...
+
+### 00:02:28.098 · Sriram Parthasarathy
+a detailed overview of the sync engine, what each of the command line parameters
+
+### 00:02:33.822 · Sriram Parthasarathy
+mean, and so on. And then again, another summary about the wrappers that
+
+### 00:02:38.982 · Sriram Parthasarathy
+are present here, what integrations are active and whatnot.
+
+### 00:02:43.222 · Sriram Parthasarathy
+And what are the moving parts on Azure?
+
+### 00:02:48.298 · Sriram Parthasarathy
+And finally, the significant tables.
+
+### 00:02:52.458 · Sriram Parthasarathy
+that we use in this program. So that should all be available. Actually,
+
+### 00:02:57.531 · Sriram Parthasarathy
+as a bonus, you should also see the IQ Reseller main
+
+### 00:03:00.978 · Cliff Mauer
+Bye.
+
+### 00:03:01.265 · Sriram Parthasarathy
+app to some extent here. So click on inventory,
+
+### 00:03:04.647 · Sriram Parthasarathy
+you see the inventory module. So you will probably not be using much of
+
+### 00:03:09.720 · Sriram Parthasarathy
+this because we connect to the database.
+
+### 00:03:12.938 · Sriram Parthasarathy
+only through IQ API or through SQL Client calls.
+
+### 00:03:17.640 · Sriram Parthasarathy
+And I have also shown you a little summary of that IQ Connect DB post URL
+
+### 00:03:24.741 · Sriram Parthasarathy
+web service API that we use. So you have a web method called post
+
+### 00:03:31.075 · Sriram Parthasarathy
+query and you also have.
+
+### 00:03:33.498 · Sriram Parthasarathy
+one that says get value or get values depending on the situation.
+
+### 00:03:39.448 · Sriram Parthasarathy
+So get value gives you one exact value, the top left, if you will,
+
+### 00:03:45.488 · Sriram Parthasarathy
+of any query set that is returned for a specific field, specific table.
+
+### 00:03:52.618 · Sriram Parthasarathy
+given a specific filter. So that is also something that we have
+
+### 00:03:58.292 · Sriram Parthasarathy
+walked through and is available in the videos. And then we go to this one,
+
+### 00:04:04.941 · Sriram Parthasarathy
+the source code, the latest. This also includes the fix,
+
+### 00:04:09.994 · Sriram Parthasarathy
+the minor fix that we provided to DHD last week.
+
+### 00:04:14.818 · Sriram Parthasarathy
+to update their line items as they go. The reason that this update was needed
+
+### 00:04:22.886 · Sriram Parthasarathy
+was that we are depending on IQ reseller SP tables date field to tell us when an
+
+### 00:04:31.265 · Sriram Parthasarathy
+SP record was last updated.
+
+### 00:04:35.018 · Sriram Parthasarathy
+But it looks like when line items are just edited and not added or removed,
+
+### 00:04:41.150 · Sriram Parthasarathy
+this field is not working as expected. So they were missing line item updates on
+
+### 00:04:47.686 · Sriram Parthasarathy
+certain Szűcs. So I just went back and did a little hash
+
+### 00:04:52.286 · Sriram Parthasarathy
+to figure out the.
+
+### 00:04:55.818 · Sriram Parthasarathy
+in our differences in those fields over the past few days so that we could write
+
+### 00:05:04.810 · Sriram Parthasarathy
+those relevant changed records to HubSpot, meaning you already sent over an SP as a
+
+### 00:05:14.135 · Sriram Parthasarathy
+HubSpot deal.
+
+### 00:05:15.978 · Sriram Parthasarathy
+And there are some line item changes, but you haven't changed the status of the
+
+### 00:05:21.721 · Sriram Parthasarathy
+deal yet, so you are not triggering an update that
+
+### 00:05:25.383 · Sriram Parthasarathy
+normally gets fired when there is a change in status from open to void or
+
+### 00:05:30.695 · Sriram Parthasarathy
+open to closed, but in the meantime, somebody is updating the.
+
+### 00:05:35.618 · Sriram Parthasarathy
+Amount somebody's updating the rep, somebody's updating the line items,
+
+### 00:05:42.027 · Sriram Parthasarathy
+so this particular feed will take care of updating it every two hours to the
+
+### 00:05:48.881 · Sriram Parthasarathy
+HubSpot tenant, and it will also run one larger, you know,
+
+### 00:05:54.133 · Sriram Parthasarathy
+last.
+
+### 00:05:54.938 · Sriram Parthasarathy
+last 180 days, meaning every open record is updated
+
+### 00:05:58.540 · Sriram Parthasarathy
+every night. So once in 24 hours, update all open records,
+
+### 00:06:02.627 · Sriram Parthasarathy
+and once every hour, update just the changed records.
+
+### 00:06:06.368 · Sriram Parthasarathy
+So that's kind of the change record window where we have taken it to be the
+
+### 00:06:11.633 · Sriram Parthasarathy
+past seven days now.
+
+### 00:06:13.458 · Sriram Parthasarathy
+So that covers for long weekends and whatnot.
+
+### 00:06:17.658 · Sriram Parthasarathy
+Then you have these four folders that are specifically related to, you know,
+
+### 00:06:24.797 · Sriram Parthasarathy
+reference documents relating to channels, documents relating to HubSpot.
+
+### 00:06:31.565 · Sriram Parthasarathy
+These are the SQL scripts and web jobs that we saw already, and
+
+### 00:06:37.818 · Sriram Parthasarathy
+There was also one session for you from Sivajothi,
+
+### 00:06:41.982 · Sriram Parthasarathy
+and these are some sample files, just a simple reference,
+
+### 00:06:46.717 · Sriram Parthasarathy
+an XML reference for SPS Commerce, and for Symphony we have this build
+
+### 00:06:52.514 · Sriram Parthasarathy
+packet. This is the official, you know, file that we received.
+
+### 00:06:57.698 · Sriram Parthasarathy
+from Best Buy for the Symphony integration.
+
+### 00:07:01.510 · Sriram Parthasarathy
+So if you open this build packet priority list status, you would see, you know,
+
+### 00:07:08.441 · Sriram Parthasarathy
+what each feed does in which direction and how it is triggered, right? And
+
+### 00:07:17.498 · Sriram Parthasarathy
+Also, you have this little PPT here that shows
+
+### 00:07:22.081 · Sriram Parthasarathy
+you, you know, how these fulfillment flows flow.
+
+### 00:07:28.218 · Sriram Parthasarathy
+And we've also added this generic reference EDA reference in the in
+
+### 00:07:33.016 · Sriram Parthasarathy
+parenthesis to show the corresponding EDA forms that are associated with it.
+
+### 00:07:38.449 · Sriram Parthasarathy
+And this PPT we have already gone through and we've also checked the, you know,
+
+### 00:07:44.094 · Sriram Parthasarathy
+OSI specific questions that we asked at the time.
+
+### 00:07:47.622 · Sriram Parthasarathy
+So maybe I will just copy and paste this into.
+
+### 00:07:51.978 · Sriram Parthasarathy
+SPS Commerce as well, and just as a handy reference,
+
+### 00:07:56.218 · Sriram Parthasarathy
+because it wouldn't be intuitive for you to go and check SPS Commerce for Symphony
+
+### 00:08:02.858 · Sriram Parthasarathy
+or vice versa. So those are the ones. So this build packet will be a very, very.
+
+### 00:08:09.338 · Sriram Parthasarathy
+..
+
+### 00:08:09.978 · Sriram Parthasarathy
+detailed and very valuable reference for you to see what each field means and
+
+### 00:08:16.009 · Sriram Parthasarathy
+where have the changes happened and why we have the XML format the way we have it
+
+### 00:08:22.350 · Sriram Parthasarathy
+and all those things. And for any reference file,
+
+### 00:08:26.216 · Sriram Parthasarathy
+all you need to do is go here
+
+### 00:08:29.178 · Sriram Parthasarathy
+Through this files.com. I I think Chris is Cliff is already well
+
+### 00:08:33.795 · Sriram Parthasarathy
+versed with this, so we just need to go here.
+
+### 00:08:37.063 · Sriram Parthasarathy
+I know I I also created actually I have I have signed and signed in with the Cliffs
+
+### 00:08:43.029 · Sriram Parthasarathy
+account today. I just to show you a little bit once
+
+### 00:08:46.723 · Sriram Parthasarathy
+again. We'll see users and groups.
+
+### 00:08:49.818 · Sriram Parthasarathy
+Users, you can see that we have, you should all have received emails with
+
+### 00:08:56.347 · Sriram Parthasarathy
+this already. If not, please check your, you know, spam folder. So Chris, Cliff,
+
+### 00:09:03.495 · Sriram Parthasarathy
+and John all have, you know, these new user IDs.
+
+### 00:09:08.458 · Sriram Parthasarathy
+So you can always go and trigger a forgot password in case you didn't receive my
+
+### 00:09:13.734 · Sriram Parthasarathy
+password notification, but I could just quickly check it for you
+
+### 00:09:17.968 · Sriram Parthasarathy
+and you can change it a little later.
+
+### 00:09:26.098 · Sriram Parthasarathy
+Okay, so we didn't save it there, so let's see if Cliff is there. Yeah, so.
+
+### 00:09:34.778 · Sriram Parthasarathy
+Excuse me.
+
+### 00:09:39.418 · Sriram Parthasarathy
+Small.
+
+### 00:09:42.218 · Sriram Parthasarathy
+This is the password. Let me paste this into the chat window.
+
+### 00:09:50.938 · Sriram Parthasarathy
+You can change it after signing in. That's the common password for all three
+
+### 00:09:56.824 · Sriram Parthasarathy
+new accounts there. And I have also sent an email to files.
+
+### 00:10:01.410 · Sriram Parthasarathy
+com account manager introducing John to them so that he can take over as the
+
+### 00:10:07.295 · Sriram Parthasarathy
+single point of contact for the account and billing purposes after the 5th of
+
+### 00:10:13.257 · Sriram Parthasarathy
+this month.
+
+### 00:10:15.698 · Sriram Parthasarathy
+And that's pretty much it. See, there's a IQ Chan.
+
+### 00:10:20.738 · Sriram Parthasarathy
+PowerPoint, RP are all customer specific accounts,
+
+### 00:10:25.278 · Sriram Parthasarathy
+so don't touch them. So IQ Chan is for Channable.
+
+### 00:10:29.728 · Sriram Parthasarathy
+This is what the, you know, people at Channable do.
+
+### 00:10:34.356 · Sriram Parthasarathy
+The system administrator who integrates Channable with our XML feed.
+
+### 00:10:41.058 · Sriram Parthasarathy
+uses this user ID and the password that we gave them to connect to our channel
+
+### 00:10:47.113 · Sriram Parthasarathy
+XML file and work with it. And we also have a real tech.
+
+### 00:10:51.481 · Sriram Parthasarathy
+I don't think this is used anymore because there are only two customers
+
+### 00:10:56.999 · Sriram Parthasarathy
+using this files.com at this point, which is channel.
+
+### 00:11:01.698 · Sriram Parthasarathy
+and part point. So part point is connected to Scott Stall
+
+### 00:11:07.217 · Sriram Parthasarathy
+and he should be fine and I I need change the email address associated with IQ Chan
+
+### 00:11:15.210 · Sriram Parthasarathy
+as well. So if if any new tech needs any help with
+
+### 00:11:20.062 · Sriram Parthasarathy
+that.
+
+### 00:11:21.218 · Sriram Parthasarathy
+You will be able to help.
+
+### 00:11:24.898 · Sriram Parthasarathy
+And then...
+
+### 00:11:28.258 · Sriram Parthasarathy
+Excuse me.
+
+### 00:11:31.218 · Sriram Parthasarathy
+And then we also saw the publish settings thing. So when you open the,
+
+### 00:11:36.428 · Sriram Parthasarathy
+I'm not opening it here because it's sensitive information relating to Azure.
+
+### 00:11:42.153 · Sriram Parthasarathy
+So if we just open this in any text editor, notepad, notepad plus,
+
+### 00:11:47.069 · Sriram Parthasarathy
+you will see the FTP publish settings.
+
+### 00:11:50.218 · Sriram Parthasarathy
+So you just need to take the user ID from here and password from here to, you know,
+
+### 00:11:55.607 · Sriram Parthasarathy
+connect to those accounts. And for instance,
+
+### 00:11:58.494 · Sriram Parthasarathy
+if we go to site manager here.
+
+### 00:12:05.818 · Sriram Parthasarathy
+So, we have...
+
+### 00:12:07.978 · Sriram Parthasarathy
+this beta 007 IQ Connect is our PowerPoint integration.
+
+### 00:12:13.176 · Sriram Parthasarathy
+And I think it's also the OSA integration for SPS Commerce.
+
+### 00:12:18.746 · Sriram Parthasarathy
+And you see the user here and the password here.
+
+### 00:12:23.294 · Sriram Parthasarathy
+This is taken from the beta 007 IQ Connect.
+
+### 00:12:29.098 · Sriram Parthasarathy
+Excuse me, publish settings.
+
+### 00:12:35.458 · Sriram Parthasarathy
+It's the same way for the other two app services as well.
+
+### 00:12:50.978 · Sriram Parthasarathy
+Sorry, I noted myself as a bit of a coughing
+
+### 00:12:54.957 · Sriram Parthasarathy
+bout. So, okay, so that's that.
+
+### 00:12:59.338 · Sriram Parthasarathy
+What else do we have in the shared folders? We have publish,
+
+### 00:13:04.049 · Sriram Parthasarathy
+and finally we have support for support, as I have shown the other day.
+
+### 00:13:09.609 · Sriram Parthasarathy
+we we occasionally can get alerts call, you know, entitled like to connect alerts.
+
+### 00:13:17.698 · Sriram Parthasarathy
+That would tell you that a BLOB arrived in this Z error folder under IQ Connect
+
+### 00:13:25.467 · Sriram Parthasarathy
+OSI. So where is this? This is a BLOB container on our Azure
+
+### 00:13:31.391 · Sriram Parthasarathy
+storage account relating to OSI.
+
+### 00:13:36.818 · Sriram Parthasarathy
+This is the name of the XML file, so when that happens, what you would do.
+
+### 00:13:42.658 · Sriram Parthasarathy
+Oh.
+
+### 00:13:44.898 · Sriram Parthasarathy
+Yes, okay. Note the file name.
+
+### 00:13:48.338 · Sriram Parthasarathy
+Go to the Z error folder on the FTP site. Let me quickly open that as well.
+
+### 00:13:58.258 · Sriram Parthasarathy
+Excuse me.
+
+### 00:14:40.738 · Sriram Parthasarathy
+Support, excuse me.
+
+### 00:14:44.578 · Sriram Parthasarathy
+As you may have seen, you know, we have the Z error folder,
+
+### 00:14:48.839 · Sriram Parthasarathy
+so when you receive this notification.
+
+### 00:14:53.538 · Sriram Parthasarathy
+From. And from Azure. So you just need to go to the Z error
+
+### 00:14:58.932 · Sriram Parthasarathy
+folder and see if you can find that file. So. This is where it would be.
+
+### 00:15:05.494 · Sriram Parthasarathy
+Then you download it locally and execute it. So let me also.
+
+### 00:15:12.018 · Sriram Parthasarathy
+You know, make a screenshot of this.
+
+### 00:15:17.258 · Sriram Parthasarathy
+And more.
+
+### 00:15:22.258 · Sriram Parthasarathy
+And the file goes.
+
+### 00:15:31.018 · Sriram Parthasarathy
+Yeah.
+
+### 00:15:33.698 · Sriram Parthasarathy
+So it would have gone to the screenshots folder. Give me a second.
+
+### 00:15:52.418 · Sriram Parthasarathy
+There it is.
+
+### 00:15:54.178 · Sriram Parthasarathy
+So, we just come up with that.
+
+### 00:15:58.338 · Sriram Parthasarathy
+Paste it to our Support folder.
+
+### 00:16:01.698 · Sriram Parthasarathy
+Just colored.
+
+### 00:16:04.018 · Sriram Parthasarathy
+OSI error folder.
+
+### 00:16:14.658 · Sriram Parthasarathy
+So all you do is go to that error folder.
+
+### 00:16:19.498 · Sriram Parthasarathy
+Copy whatever file is there. Bring it over to your local machine.
+
+### 00:16:26.044 · Sriram Parthasarathy
+Change.
+
+### 00:16:27.778 · Sriram Parthasarathy
+your command prompt to SPS SO local because the only file that can be missed
+
+### 00:16:34.021 · Sriram Parthasarathy
+from SPS commerce is the order file. There are no other inbound files.
+
+### 00:16:41.698 · Sriram Parthasarathy
+And you know you open the source code and you know this is this is a local folder
+
+### 00:16:47.662 · Sriram Parthasarathy
+of mine. There's only it gets executed when you
+
+### 00:16:51.153 · Sriram Parthasarathy
+give the command prompt SO local. OK, so there is no danger of that getting
+
+### 00:16:56.680 · Sriram Parthasarathy
+executed. There is no risk of this hard coded.
+
+### 00:17:00.178 · Sriram Parthasarathy
+path being executed any other way. So you would have to use this particular
+
+### 00:17:06.477 · Sriram Parthasarathy
+command command line parameter and run it so you know it would add this local input
+
+### 00:17:13.439 · Sriram Parthasarathy
+directory and local output directory. Keys with these values.
+
+### 00:17:19.458 · Sriram Parthasarathy
+You know, to this. So what happens when you complete running
+
+### 00:17:24.224 · Sriram Parthasarathy
+this is that it takes the file that you downloaded and put in this that you
+
+### 00:17:30.161 · Sriram Parthasarathy
+downloaded from the error folder and put in this in folder and it gets executed
+
+### 00:17:36.411 · Sriram Parthasarathy
+and the order is posted to IQ reseller.
+
+### 00:17:39.738 · Sriram Parthasarathy
+as an SO, and it also posts a copy to the mirror
+
+### 00:17:44.211 · Sriram Parthasarathy
+folder here on FTP, orders poster. So this is where the order gets posted
+
+### 00:17:50.967 · Sriram Parthasarathy
+and if there is an acknowledgement file for this order,
+
+### 00:17:56.079 · Sriram Parthasarathy
+then that is also posted here.
+
+### 00:17:59.698 · Sriram Parthasarathy
+I would recommend that you log into this from FTP site at least once a week. Move,
+
+### 00:18:06.134 · Sriram Parthasarathy
+you know, copy files locally if need be, and then, you know,
+
+### 00:18:10.864 · Sriram Parthasarathy
+move whatever files you have downloaded to the archive folder. So in the future,
+
+### 00:18:17.145 · Sriram Parthasarathy
+if you ever need to
+
+### 00:18:18.738 · Sriram Parthasarathy
+open these orders, posted or responses posted folders.
+
+### 00:18:23.084 · Sriram Parthasarathy
+You know the your FTP client doesn't die trying to load thousands of files.
+
+### 00:18:29.090 · Sriram Parthasarathy
+So archive them into multiple folders from time to time. You know,
+
+### 00:18:34.384 · Sriram Parthasarathy
+split across multiple folders, I mean. So and.
+
+### 00:18:38.978 · Sriram Parthasarathy
+Same with the error as well. So once you have downloaded and processed
+
+### 00:18:44.865 · Sriram Parthasarathy
+the error file, you just come back here and put it in the
+
+### 00:18:49.673 · Sriram Parthasarathy
+archive. So as you may see here, we have so far processed about 42 files
+
+### 00:18:55.726 · Sriram Parthasarathy
+in a span of about
+
+### 00:18:57.258 · Sriram Parthasarathy
+Two years, and now, for the past four or five months,
+
+### 00:19:01.855 · Sriram Parthasarathy
+we have not received any error before, so our feeling is that it's either a
+
+### 00:19:08.325 · Sriram Parthasarathy
+temporary connection glitch on Azure Storage or it's a connection glitch with
+
+### 00:19:14.966 · Sriram Parthasarathy
+the IQ API itself.
+
+### 00:19:16.898 · Sriram Parthasarathy
+So, one of those is causing the execution
+
+### 00:19:20.368 · Sriram Parthasarathy
+failure somewhere, which causes the file to end up in this
+
+### 00:19:25.242 · Sriram Parthasarathy
+folder. So, once it ends up, you have a manual recourse to process it.
+
+### 00:19:31.108 · Sriram Parthasarathy
+It can remain a manual process, because...
+
+### 00:19:35.938 · Sriram Parthasarathy
+Previously, it averaged about 20 files a year. Now,
+
+### 00:19:40.411 · Sriram Parthasarathy
+if you go with the past six months data, it's hardly three or four files a year.
+
+### 00:19:47.378 · Sriram Parthasarathy
+So if you find time to add a retry logic to fix it, great.
+
+### 00:19:52.453 · Sriram Parthasarathy
+We have provided for a Z retry folder, so you can put
+
+### 00:19:57.378 · Sriram Parthasarathy
+files in this folder and other files in this folder and make the program read
+
+### 00:20:03.005 · Sriram Parthasarathy
+from these folders instead of from the SPS endpoint and you know make it work or
+
+### 00:20:08.848 · Sriram Parthasarathy
+you can just leave it as is because the volume is absolutely nothing.
+
+### 00:20:16.498 · Sriram Parthasarathy
+So, and then we also have a PartPoint local
+
+### 00:20:20.198 · Sriram Parthasarathy
+prod, so any file that needs to be resent in
+
+### 00:20:23.982 · Sriram Parthasarathy
+there, sometimes occasionally they hand code
+
+### 00:20:27.765 · Sriram Parthasarathy
+files. This is not something that we do. PartPoint does it themselves,
+
+### 00:20:33.736 · Sriram Parthasarathy
+and you know sometimes they...
+
+### 00:20:36.738 · Sriram Parthasarathy
+they have to resend a shipping file or a return cancelled response file for
+
+### 00:20:41.571 · Sriram Parthasarathy
+whatever reason they manually overrode something,
+
+### 00:20:44.751 · Sriram Parthasarathy
+but that is outside the integration and the integration cannot send it.
+
+### 00:20:49.330 · Sriram Parthasarathy
+So they hand code it, make some edits and put it in the interim
+
+### 00:20:53.400 · Sriram Parthasarathy
+folder and it goes over. And you can also use the same
+
+### 00:20:57.938 · Sriram Parthasarathy
+Yes, so local logic here, but you can use the command prompt to say
+
+### 00:21:03.411 · Sriram Parthasarathy
+it's from the test folder or something like that,
+
+### 00:21:07.435 · Sriram Parthasarathy
+so that you can post that file here and it would it would read and put it there.
+
+### 00:21:13.955 · Sriram Parthasarathy
+And the we have also seen how we publish files.
+
+### 00:21:17.938 · Sriram Parthasarathy
+We create a last known good folder to make a copy of what exists currently,
+
+### 00:21:23.782 · Sriram Parthasarathy
+and then we post it into the relevant common folder.
+
+### 00:21:29.498 · Sriram Parthasarathy
+under the Ww. Okay. So this is the site. This is the main web job, you know,
+
+### 00:21:34.718 · Sriram Parthasarathy
+that contains the binaries and the actual web jobs, which are nothing but windows.
+
+### 00:21:40.345 · Sriram Parthasarathy
+Cmd files are under the triggered folder which we have gone through in depth in
+
+### 00:21:45.769 · Sriram Parthasarathy
+multiple sessions. So I'll stop.
+
+### 00:21:48.018 · Sriram Parthasarathy
+Add that, and anything else here?
+
+### 00:21:53.618 · Sriram Parthasarathy
+This we have seen, publish, publish.
+
+### 00:21:57.618 · Sriram Parthasarathy
+This we have seen. Excuse me. And one last last refresher is, you know,
+
+### 00:22:05.386 · Sriram Parthasarathy
+before you run something locally, you know,
+
+### 00:22:10.133 · Sriram Parthasarathy
+and try to reach the customer's tenant or SPS or whatever.
+
+### 00:22:17.378 · Sriram Parthasarathy
+We need to have access to SQL Server working on your local machine,
+
+### 00:22:22.499 · Sriram Parthasarathy
+so remember to add your client IPv4 address to this place. OK,
+
+### 00:22:27.243 · Sriram Parthasarathy
+security networking under a USA IQR SQL Server.
+
+### 00:22:32.738 · Sriram Parthasarathy
+so that needs to be done and
+
+### 00:22:38.018 · Sriram Parthasarathy
+That's pretty much it, maybe one.
+
+### 00:22:42.458 · Sriram Parthasarathy
+My interesting item that I can show you, which we don't have to handle,
+
+### 00:22:47.479 · Sriram Parthasarathy
+but you know, good to know that the customer handles it,
+
+### 00:22:51.454 · Sriram Parthasarathy
+which is this one. Just for part point, we have provided an IQ Connect viewer,
+
+### 00:22:56.963 · Sriram Parthasarathy
+which part point can connect to by going to this folder.
+
+### 00:23:01.258 · Sriram Parthasarathy
+Okay, so go here, IQ Connect viewer. The reason we have provided them with
+
+### 00:23:06.725 · Sriram Parthasarathy
+this is again, they have a lot of manual overrides. They,
+
+### 00:23:10.954 · Sriram Parthasarathy
+you know, the program takes the ASN and sends it
+
+### 00:23:14.526 · Sriram Parthasarathy
+over and then they come and manually cancel the shipment and do a drop
+
+### 00:23:19.701 · Sriram Parthasarathy
+shipment and update the
+
+### 00:23:22.738 · Sriram Parthasarathy
+you know, shipping information manually, but by the time the information is,
+
+### 00:23:28.159 · Sriram Parthasarathy
+you know, the the program is already showing the
+
+### 00:23:31.609 · Sriram Parthasarathy
+status as is and sent for that particular package. So it it wouldn't.
+
+### 00:23:38.258 · Sriram Parthasarathy
+register to the integration that there has been a change in the so what they do
+
+### 00:23:44.403 · Sriram Parthasarathy
+is to whenever they know that they there is a change in the shipping information
+
+### 00:23:50.624 · Sriram Parthasarathy
+they go to this tab they multi-select whatever SOs they need to multi-select
+
+### 00:23:56.978 · Sriram Parthasarathy
+and click here on add to resend batch. What it does is it it and there is a web
+
+### 00:24:03.469 · Sriram Parthasarathy
+job that runs every 15 minutes to resend batches from the from this particular
+
+### 00:24:09.878 · Sriram Parthasarathy
+table. So let me quickly show you that table as
+
+### 00:24:13.772 · Sriram Parthasarathy
+well.
+
+### 00:24:22.578 · Sriram Parthasarathy
+Storm and building the part point.
+
+### 00:24:27.698 · Sriram Parthasarathy
+Tables.
+
+### 00:24:31.298 · Sriram Parthasarathy
+You guys still there?
+
+### 00:24:37.218 · Cliff Mauer
+Oh yeah, I'm still here.
+
+### 00:24:37.538 · Christopher Santangelo
+Yes. Yeah, sorry.
+
+### 00:24:38.858 · Sriram Parthasarathy
+Sure. Thank you. Thank you.
+
+### 00:24:43.618 · Sriram Parthasarathy
+So, um, IQ Connect batch.
+
+### 00:24:50.898 · Sriram Parthasarathy
+For how?
+
+### 00:24:53.618 · Sriram Parthasarathy
+Match is in recent.
+
+### 00:24:56.738 · Sriram Parthasarathy
+The.
+
+### 00:24:58.658 · Sriram Parthasarathy
+So we just open that. There will be nothing here because every
+
+### 00:25:02.567 · Sriram Parthasarathy
+time it runs, it clears this batch.
+
+### 00:25:06.658 · Sriram Parthasarathy
+So it is nothing but a simple listing of SOIDs for which ASMs need to be recent.
+
+### 00:25:12.450 · Sriram Parthasarathy
+So when you use this batch recent mechanism,
+
+### 00:25:15.667 · Sriram Parthasarathy
+the program doesn't care anymore whether there are multiple shipments and it has
+
+### 00:25:21.459 · Sriram Parthasarathy
+already sent a few shipments or not. So normally when the incremental shipment
+
+### 00:25:27.107 · Sriram Parthasarathy
+runs, if there are four shipments,
+
+### 00:25:29.858 · Sriram Parthasarathy
+for this order, and you have already sent information
+
+### 00:25:33.673 · Sriram Parthasarathy
+about 2, then it doesn't touch those 2 because you
+
+### 00:25:37.275 · Sriram Parthasarathy
+already have the posted shipments table that contains the shipment Ids themselves.
+
+### 00:25:45.698 · Sriram Parthasarathy
+So, you see, we have the shipment ID for a given SO ID
+
+### 00:25:49.769 · Sriram Parthasarathy
+for a given Symphony PO ID, and the integration is best by. So,
+
+### 00:25:54.506 · Sriram Parthasarathy
+you know, this is how you know it works. You know,
+
+### 00:25:58.281 · Sriram Parthasarathy
+this is how it differentiates between ASMs that have already been sent and not
+
+### 00:26:04.128 · Sriram Parthasarathy
+sent.
+
+### 00:26:04.978 · Sriram Parthasarathy
+So until every ASN is sent, it would always show partial ASN set.
+
+### 00:26:09.442 · Sriram Parthasarathy
+The issue comes when the shipment ID, if there is a new shipment ID for a
+
+### 00:26:14.446 · Sriram Parthasarathy
+package and for an order and the order is not already marked as fully shipped,
+
+### 00:26:19.789 · Sriram Parthasarathy
+then the program would automatically pick up on the new shipment ID and send it
+
+### 00:26:25.200 · Sriram Parthasarathy
+over.
+
+### 00:26:25.938 · Sriram Parthasarathy
+But in two cases, you know, it cannot detect that a shipment change
+
+### 00:26:31.331 · Sriram Parthasarathy
+has happened. In one case is if you are canceling a
+
+### 00:26:35.454 · Sriram Parthasarathy
+shipment and or editing a shipment after the SO is showing us all shipments sent.
+
+### 00:26:35.938 · Cliff Mauer
+The.
+
+### 00:26:41.957 · Sriram Parthasarathy
+And the second case is when
+
+### 00:26:44.578 · Sriram Parthasarathy
+You have, you know, you have a shipment ID for which ASM has
+
+### 00:26:48.665 · Sriram Parthasarathy
+already been sent, but the customer has gone back and made
+
+### 00:26:52.618 · Sriram Parthasarathy
+some manual edits to it. You know, like, you know, it has gone with a different,
+
+### 00:26:58.046 · Sriram Parthasarathy
+previously it was sent by FedEx. Now the drop shipper is sending it by UPS.
+
+### 00:27:03.458 · Sriram Parthasarathy
+and you are going and changing it in the same shipment log ID,
+
+### 00:27:07.598 · Sriram Parthasarathy
+then there is no way the program can detect that.
+
+### 00:27:10.884 · Sriram Parthasarathy
+So we do not maintain a full hash of all 100 plus records,
+
+### 00:27:12.538 · Cliff Mauer
+The.
+
+### 00:27:14.761 · Sriram Parthasarathy
+100 plus fields relating to an SO. So that would not be practical.
+
+### 00:27:19.164 · Sriram Parthasarathy
+So what they do is they know the customer knows which shipments they are altering.
+
+### 00:27:25.058 · Sriram Parthasarathy
+So, they would go here, multi-select, add to resend,
+
+### 00:27:28.371 · Sriram Parthasarathy
+then it would immediately show up, you know, in this table,
+
+### 00:27:32.122 · Sriram Parthasarathy
+and every 15 minutes there is a batch job running, a web job running,
+
+### 00:27:36.498 · Sriram Parthasarathy
+that will take care of picking up from this,
+
+### 00:27:39.311 · Sriram Parthasarathy
+picking up all the SOIDs from this table, and regardless of whether we have already
+
+### 00:27:44.563 · Sriram Parthasarathy
+sent them ASMs or not.
+
+### 00:27:47.298 · Sriram Parthasarathy
+you know, they will resend and there are 10
+
+### 00:27:50.238 · Sriram Parthasarathy
+shipments, 9 have already been sent. It doesn't matter if it shows up here,
+
+### 00:27:55.315 · Sriram Parthasarathy
+it's going to send all 10 ASMs again. And Best Buy doesn't complain if you are
+
+### 00:28:00.593 · Sriram Parthasarathy
+just sending updates to an existing ASM record, so that works in our case as well.
+
+### 00:28:06.578 · Sriram Parthasarathy
+So, and if they add, you know, a few records by mistake,
+
+### 00:28:10.950 · Sriram Parthasarathy
+they can always clear recent batch, but I don't think that ever,
+
+### 00:28:15.935 · Sriram Parthasarathy
+as you may have guessed, clear recent does nothing but clear this
+
+### 00:28:20.996 · Sriram Parthasarathy
+table completely. That's all. And you have a default 30 days due.
+
+### 00:28:26.578 · Sriram Parthasarathy
+You have a feed history which shows, you know,
+
+### 00:28:30.290 · Sriram Parthasarathy
+which feed ran at which time and whatnot. So you can see you have a feed UID and
+
+### 00:28:36.686 · Sriram Parthasarathy
+all that. I don't know if anybody is using this for
+
+### 00:28:40.793 · Sriram Parthasarathy
+anything other than to check if a specific feed was.
+
+### 00:28:45.138 · Sriram Parthasarathy
+sent on a specific day, because it doesn't make a lot of sense to
+
+### 00:28:49.224 · Sriram Parthasarathy
+the customer himself other than checking. Say for example, items queue.
+
+### 00:28:53.682 · Sriram Parthasarathy
+When was the last time I sent items queue? They can come here and probably,
+
+### 00:28:58.388 · Sriram Parthasarathy
+I don't know if this will work, but let's try.
+
+### 00:29:03.058 · Sriram Parthasarathy
+Contains, yeah, so you can see that the last items queue
+
+### 00:29:07.717 · Sriram Parthasarathy
+file was sent earlier this morning.
+
+### 00:29:12.258 · Sriram Parthasarathy
+So this is how useful that way to check if a specific field has gone through or
+
+### 00:29:17.828 · Sriram Parthasarathy
+not, and it doesn't help at the record level.
+
+### 00:29:21.030 · Sriram Parthasarathy
+It only helps at the feed level. And then we have BBY items which I showed
+
+### 00:29:26.251 · Sriram Parthasarathy
+you the other day. There is user defined 5 on a master item.
+
+### 00:29:30.938 · Sriram Parthasarathy
+If you set it to BBY part, then it gets classified as a BBY part,
+
+### 00:29:36.229 · Sriram Parthasarathy
+and all of those items will show here. So there are currently about 30,
+
+### 00:29:42.001 · Sriram Parthasarathy
+000 best my parts in master items. Similarly,
+
+### 00:29:45.689 · Sriram Parthasarathy
+you have returns history for the past three months.
+
+### 00:29:50.578 · Sriram Parthasarathy
+Why 90 days for this? It was just requested by the customer.
+
+### 00:29:54.222 · Sriram Parthasarathy
+So it made it that way. And everything else is, you know,
+
+### 00:29:57.686 · Sriram Parthasarathy
+quite a big run because all is since inception.
+
+### 00:29:59.538 · Cliff Mauer
+The.
+
+### 00:30:00.553 · Sriram Parthasarathy
+So it's going to bring you five to six years worth of credit cards more than I
+
+### 00:30:05.018 · Cliff Mauer
+But...
+
+### 00:30:05.272 · Sriram Parthasarathy
+can. I don't know what the special is. Let's see.
+
+### 00:30:11.858 · Sriram Parthasarathy
+Yeah, special attributes, okay. So this was probably requested by the
+
+### 00:30:17.568 · Sriram Parthasarathy
+customer, so it's just for their visibility.
+
+### 00:30:21.238 · Sriram Parthasarathy
+Like I said, this is not something that you would use
+
+### 00:30:25.643 · Sriram Parthasarathy
+in your support requests, and it's quite rare that you will have
+
+### 00:30:30.945 · Sriram Parthasarathy
+any support requests.
+
+### 00:30:33.018 · Sriram Parthasarathy
+We had one very recent support request regarding promise date not getting sent.
+
+### 00:30:39.754 · Sriram Parthasarathy
+As I said before, the default promise date for Symphony
+
+### 00:30:44.469 · Sriram Parthasarathy
+PowerPoint is the order post day plus three days.
+
+### 00:30:48.679 · Sriram Parthasarathy
+So if we received an order today,
+
+### 00:30:52.658 · Sriram Parthasarathy
+and you know, and we posted it to IQR critic.
+
+### 00:30:56.479 · Sriram Parthasarathy
+So the date, the promised date that we send
+
+### 00:31:00.134 · Sriram Parthasarathy
+immediately back as an acknowledgement file is three days from now.
+
+### 00:31:05.782 · Sriram Parthasarathy
+So that's what it is. And they can go and change, you know,
+
+### 00:31:10.766 · Sriram Parthasarathy
+that
+
+### 00:31:11.178 · Sriram Parthasarathy
+Three days to a...
+
+### 00:31:14.098 · Sriram Parthasarathy
+Specific.
+
+### 00:31:17.138 · Sriram Parthasarathy
+Date here, let's quickly check just one of them.
+
+### 00:31:26.258 · Sriram Parthasarathy
+So for example, this has 680 as the date. I don't know if it has still been picked
+
+### 00:31:32.135 · Sriram Parthasarathy
+up, but we will check this SO in our IQ
+
+### 00:31:34.968 · Sriram Parthasarathy
+Connect SO table quickly.
+
+### 00:31:44.658 · Sriram Parthasarathy
+but we can even say that this so Id is this.
+
+### 00:31:52.578 · Sriram Parthasarathy
+Here it is.
+
+### 00:31:56.018 · Sriram Parthasarathy
+And we have the ETA as two zero, two, six, six, eighteen,
+
+### 00:32:01.482 · Sriram Parthasarathy
+and that's exactly what is here. So what it does is for any record that
+
+### 00:32:08.266 · Sriram Parthasarathy
+has a promise date that is not the same as here in the ETA record.
+
+### 00:32:15.018 · Sriram Parthasarathy
+it would send the promised date again as an acknowledgment update.
+
+### 00:32:20.578 · Sriram Parthasarathy
+To the you know our order update. To the you know customer to to the
+
+### 00:32:26.325 · Sriram Parthasarathy
+Symphony system. So what other things go in the order
+
+### 00:32:30.823 · Sriram Parthasarathy
+update? Again, we have already dealt with this,
+
+### 00:32:34.821 · Sriram Parthasarathy
+but just to recap, we have a vendor side cancellation and
+
+### 00:32:39.652 · Sriram Parthasarathy
+customer side.
+
+### 00:32:41.858 · Sriram Parthasarathy
+return related information, promise date and the vendor side order
+
+### 00:32:47.872 · Sriram Parthasarathy
+cancellation update. So those are the things.
+
+### 00:32:52.002 · Sriram Parthasarathy
+Those are the four things that could go into the order acknowledgement file when
+
+### 00:32:59.273 · Sriram Parthasarathy
+there is an update.
+
+### 00:33:01.258 · Sriram Parthasarathy
+to the order itself before it has shipped.
+
+### 00:33:04.018 · Sriram Parthasarathy
+So, that's that.
+
+### 00:33:07.578 · Sriram Parthasarathy
+Anything else that I miss? Nope. I think we have covered it all and we are
+
+### 00:33:13.769 · Sriram Parthasarathy
+at the very end of our KD sessions.
+
+### 00:33:20.738 · Christopher Santangelo
+Awesome!
+
+### 00:33:23.258 · Cliff Mauer
+Thank, thank you, Sriram.
+
+### 00:33:32.378 · Christopher Santangelo
+And.

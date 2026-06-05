@@ -1,0 +1,130 @@
+---
+title: "System Map"
+description: "A compact architecture map of IQ Connect, IqSync, Azure WebJobs, Functions, partner integrations, and support services."
+---
+
+
+# System Map
+
+IQConnect is organized around a hub-and-spoke model. The `IqSync` engine is the hub, and each partner/customer integration acts as a spoke that translates IQ Reseller data into external protocols and formats.
+
+## Core flow
+
+```mermaid
+flowchart LR
+  IQ[IQ Reseller API] --> Sync[IqSync WebJob]
+  Sync --> Wrappers[Integration wrappers]
+  Wrappers --> Partner[SFTP / REST / Marketplace APIs]
+  Webhooks[External webhooks] --> Functions[Azure Functions]
+  Functions --> IQ
+  Sync --> Sql[(Azure SQL / IQConnect tables)]
+```
+
+## Key concepts
+
+- `IqSync` is the command-line orchestration engine deployed as Azure WebJobs.
+- The CheatSheet resolves tenant, IQ API, Azure, and integration settings before work begins.
+- Direction is encoded in command prefixes: `from-*` pulls partner data into IQ; `to-*` sends IQ data outward.
+- Azure Functions receive webhook-style inbound events, especially for quote/order flows.
+- Mirror folders and support assets preserve inbound/outbound payload evidence for troubleshooting.
+
+## Architecture reference
+
+IQConnect — Architecture Overview Sync Engine Integrations Azure Database 
+
+## IQConnect Architecture Overview 
+
+IQConnect is a sophisticated, zero-touch workflow automation platform that synchronizes the IQ Reseller ERP with external trading partners, CRMs, and marketplaces. It runs entirely within Azure with minimal compute footprint, confining data transfers to within Azure components and minimizing outbound traffic. 
+14 
+VS Projects 
+
+309 
+C# Files 
+
+11 
+IQConnect Tables 
+
+5 
+Active Integrations 
+
+### System Architecture 
+
+IQConnect is organized around a hub-and-spoke pattern . The hub is the IqSync console application (deployed as Azure WebJobs) which orchestrates all data flows. Each spoke is an integration-specific wrapper class that handles the protocol and format translation for a specific trading partner. Supporting services handle SFTP bridging, webhook reception, monitoring, and database operations. 
+IQ Reseller API 
+
+IqSync Engine 
+
+Integration Wrappers 
+
+SFTP / REST APIs 
+
+External Webhooks 
+
+Azure Functions 
+
+IQ Reseller API 
+
+### Solution Projects 
+
+The IqConnectSln.sln solution contains 14 projects spanning .NET Framework 4.7.2, .NET Core, and .NET Standard: 
+
+#### Core Engine 
+IqSync CheatSheet IqReader IQ Connect Database Tables 
+
+#### Integration Wrappers (within IqSync) 
+Best Buy Symphony SPS Commerce HubSpot Channable SellerCloud eBay Shell Staples Shell 
+
+#### Azure Functions 
+IqConnectWebhooks IqConnectWebhooksAsync SymphonyFunctionApp 
+
+#### Support Services 
+VssLastMile IqFeedApi VssHelpers VssHelpers.StdLib IQConnectWeb IQConnectWeb3 IqConnectCore 
+
+### Active Customer Integrations 
+
+#### PARTpoint → Best Buy Symphony Active 
+
+Full workflow integration via SFTP. Handles item catalog, BOM, substitutions, inventory availability, pricing, vendor orders, shipments (ASN), invoices, returns, and cancellations. XML-based, bidirectional. 6,305 lines of wrapper code. 
+
+#### OSI Global → SPS Commerce Active 
+
+EDI integration via SPS Commerce SFTP. Mirrors the Symphony feed structure with SPS-specific formatting. Supports orders, ASN, invoices, acknowledgements. Added Nov 2024. 3,861 lines. 
+
+#### DHD, OSI Global + others → HubSpot Active 
+
+CRM sync: pushes companies, contacts, and sales pipeline (deals) from IQ Reseller to HubSpot. Also receives HubSpot quotes via webhook and auto-creates IQ sales orders. Multi-tenant. 2,731 lines. 
+
+#### Renewtech → Channable Active 
+
+Product catalog feed to Channable's marketplace aggregation platform. Pushes full product catalog (SKU, brand, condition, price tiers, categories, stock) for distribution to downstream marketplaces. 801 lines. 
+
+### Data Flow Directions 
+
+The system uses a bidirectional convention in its command-line arguments. The prefix indicates the direction relative to the external system: 
+
+ | Command Prefix | Direction | Example 
+ | from-bestbuy | External → IQ Reseller (inbound orders, returns, cancels) | Best Buy sends a PO to IQ Reseller 
+ | to-bestbuy | IQ Reseller → External (catalog, ASN, invoices) | IQ Reseller sends shipment confirmation to Best Buy 
+ | to-hubspot | IQ Reseller → HubSpot (CRM sync of deals, companies, contacts) | New sales pipeline record pushed to HubSpot 
+ | to-channable | IQ Reseller → Channable (product catalog feed) | Full catalog push for marketplace distribution 
+ | from-sps / to-sps | Bidirectional with SPS Commerce | Inbound POs, outbound ACK, ASN, Invoices 
+
+### Key Design Principles 
+
+#### Zero User Interaction 
+
+Every integration runs fully unattended. No manual triggers, no approval screens, no user intervention on either the IQ Reseller side or the external system. Scheduled Azure WebJobs and webhook-triggered Functions handle all orchestration. 
+
+#### Minimal Compute Footprint 
+
+IqSync is a lightweight console app. It runs as an Azure WebJob on shared App Service plans, not dedicated VMs. Data transfer stays within Azure components wherever possible — IQ API to Azure SQL via VssLastMile, with only final-mile SFTP transfers going external. 
+
+#### Multi-Tenant by API Key 
+
+Each customer's IQ Reseller instance is identified by a unique API token stored in per-tenant .apitoken files. The CheatSheet resolves tenant context (connection string, database name) at runtime via the IQ Reseller Private API. 
+
+#### Incremental by Default 
+
+All feeds support both full-reset and incremental (delta) modes. Delta mode is the default — only records flagged as unread=1 or not yet synced are processed. Full resets are triggered by an explicit reset command-line argument. 
+
+IQR Dev Reference v5 — ISV Zen / IQ Reseller — Confidential

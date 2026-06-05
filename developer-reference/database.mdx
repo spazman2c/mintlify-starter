@@ -1,0 +1,36 @@
+---
+title: "Database"
+description: "Migrated IQConnect developer reference page for Database."
+---
+
+# Database
+
+IQ Connect Database Tables Overview Sync Engine Integrations Azure Database 
+Back to Overview 
+## IQ Connect Database Tables 
+
+Tables specific to the IQConnect integration platform. These tables track sync state, CRM mappings, and marketplace staging data within the IQ Reseller Azure SQL database. 
+0 
+Stored Procedures 
+
+11 
+Tables 
+
+### IQConnect-Specific Tables 
+
+Tables prefixed with iqconnect_ are specific to the integration platform, plus the integration_settings configuration table: 
+
+ | Table | Purpose 
+ | iqconnect_feedhistory | Full feed content and transmission log. Purged periodically (catalog: 3 days, orders: 42 days). 
+ | iqconnect_lastsync | Last sync timestamp, record counts, and initial-load flag per feed type. 
+ | iqconnect_sodetail | SO detail mapping between IQ line numbers and external (marketplace) line numbers. 
+ | iqconnect_crm_company | CRM company sync tracking (IQ CV ↔ HubSpot company ID). 
+ | iqconnect_crm_contact | CRM contact sync tracking. 
+ | iqconnect_crm_sp | CRM sales pipeline sync tracking (IQ SP ↔ HubSpot deal ID + status). 
+ | iqconnect_crm_duplicate_contacts | Deduplication exclusion list for contact sync. 
+ | iqconnect_inventory | Inventory availability staging (unread=1 flag for incremental sync). 
+ | iqconnect_item2 | Pricing staging table. 
+ | iqconnect_sc_* | SellerCloud integration staging tables (inventory, items, PO line items). 
+ | integration_settings | Per-tenant integration configuration stored as XML/JSON (used by CRM integrations). 
+
+IQR Dev Reference v5 — ISV Zen / IQ Reseller — Confidential

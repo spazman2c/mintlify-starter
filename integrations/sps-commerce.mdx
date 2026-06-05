@@ -1,0 +1,92 @@
+---
+title: "SPS Commerce"
+description: "OSI Global EDI workflow through SPS Commerce, including inbound orders and outbound shipment/invoice messages."
+---
+
+
+# SPS Commerce
+
+OSI Global EDI workflow through SPS Commerce, including inbound orders and outbound shipment/invoice messages.
+
+## Operational summary
+
+SPS Commerce — IQConnect Architecture Overview Sync Engine Integrations Azure Database 
+Back to Integrations 
+## SPS Commerce Integration 
+
+EDI integration via SPS Commerce, used by OSI Global . Added November 2024. Structurally mirrors the Symphony integration pattern (SFTP-based XML) but with SPS-specific formatting and document types. Supports the full order-to-invoice lifecycle. 
+5,394 
+Lines (3 files) 
+
+Nov 2024 
+Added 
+
+### Files 
+
+ | File | Lines | Purpose 
+ | SpsCommerce.cs | 3,861 | Main integration wrapper — feed preparation, XML generation, SFTP transfer 
+ | SpsCommerceDS.cs | 1,171 | Data structures / models for SPS document types 
+ | SpsFormatConverter.cs | 362 | Format conversion utilities (date, address, UOM) 
+
+### Supported Feeds 
+
+Same feed types as Symphony but routed via from-sps / to-sps integration names. Uses identical IqReader constants. 
+
+### Recent Change Log 
+
+From the source header comments: 
+
+ | CR | Date | Description 
+ | CR 125 | 2025-04-20 | Enforcing address field length limits (per Emily's "errored invoices" email) 
+ | CR 126 | 2025-04-20 | PO Line Number vs IQ SO Line Number mismatch fix (Windstream issue) 
+ | CR 126A | 2025-04-20 | Extending CR 126 line number fix to ASN feeds 
+ | CR 129 | 2025-05-02 | Add ItemScheduleDate to ACK file 
+
+### Local Development Support 
+
+When feedType == k_solocal , the wrapper reads from local file system directories instead of SFTP — useful for development and debugging SPS document formats without connecting to the live SFTP server. 
+
+IQConnect Architecture Reference — ISV Zen / IQ Reseller — Confidential IQR Dev Reference v5 — ISV Zen / IQ Reseller — Confidential
+
+## Command and note hits
+
+```text
+OSI Global
+from-sps so osi production
+to-sps shipment osi production delta
+to-sps invoice osi production delta
+from-sps solocal osi production delta
+to-sps resendasn osi production delta
+to-sps resendinvoice osi production delta
+to-sps resendsoupdate osi production delta
+to-hubspot sp osiglobal production delta
+to-hubspot spupdate osiglobal production delta
+to-hubspot sogm osiglobal production delta
+	Send PO-ACK + save copy in mirror
+	Get "Uninvoiced" SO ID list -> IqReader -> Format -> Send + save copy
+		- Invoice not sent
+	get SPs -> Enrich + Format -> Send to HubSpot via API (new record)
+	get updated SPs -> Enrich + Format -> Send to HubSpot via API (update existing record)
+SELECT A.stid, (SUM(A.[unitprice] * A.[qty]) - SUM(B.[unitcost] * A.[qty])) as GrossMargin FROM [dbo].[stdetail] A, inventoryhis B WHERE A.[status] IN (@StatusSet) AND a.selectedinventoryid = B.inventoryid AND a.stid in (select stid FROM st WHERE sqid IN (SELECT iqspid FROM [iqconnect_crm_sp]) AND stid NOT IN (SELECT iqsoid FROM iqconnect_syncflags WHERE [grossmargin_done]=1)) GROUP BY a.stid ORDER BY a.stid
+OSI HubSpot
+SELECT A.stid, (SUM(A.[unitprice] * A.[qty]) - SUM(B.[unitcost] * A.[qty])) as GrossMargin FROM [dbo].[stdetail] A, inventoryhis B WHERE A.[status] IN (@StatusSet) AND a.selectedinventoryid = B.inventoryid AND a.stid in (select stid FROM st WHERE sqid IN (SELECT iqspid FROM [iqconnect_crm_sp]) AND stid NOT IN (SELECT iqsoid FROM iqconnect_syncflags WHERE [grossmargin_done]=1)) GROUP BY a.stid ORDER BY a.stid
+to-bestbuy resendasn ec87ce03-5eaf-42ae-b9bf-9ad88e2a2cbf production delta
+[SPSLN]1[ENDLN][SPSQTY]1[ENDQTY][SPSPO]3888470OD00914[ENDPO][SPSDATE]2026-05-07[ENDDATE][SPSS]DS~88[ENDS][SPSITEM]2800070000SI[ENDITEM]
+```
+
+## Source resources
+
+| Resource | Type | Size |
+| --- | --- | --- |
+| `3-SPS Commerce/IQ connect Fulfilment Integrations.pptx` | Reference Document | 170.9 KB |
+| `3-SPS Commerce/Samples/OSI/SH_3884675OD00912_20260416113354.xml` | Data or Config | 4.5 KB |
+
+## Extracted source excerpts
+
+### Iq Connect Fulfilment Integrations
+
+Slide 1: IQ connect Fulfilment Integrations Presented: 2024-07-19 Slide 2: Generic Fulfilment Flows Catalog (EDI 832) Inventory (EDI 846) PO/ IQSO (EDI 850) PO ACK (EDI 855) PO Cancel (EDI 865) PO Cancel (EDI 860) Cancel ACK (EDI 865) Slide 3: Generic Fulfilment Flows Page 2 ASN (EDI 856) Invoice (EDI 810) RMA Init (EDI 180) RMA Resp (EDI 997) Forecast (EDI 830) In rare cases… Slide 4: Functional Workflow Different data feeds run in different time intervals Slide 5: OSI-Specific Questions Scope: All, subset, or more? Is it one of your customers who is using SPS Commerce with you, or are you using it for multiple customers? Are we going to funnel all orders from SPS through a single CV Code in IQ, or is there going to be a 121 correlation between trading partners and IQ CV records? Do we need to manage trading partners through CV record creation in IQ... or the other way around? Or no need? Is drop-shipping supported? How is it managed in IQ? Are you managing shipping label generation via IQ reseller or SPS? Custom fields? EDI header fields? Pack levels: single, multiple, variety? Connection medium: AS2, SFTP, VAN, API? Data cleanup: EDI and XML reserved characters in item names,...
+
+### Sh 3884675Od00912 20260416113354
+
+&lt;Shipment&gt; &lt;Header&gt; &lt;ShipmentHeader&gt; &lt;TradingPartnerId&gt;13GALLOSIHARDWA&lt;/TradingPartnerId&gt; &lt;ShipmentIdentification&gt;30611&lt;/ShipmentIdentification&gt; &lt;ShipDate&gt;2026-04-16&lt;/ShipDate&gt; &lt;TsetPurposeCode&gt;00&lt;/TsetPurposeCode&gt; &lt;ShipNoticeDate&gt;2026-04-16&lt;/ShipNoticeDate&gt; &lt;ShipNoticeTime&gt;11:33:54&lt;/ShipNoticeTime&gt; &lt;ASNStructureCode&gt;0001&lt;/ASNStructureCode&gt; &lt;Vendor&gt;18488221&lt;/Vendor&gt; &lt;/ShipmentHeader&gt; &lt;Address&gt; &lt;AddressTypeCode&gt;SF&lt;/AddressTypeCode&gt; &lt;AddressName&gt;OSI Global&lt;/AddressName&gt; &lt;Address1&gt;606 Olive Street&lt;/Address1&gt; &lt;Address2 /&gt; &lt;City&gt;Santa Barbara&lt;/City&gt; &lt;State&gt;CA&lt;/State&gt; &lt;Country&gt;US&lt;/Country&gt; &lt;PostalCode&gt;93101&lt;/PostalCode&gt; &lt;Contacts&gt; &lt;ContactTypeCode&gt;IC&lt;/ContactTypeCode&gt; &lt;PrimaryEmail&gt;shipping@osihardware.com&lt;/PrimaryEmail&gt; &lt;/Contacts&gt; &lt;/Address&gt; &lt;Address&gt; &lt;AddressTypeCode&gt;ST&lt;/AddressTypeCode&gt; &lt;AddressName&gt;WINDSTREAM SUPPLY&lt;/AddressName&gt; &lt;Address1&gt;400 EAST BRYAN&lt;/Address1&gt; &lt;Address2 /&gt; &lt;LocationCodeQualifier&gt;92&lt;/LocationCodeQualifier&gt; &lt;AddressLocationNumber&gt;60011660&lt;/AddressLocationNumber&gt; &lt;City&gt;DOUGLAS&lt;/City&gt; &lt;State&gt;GA&lt;/State&gt; &lt;Country&gt;US&lt;/Country&gt; &lt;PostalCode&gt;31533&lt;/PostalCode&gt; &lt;Contacts&gt; &lt;ContactTypeCode&gt;IC&lt;/ContactTypeCode&gt; &lt;PrimaryEmail /&gt; &lt;/Contacts&gt; &lt;/Address&gt; &lt;CarrierInformation&gt;...

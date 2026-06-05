@@ -1,0 +1,145 @@
+---
+title: "Channable"
+description: "Renewtech product catalog feed for marketplace distribution through Channable."
+---
+
+
+# Channable
+
+Renewtech product catalog feed for marketplace distribution through Channable.
+
+## Operational summary
+
+Channable — IQConnect Architecture Overview Sync Engine Integrations Azure Database 
+Back to Integrations 
+## Channable Product Feed 
+
+Product catalog feed integration with Channable , a marketplace aggregation platform. Used by Renewtech . Pushes the full IQ Reseller product catalog (items, pricing tiers, stock levels, categories) to Channable for distribution to downstream marketplaces. 
+801 
+Lines 
+
+1 
+Feed (catalog) 
+
+### Catalog Feed Structure 
+
+The catalog query ( Uri_FullCatalog ) joins maxlist_items with item to produce a flat feed containing: 
+
+ | Field | Source 
+ | id | Composite key: UPPER(CONCAT(mfgr, '~~', itemnumber, '~~', conditioncode)) 
+ | brand | mfgr 
+ | title / item_group_id | itemnumber 
+ | condition | conditioncode 
+ | description | item description 
+ | price | item price 
+ | sale_price1–8 | 8 tier pricing from item table 
+ | stock | available qty 
+ | product_type | Concatenated category hierarchy (up to 4 levels) 
+ | image_link | item imageurl 
+
+### Invocation 
+IqSync to-channable catalog &lt;tenantID&gt; production 
+Uses GetDataFromVendor_Channable() handler with PopulateCheetSheetFromDb() (settings loaded from database, not App.config). 
+
+IQConnect Architecture Reference — ISV Zen / IQ Reseller — Confidential IQR Dev Reference v5 — ISV Zen / IQ Reseller — Confidential
+
+## Command and note hits
+
+```text
+Renewtech (Channable Integration)
+to-channable catalog renewtech production reset 
+	Frame full catalog query -> IqReader -> Enrich + Format -> Send to SFTP
+```
+
+## Source resources
+
+| Resource | Type | Size |
+| --- | --- | --- |
+| `3-Channable/2020.02.11 Channable Fields.xlsx` | Spreadsheet | 13.1 KB |
+| `3-Channable/2021-03-10-ChannableCatalog-ithtest.csv` | Data or Config | 3.7 MB |
+| `3-Channable/2021-03-10-ChannableCatalog-ithtest.xlsx` | Spreadsheet | 989.4 KB |
+| `3-Channable/2021-03-10-ChannableCatalog-renewtech.csv` | Data or Config | 34.9 MB |
+| `3-Channable/2021-03-10-ChannableCatalog-renewtech.xlsx` | Spreadsheet | 8.6 MB |
+| `3-Channable/2021-03-12 Channable Call w Frank.txt` | Data or Config | 944 B |
+| `3-Channable/Channable Fields.xlsx` | Spreadsheet | 11.6 KB |
+| `3-Channable/Channable Fields_Updated.xlsx` | Spreadsheet | 12.9 KB |
+| `3-Channable/Docs/2021-03-24 Channable - Tasks and Status.xlsx` | Spreadsheet | 13.1 KB |
+| `3-Channable/Docs/Channable - Tasks and Status.xlsx` | Spreadsheet | 12.0 KB |
+| `3-Channable/IQ API Query.txt` | Data or Config | 1.5 KB |
+| `3-Channable/ithtest_20210310_182157_catalog.xml` | Data or Config | 313 B |
+| `3-Channable/Mapping Stub.txt` | Data or Config | 484 B |
+| `3-Channable/Material List Tutorial.pdf` | Reference Document | 453.2 KB |
+| `3-Channable/Mirror/2021.08.11 renewtech_catalog.xml` | Data or Config | 1.3 MB |
+| `3-Channable/Mirror/2021.08.11.AfterAsinFix renewtech_catalog.xml` | Data or Config | 1.4 MB |
+| `3-Channable/Mirror/2021.08.12 renewtech_catalog.xml` | Data or Config | 1.4 MB |
+| `3-Channable/Mirror/2021.08.16 renewtech_catalog.xml` | Data or Config | 1.4 MB |
+| `3-Channable/Mirror/bak/1 renewtech_catalog.xml` | Data or Config | 1.7 MB |
+| `3-Channable/Mirror/bak/2 renewtech_catalog.xml` | Data or Config | 1.7 MB |
+| `3-Channable/Mirror/bak/2021.06.13 renewtech_catalog.xml` | Data or Config | 1.7 MB |
+| `3-Channable/Mirror/bak/3 renewtech_catalog.xml` | Data or Config | 1.7 MB |
+| `3-Channable/Mirror/bak/4 renewtech_catalog.xml` | Data or Config | 1.7 MB |
+| `3-Channable/Mirror/bak/az1 renewtech_catalog.xml` | Data or Config | 1.7 MB |
+| `3-Channable/Mirror/bak/renewtech_20210318_203205_categories_and_asin.csv` | Data or Config | 171.5 KB |
+| `3-Channable/Mirror/bak/renewtech_20210324_175703_catalog.xml` | Data or Config | 802.9 KB |
+| `3-Channable/Mirror/bak/renewtech_20210612_194513_catalog.xml` | Data or Config | 1.7 MB |
+| `3-Channable/Mirror/bak/renewtech_catalog.xml` | Data or Config | 1.3 MB |
+| `3-Channable/Mirror/bak/renewtech_catalog2.xml` | Data or Config | 1.7 MB |
+| `3-Channable/Support/Email 2021-04-15.pdf` | Reference Document | 1.3 MB |
+| `3-Channable/Support/renewtech_catalog (2).xml` | Data or Config | 918.4 KB |
+| `3-Channable/Support/renewtech_categories_and_asin (4).csv` | Data or Config | 171.5 KB |
+| `3-Channable/Support/Test sheet Amazon - RenewTech.xlsx` | Spreadsheet | 164.5 KB |
+| `3-Channable/TestData/ithtest_20210310_182157_catalog.xml` | Data or Config | 10.1 MB |
+| `3-Channable/TestData/ithtest_20210310_190708_catalog.xml` | Data or Config | 313 B |
+| `3-Channable/TestData/ithtest_20210310_191705_catalog.xml` | Data or Config | 10.1 MB |
+| `3-Channable/TestData/ithtest_20210317_140422_catalog.xml` | Data or Config | 445.4 KB |
+| `3-Channable/TestData/ithtest_20210317_140422_catalog.xml.xlsx` | Spreadsheet | 57.2 KB |
+| `3-Channable/TestData/ithtest_20210317_140422_categories_amazon.csv` | Data or Config | 120.2 KB |
+| `3-Channable/TestData/ithtest_20210317_140422_gtin.csv` | Data or Config | 50.2 KB |
+| `3-Channable/TestData/renewtech/2021.05.15/renewtech_catalog.xml` | Data or Config | 1.0 MB |
+| `3-Channable/TestData/renewtech/2021.05.15/renewtech_catalog.zip` | Archive | 83.3 KB |
+| `3-Channable/TestData/renewtech/renewtech_catalog.xml` | Data or Config | 918.4 KB |
+| `3-Channable/TestData/renewtech/renewtech_categories_and_asin.csv` | Data or Config | 171.5 KB |
+| `3-Channable/TestData/renewtech_20210318_203205_catalog - Copy.xml` | Data or Config | 834.9 KB |
+| `3-Channable/TestData/renewtech_20210318_203205_catalog.xml` | Data or Config | 834.9 KB |
+| `3-Channable/TestData/renewtech_20210318_203205_catalog_csv.csv` | Data or Config | 214.2 KB |
+| `3-Channable/TestData/renewtech_20210318_203205_categories_and_asin.csv` | Data or Config | 171.5 KB |
+| `3-Channable/TestData/renewtech_20210324_124434_catalog - Copy.xml` | Data or Config | 918.4 KB |
+| `3-Channable/TestData/renewtech_20210324_124434_catalog.xml` | Data or Config | 918.4 KB |
+| `3-Channable/TestData/renewtech_additional_fields.csv` | Data or Config | 39.9 KB |
+| `3-Channable/TestData/renewtech_catalog.xml` | Data or Config | 918.4 KB |
+| `3-Channable/TestData/renewtech_categories_and_asin1.csv` | Data or Config | 171.5 KB |
+| `3-Channable/TSQL Query.txt` | Data or Config | 1.5 KB |
+
+## Extracted source excerpts
+
+### 2020.02.11 Channable Fields
+
+Sheet: FROM IQR - Product Data Channable Field | Status | Sample Data (Garment Store) | IQR Field | Reference tables | IQR Sample Data/Additional Information | IQXML Element additional_image_link | Recommended | Links to extra images, separated by commas age_group | Recommended | Adult / kids | - availability | Mandatory | In stock / out of stock | status | inventory.status | Available, Reserved, Partial etc… | availability brand | Mandatory | mfgr | inventory.mfgr | DELL, HP etc | brand color | Recommended | - condition | Recommended | New / used | conditioncode | inventory.conditioncode | NEW, NOB, REF etc | condition description | Mandatory | description | inventory.description | description delivery_time | Recommended | 2-3 days | - | pt.termsid; terms.description using termsid | Refer terms table using the termsid and get the description | delivery_time gender | Recommended | Male / female | - google_product_category | Optional | - gtin/ean | Recommended | EAN13-code | inventory.userdefined1 | use inventory UDFs to define it | gtin id | Mandatory | 012608-BLUE-XXL (unique id preferably with color and size) | inventoryid | inventory.inventoryid | id image_link | Mandatory |...
+
+### 2021 03 10 Channablecatalog Ithtest
+
+﻿availability,brand,condition,description,delivery_time,gtin,id,image_link,item_group_id,price,product_type,sale_price1,sale_price2,sale_price3,sale_price4,sale_price5,sale_price6,sale_price7,sale_price8,stock,title Available ,ZYXEL ,AUD ,1 Box of assets to be audited ,NET 30 , ,5801,,QPOBOX ,0.00,,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,1,QPOBOX Available ,ZYXEL ,AUD ,1 Box of assets to be audited ,NET 30 , ,5803,,QPOBOX ,0.00,,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,1,QPOBOX Available ,ZYXEL ,AUD ,1 Box of assets to be audited ,NET 30 , ,5804,,QPOBOX ,0.00,,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,1,QPOBOX Available ,ZYXEL ,AUD ,1 Box of assets to be audited ,NET 30 , ,5956,,QPOBOX ,0.00,,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,4,QPOBOX Available ,ZYXEL ,AUD ,1 Box of assets to be audited ,NET 30 , ,8587,,QPOBOX ,0.00,,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,2,QPOBOX Available ,ZYXEL ,AUD ,1 Box of assets to be audited ,NET 30 , ,8320,,QPOBOX ,0.00,,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,1,QPOBOX Available ,ZYXEL ,AUD ,1 Box of assets to be audited ,NET 30 , ,8324,,QPOBOX ,0.00,,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,1,QPOBOX Available ,ZYXEL ,AUD ,1 Box of assets to be audited...
+
+### 2021 03 10 Channablecatalog Ithtest
+
+Sheet: Sheet1 availability | brand | condition | description | delivery_time | gtin | id | image_link | item_group_id | price | product_type | sale_price1 Available | ZYXEL | AUD | 1 Box of assets to be audited | NET 30 | | 5801 | QPOBOX | 0.00 | 0.00 | 0.00 | 0.00 Available | ZYXEL | AUD | 1 Box of assets to be audited | NET 30 | | 5803 | QPOBOX | 0.00 | 0.00 | 0.00 | 0.00 Available | ZYXEL | AUD | 1 Box of assets to be audited | NET 30 | | 5804 | QPOBOX | 0.00 | 0.00 | 0.00 | 0.00 Available | ZYXEL | AUD | 1 Box of assets to be audited | NET 30 | | 5956 | QPOBOX | 0.00 | 0.00 | 0.00 | 0.00 Available | ZYXEL | AUD | 1 Box of assets to be audited | NET 30 | | 8587 | QPOBOX | 0.00 | 0.00 | 0.00 | 0.00 Available | ZYXEL | AUD | 1 Box of assets to be audited | NET 30 | | 8320 | QPOBOX | 0.00 | 0.00 | 0.00 | 0.00 Available | ZYXEL | AUD | 1 Box of assets to be audited | NET 30 | | 8324 | QPOBOX | 0.00 | 0.00 | 0.00 | 0.00 Available | ZYXEL | AUD | 1 Box of assets to be audited | NET 30 | | 8600 | QPOBOX | 0.00 | 0.00 | 0.00 | 0.00 Available | CISCO | WORK | 10GBASE-LR XENPAK Module w/DOM | NET 30 | | 2292 | XENPAK-10GB-LR+ | 0.00 | 0.00 | 0.00 | 0.00 Available | CISCO | UNTD |...
+
+### 2021 03 10 Channablecatalog Renewtech
+
+﻿availability,brand,condition,description,delivery_time,gtin,id,image_link,item_group_id,price,product_type,sale_price1,sale_price2,sale_price3,sale_price4,sale_price5,sale_price6,sale_price7,sale_price8,stock,title Available ,CISCO ,NEW ,AC Powercord Europe ,NET 15 , ,52593,,CAB-AC2E ,0.25,,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,1,CAB-AC2E Available ,CISCO ,NEW ,AC Powercord Europe ,NET 15 , ,52594,,CAB-AC2E ,0.25,,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,1,CAB-AC2E Available ,CISCO ,NEW ,AC Powercord Europe ,NET 15 , ,52595,,CAB-AC2E ,0.25,,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,1,CAB-AC2E Available ,CISCO ,NEW ,AC Powercord Europe ,NET 15 , ,52596,,CAB-AC2E ,0.25,,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,1,CAB-AC2E Available ,CISCO ,NEW ,AC Powercord Europe ,NET 15 , ,52597,,CAB-AC2E ,0.25,,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,1,CAB-AC2E Available ,CISCO ,NEW ,AC Powercord Europe ,NET 15 , ,52598,,CAB-AC2E ,0.25,,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,1,CAB-AC2E Available ,CISCO ,NEW ,AC Powercord Europe ,NET 15 , ,52599,,CAB-AC2E ,0.25,,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,1,CAB-AC2E Available ,CISCO ,NEW ,AC Powercord Europe ,NET 15 , ,52600,,CAB-AC2E...
+
+### 2021 03 10 Channablecatalog Renewtech
+
+Sheet: Sheet1 availability | brand | condition | description | delivery_time | gtin | id | image_link | item_group_id | price | product_type | sale_price1 Available | CISCO | NEW | AC Powercord Europe | NET 15 | | 52593 | CAB-AC2E | 0.25 | 0.00 | 0.00 | 0.00 Available | CISCO | NEW | AC Powercord Europe | NET 15 | | 52594 | CAB-AC2E | 0.25 | 0.00 | 0.00 | 0.00 Available | CISCO | NEW | AC Powercord Europe | NET 15 | | 52595 | CAB-AC2E | 0.25 | 0.00 | 0.00 | 0.00 Available | CISCO | NEW | AC Powercord Europe | NET 15 | | 52596 | CAB-AC2E | 0.25 | 0.00 | 0.00 | 0.00 Available | CISCO | NEW | AC Powercord Europe | NET 15 | | 52597 | CAB-AC2E | 0.25 | 0.00 | 0.00 | 0.00 Available | CISCO | NEW | AC Powercord Europe | NET 15 | | 52598 | CAB-AC2E | 0.25 | 0.00 | 0.00 | 0.00 Available | CISCO | NEW | AC Powercord Europe | NET 15 | | 52599 | CAB-AC2E | 0.25 | 0.00 | 0.00 | 0.00 Available | CISCO | NEW | AC Powercord Europe | NET 15 | | 52600 | CAB-AC2E | 0.25 | 0.00 | 0.00 | 0.00 Available | CISCO | NEW | AC Powercord Europe | NET 15 | | 52601 | CAB-AC2E | 0.25 | 0.00 | 0.00 | 0.00 Available | CISCO | NEW | AC Powercord Europe | NET 15 | | 52602 | CAB-AC2E | 0.25 | 0.00 | 0.00 | 0.00...
+
+### 2021 03 12 Channable Call W Frank
+
+1) Set up an XML import feed 2) Import and verify items 3) Setup export feeds, like setting categories for the imported items for Google Shopping (Google categories can be set manually; GTIN can be built into our import feed through IQ reseller User-defined fields;) 4) Activate export feeds 5) Set up export feeds through API AC ADAPTER APPLE MAGSAFE2 45W model number is A1436~~1~~Electronics &gt; Accessories~~2~~SDFSDFIUR333908 ===== 1) Set up an XML import feed 2) Import and verify items 3) Setup export feeds, like setting categories for the imported items for Google Shopping (Google categories can be set manually; GTIN can be built into our import feed through IQ reseller User-defined fields;) 4) Activate export feeds 5) Set up export feeds through API What should we use as the ID for a Channable item? Currently we use the first inventory ID for a given item+mfgr+conditioncode. This must be made more generic.
+
+### Channable Fields
+
+Sheet: FROM IQR - Product Data Channable Field | Status | Sample Data (Garment Store) | IQR Field | IQR Sample Data additional_image_link | Recommended | Links to extra images, separated by commas age_group | Recommended | Adult / kids availability | Mandatory | In stock / out of stock brand | Mandatory color | Recommended condition | Recommended | New / used description | Mandatory delivery_time | Recommended | 2-3 days gender | Recommended | Male / female google_product_category | Optional gtin/ean | Recommended | EAN13-code id | Mandatory | 012608-BLUE-XXL (unique id preferably with color and size) image_link | Mandatory | Main image link item_group_id | Recommended | 012608-BLUE (variant id preferably with color) link | Mandatory | http://www.onlinestore.com/item material | Recommended | Material of the item, e.g. 100% cotton mpn | Recommended | Manufacturer product number price | Mandatory product_type | Mandatory | Breadcrumb of item, e.g. men/sweaters sale_price | Mandatory | Discounted price shipping_price | Recommended size | Mandatory stock | Recommended | Amount in stock, e.g. 12 title | Mandatory percentage_variant_sizes | Recommended | Percentage of available sizes...
+
+### Channable Fields Updated
+
+Sheet: FROM IQR - Product Data Channable Field | Status | Sample Data (Garment Store) | IQR Field | Reference tables | IQR Sample Data/Additional Information additional_image_link | Recommended | Links to extra images, separated by commas age_group | Recommended | Adult / kids | - availability | Mandatory | In stock / out of stock | status | inventory.status | Available, Reserved, Partial etc… brand | Mandatory | mfgr | inventory.mfgr | DELL, HP etc color | Recommended | - condition | Recommended | New / used | conditioncode | inventory.conditioncode | NEW, NOB, REF etc description | Mandatory | description | inventory.description delivery_time | Recommended | 2-3 days | - | pt.termsid; terms.description using termsid | Refer terms table using the termsid and get the description gender | Recommended | Male / female | - google_product_category | Optional | - gtin/ean | Recommended | EAN13-code | inventory.userdefined1 | use inventory UDFs to define it id | Mandatory | 012608-BLUE-XXL (unique id preferably with color and size) | inventoryid | inventory.inventoryid image_link | Mandatory | Main image link | imageurl | inventory.imageurl |...

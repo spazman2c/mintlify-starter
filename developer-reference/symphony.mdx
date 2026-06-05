@@ -1,0 +1,63 @@
+---
+title: "Symphony"
+description: "Migrated IQConnect developer reference page for Symphony."
+---
+
+# Symphony
+
+Best Buy Symphony — IQConnect Architecture Overview Sync Engine Integrations Azure Database 
+Back to Integrations 
+## Best Buy Symphony Integration 
+
+Full bidirectional EDI integration with Best Buy's Symphony platform. Used by PARTpoint . Handles the complete vendor lifecycle: catalog data, purchase orders, shipment confirmations (ASN), invoices, returns, and cancellations. All data exchange is via XML files over SFTP. 
+6,305 
+Lines 
+
+12 
+Feed Types 
+
+SFTP 
+Protocol 
+
+### File &amp; Class 
+
+IqSync/ApiWrapper/Symphony.cs — class Symphony 
+
+Supplemental: SymphonyReturnCancel.cs (85 lines) — return/cancel acknowledgement struct 
+
+### Supported Feeds 
+
+ | Feed | Direction | Description 
+ | itemsku | IQ → BBY | Master item catalog (SKU, mfgr, description, UPC) 
+ | bom | IQ → BBY | Part associations (bill of materials) 
+ | subs | IQ → BBY | Item substitutions 
+ | avl | IQ → BBY | Inventory availability (qty, condition code) 
+ | price | IQ → BBY | Pricing feed 
+ | so | BBY → IQ | Vendor orders (purchase orders from Best Buy) 
+ | soupdate | IQ → BBY | Order acknowledgements and ETA updates 
+ | shipment | IQ → BBY | ASN (Advanced Shipping Notices) with tracking 
+ | invoice | IQ → BBY | Financial invoices 
+ | returns | BBY → IQ | Return requests from Best Buy 
+ | cancel | BBY → IQ | Cancellation requests 
+ | returnack | IQ → BBY | Return/cancel acknowledgement 
+
+### SFTP Configuration 
+
+Symphony files are exchanged via Best Buy's managed file transfer (MFT) SFTP server. The Uhaul class handles file staging and transfer, routing through the VssLastMile service for Azure-to-SFTP bridging. 
+
+ | Setting | Production 
+ | Host | mft-tst.bestbuy.com (production varies by environment) 
+ | Auth | SSH private key ( CertKey/iqbb_pp_openssh ) 
+ | Input Folder | /from_bby (inbound POs, returns, cancels) 
+ | Output Folder | /to_bby (outbound catalog, ASN, invoices) 
+ | File Prefix | Ppnt (PARTpoint) 
+
+### Key Behaviors 
+
+Partial void handling: The _ConstPartialVoid = "BBYVOID" marker is used when a line item needs to be voided from an order without cancelling the entire SO. The wrapper generates appropriate void elements in the outbound XML. 
+
+Invalid line number filtering: Records with line number 99999 (constant k_InvalidLineNumber ) are treated as bad records and excluded from ASN feeds. This prevents malformed line items from reaching Best Buy. 
+
+Feed history cleanup: The CleanupDatabase() method in IqSync purges catalog feed content older than 3 days and order feed content older than 42 days from iqconnect_feedhistory to manage database size. 
+
+IQConnect Architecture Reference — ISV Zen / IQ Reseller — Confidential IQR Dev Reference v5 — ISV Zen / IQ Reseller — Confidential

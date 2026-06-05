@@ -1,0 +1,67 @@
+---
+title: "Azure"
+description: "Migrated IQConnect developer reference page for Azure."
+---
+
+# Azure
+
+Azure Deployment — IQConnect Architecture Overview Sync Engine Integrations Azure Database 
+Back to Overview 
+## Azure Deployment Architecture 
+
+IQConnect runs entirely within Azure, distributed across App Services, WebJobs, Functions, and Azure SQL — designed for minimal compute footprint and minimal outbound data transfer by keeping inter-component communication within Azure's internal network. 
+
+### Component Deployment Map 
+
+ | Component | Azure Service | Details 
+ | IqSync (per feed per tenant) | Azure WebJobs (triggered) | Deployed as triggered WebJobs on an Azure App Service. Named by convention: sym-pp-01-itemsku , sym-pp-06-so , etc. Triggered via Kudu API. 
+ | VssLastMile | Azure App Service | Deployed at srivaridbif.azurewebsites.net . Exposes /api/Query (SQL) and /api/Marshal (SFTP). 
+ | IqConnectCore | Azure App Service | Deployed at beta007-iqconnect.azurewebsites.net . Azure AD B2C authentication via poigai.b2clogin.com . 
+ | IqConnectWebhooks | Azure Functions (HTTP) | Isolated worker model. Anonymous HTTP triggers for HeartBeat and PostQuote. 
+ | IqConnectWebhooksAsync | Azure Durable Functions | Orchestrates multi-step HubSpot quote → IQ SO workflows. 
+ | SymphonyFunctionApp | Azure Functions (Timer) | Timer-triggered every 5 minutes for scheduled Symphony tasks. 
+ | IQ Connect Database Tables | Azure SQL Database | Per-tenant databases. Connection strings resolved at runtime via IQ API Private endpoints. 
+ | IqFeedApi | Azure App Service | REST API for programmatic feed access. 
+
+### WebJob Naming Convention 
+
+WebJobs are named following the pattern &#123;integration&#125;-&#123;tenant&#125;-&#123;sequence&#125;-&#123;feedtype&#125; : 
+sym-pp-01-itemsku → Symphony, PARTpoint, sequence 01, itemsku feed
+sym-pp-06-so → Symphony, PARTpoint, sequence 06, vendor orders feed
+sym-pp-08-shipment → Symphony, PARTpoint, sequence 08, ASN feed
+sym-pp-11-invoice → Symphony, PARTpoint, sequence 11, invoice feed 
+WebJobs are triggered via the Kudu REST API: POST https://&#123;app&#125;.scm.azurewebsites.net/api/triggeredwebjobs/&#123;name&#125;/run 
+
+### Azure AD B2C Configuration 
+
+ | Setting | Value 
+ | Instance | https://poigai.b2clogin.com/tfp/ 
+ | Domain | poigai.onmicrosoft.com 
+ | Policies | SignUpSignIn: B2C_1_signupsignin1 , PasswordReset: B2C_1_passwordreset1 , ProfileEdit: B2C_1_profileediting1 
+
+### Azure Storage 
+
+Azure Blob Storage ( tempwebjobstorage account) is used for: 
+
+• WebJob execution history and dashboards ( AzureWebJobsDashboard ) 
+• WebJob state management ( AzureWebJobsStorage ) 
+• WebJob history is capped at WEBJOBS_HISTORY_SIZE = 4900 entries 
+
+### Data Flow Within Azure 
+IQ API (api.iqreseller.com) 
+
+IqSync WebJob 
+
+VssLastMile (Azure internal) 
+
+VssLastMile /api/Query 
+
+Azure SQL (tenant DB) 
+
+VssLastMile /api/Marshal 
+
+External SFTP (Best Buy, SPS) 
+
+The critical design insight: all inter-component traffic stays within Azure except the final SFTP file transfer to the external partner. IqSync talks to VssLastMile over Azure's internal network, VssLastMile talks to Azure SQL over internal connections. Only the SFTP leg exits Azure — minimizing both latency and outbound bandwidth costs. 
+
+IQConnect Architecture Reference — ISV Zen / IQ Reseller — Confidential IQR Dev Reference v5 — ISV Zen / IQ Reseller — Confidential

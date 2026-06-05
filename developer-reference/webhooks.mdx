@@ -1,0 +1,20 @@
+---
+title: "Webhooks"
+description: "Migrated IQConnect developer reference page for Webhooks."
+---
+
+# Webhooks
+
+Webhooks — IQConnect Architecture Overview Sync Engine Integrations Azure Database 
+Back to Overview 
+## IqConnectWebhooks — HTTP Azure Functions 
+
+Azure Functions project (isolated worker model, .NET) that exposes HTTP endpoints for inbound webhooks. Lightweight entry point that validates requests and forwards payloads to the async orchestrator. 
+
+### Functions 
+
+ | Function Name | Trigger | Purpose 
+ | HeartBeat | HTTP GET/POST (Anonymous) | Health check endpoint. Returns timestamp + "alive and well" message. 
+ | PostQuote | HTTP GET/POST (Anonymous) | Receives HubSpot quote webhook payload. Reads request body, logs it, returns OK. (Forwarding to async orchestrator is configured externally.) 
+
+IQConnect Architecture Reference — ISV Zen / IQ Reseller — Confidential IQR Dev Reference v5 — ISV Zen / IQ Reseller — Confidential

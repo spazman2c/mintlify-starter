@@ -1,0 +1,38 @@
+---
+title: "Cheatsheet"
+description: "Migrated IQConnect developer reference page for Cheatsheet."
+---
+
+# Cheatsheet
+
+CheatSheet — IQConnect Architecture Overview Sync Engine Integrations Azure Database 
+Back to IqSync 
+## CheatSheet — Runtime Configuration 
+
+The central configuration object that holds all runtime state for an IqSync execution. Constructed at startup from App.config sections, command-line args, and tenant-specific settings retrieved from the IQ Reseller Private API and IQ Connect Database Tables. Every wrapper class receives a CheatSheet reference. 
+742 
+Lines 
+
+### Nested Configuration Sections 
+
+ | Section Class | Purpose | Key Properties 
+ | ActiveSection | Per-integration settings (SFTP host, credentials, folders, feed filters) | Host, Port, Cred1, Cred2, InputFolder, OutputFolder, SshPrivateKeyFile, SftpLastMileServiceUrl, FeedFilters, ConditionCodes 
+ | AzureSection | Azure WebJob storage connection strings | AzureWebJobsDashboard, AzureWebJobsStorage, WebjobsHistorySize 
+ | IqApiSection | IQ Reseller API endpoints and URI templates | SigninUrl, EndPointUrl, ApiToken, 20+ Uri_* properties for each API resource 
+ | IqTenantSection | Resolved tenant context | ConnectionString, TenantId, TenantAlias, DatabaseName 
+
+### Configuration Loading Strategy 
+
+CheatSheet supports three constructor overloads with increasing sophistication: 
+
+ | # | Signature | Used By 
+ | 1 | appSettings + activeSection + connectionStrings + productionMode | Simple integrations (no tenant context needed) 
+ | 2 | ...+ tenantApiKey | Tenant-aware integrations (BestBuy, SPS, etc.) 
+ | 3 | ...+ tenantApiKey + isCrmIntegration | CRM integrations (HubSpot) — loads settings from DB instead of App.config 
+Constructor #3 calls ReadActiveIntegrationSettingsFromDb() which queries integration_settings table for the config section stored as XML or JSON, then parses it into a NameValueCollection. This allows per-tenant integration configuration without redeploying the WebJob. 
+
+### Encrypted URL Parameters 
+
+The IQ Connect Database TablesPostUrl (the VssLastMile query endpoint) includes an encrypted connection string parameter. The EncryptionHelper.GetEncryptedParameterWithUrlEncoding() method encrypts conn=&lt;connectionString&gt; so that tenant database credentials never appear in plain text in URLs or logs. 
+
+IQConnect Architecture Reference — ISV Zen / IQ Reseller — Confidential IQR Dev Reference v5 — ISV Zen / IQ Reseller — Confidential

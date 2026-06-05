@@ -1,0 +1,1289 @@
+---
+title: "Session 2026-05-15a"
+description: "Transcript and source file index for the 2026-05-15a IQ Connect KT session."
+---
+
+
+# Session 2026-05-15a
+
+Transcript segments: **424**.
+
+## Source files
+
+- `1-Recordings/2026-05-15a/IQ Connect KT Series-20260515_183631-Meeting Recording.mp4` (127.1 MB)
+- `1-Recordings/2026-05-15a/IQ Connect KT Series.docx` (217.1 KB)
+- `1-Recordings/2026-05-15a/IQ Connect KT Series.vtt` (64.8 KB)
+
+## Transcript
+
+### 00:00:06.137 · Sriram Parthasarathy
+So, you may remember this, you know, integration setting table from our
+
+### 00:00:12.292 · Sriram Parthasarathy
+interactions, right? So, this is the simplest integration settings
+
+### 00:00:14.137 · Cliff Mauer
+No.
+
+### 00:00:18.020 · Sriram Parthasarathy
+for a HubSpot integration. This is from Velocity Tech Solutions.
+
+### 00:00:26.377 · Sriram Parthasarathy
+We just have three in its very, very elementary format, elementary form.
+
+### 00:00:33.396 · Sriram Parthasarathy
+So we have the API key name, value path, which is the HubSpot API key.
+
+### 00:00:40.222 · Sriram Parthasarathy
+And then we have deal stage open, we need the constant here because.
+
+### 00:00:47.177 · Sriram Parthasarathy
+We need to move a deal through the pipeline,
+
+### 00:00:50.749 · Sriram Parthasarathy
+and we have a deal stage in active, so these three are the most mandatory
+
+### 00:00:56.623 · Sriram Parthasarathy
+items, you know, to to onboard any new customer through
+
+### 00:01:01.069 · Sriram Parthasarathy
+the HubSpot integration, and there is an Excel sheet, you know,
+
+### 00:01:06.149 · Sriram Parthasarathy
+clearly enumerating.
+
+### 00:01:08.457 · Sriram Parthasarathy
+All the properties that they need to create in HubSpot prior to us starting to,
+
+### 00:01:16.937 · Sriram Parthasarathy
+you know, turn the integration on, so...
+
+### 00:01:23.217 · Sriram Parthasarathy
+No.
+
+### 00:01:24.537 · Sriram Parthasarathy
+So that's for VTS and it is true of most customers. We have, you know,
+
+### 00:01:34.377 · Sriram Parthasarathy
+A slightly different situation with DHD and OSI because they have quite a bit of
+
+### 00:01:40.746 · Sriram Parthasarathy
+customizations. So if we, you know, API key, that's there, deal stage open,
+
+### 00:01:46.722 · Sriram Parthasarathy
+deal stage inactive, we do have all that. We also have a custom rep defined.
+
+### 00:01:53.417 · Sriram Parthasarathy
+In user-defined one field of the sales proposal, and then we are sorry of the CV,
+
+### 00:02:01.557 · Sriram Parthasarathy
+and you have a, you know, a flag indicating whether we need to use
+
+### 00:02:08.208 · Sriram Parthasarathy
+a custom deal stage. What that means is...
+
+### 00:02:14.937 · Sriram Parthasarathy
+To look at this.
+
+### 00:02:18.457 · Sriram Parthasarathy
+So I have already opened a sales proposal. You may see that.
+
+### 00:02:23.817 · Sriram Parthasarathy
+There is a little red field here, which is linked to the probability factor
+
+### 00:02:30.290 · Sriram Parthasarathy
+that you already have in IQ. So this probability factor is directly
+
+### 00:02:36.082 · Sriram Parthasarathy
+correlated to the probability factor in HubSpot,
+
+### 00:02:40.255 · Sriram Parthasarathy
+which is probability underscore factor.
+
+### 00:02:44.137 · Sriram Parthasarathy
+All lowercase.
+
+### 00:02:46.137 · Sriram Parthasarathy
+And this one is important for the customer in that, you know,
+
+### 00:02:51.780 · Sriram Parthasarathy
+this indicates, you know, the, this one is the chance,
+
+### 00:02:56.786 · Sriram Parthasarathy
+as you may see from the tool tip, that the quote will be turned into an
+
+### 00:03:03.340 · Sriram Parthasarathy
+actual order. So that is you convert
+
+### 00:03:07.017 · Sriram Parthasarathy
+The proposal into a sales order. So, this is the probability factor,
+
+### 00:03:12.371 · Sriram Parthasarathy
+but they don't want to have the probability factor to be any number,
+
+### 00:03:17.726 · Sriram Parthasarathy
+so they have established the established some deal stages, you know,
+
+### 00:03:23.081 · Sriram Parthasarathy
+that that are used for these customers. So, as you can see.
+
+### 00:03:28.377 · Sriram Parthasarathy
+You know, there is a separate table that the team
+
+### 00:03:32.230 · Sriram Parthasarathy
+has used to extend this from the UI, because none of these integrations touch
+
+### 00:03:38.241 · Sriram Parthasarathy
+the UI directly, but for OSI and DHD, we needed to customize the UI.
+
+### 00:03:43.558 · Sriram Parthasarathy
+So the main IQ development team took this over.
+
+### 00:03:47.737 · Sriram Parthasarathy
+They built this and they gave these names for the tables. And as you may see,
+
+### 00:03:53.782 · Sriram Parthasarathy
+budgetary, qualification, proposal, negotiation, and commitment,
+
+### 00:03:58.819 · Sriram Parthasarathy
+they all come with their own percentages attached.
+
+### 00:04:02.772 · Sriram Parthasarathy
+And that percentage is what will be set here.
+
+### 00:04:06.617 · Sriram Parthasarathy
+Now, if we change this, I'm not changing this because it's a live
+
+### 00:04:10.770 · Sriram Parthasarathy
+database.
+
+### 00:04:12.777 · Sriram Parthasarathy
+Just wanted to show you that, you know, that this is something that we have for
+
+### 00:04:19.371 · Sriram Parthasarathy
+DHD and we also have the gross margin for DHD. So that's one. And the next one is...
+
+### 00:04:28.057 · Sriram Parthasarathy
+And that's we do not have the contacts customization for DHD that's.
+
+### 00:04:34.417 · Sriram Parthasarathy
+For OSI, so let's open a new window.
+
+### 00:04:43.137 · Sriram Parthasarathy
+Thank you, reseller.
+
+### 00:04:52.057 · Sriram Parthasarathy
+So get OSI global.
+
+### 00:04:55.257 · Sriram Parthasarathy
+Continue.
+
+### 00:05:06.297 · Sriram Parthasarathy
+Sales proposals.
+
+### 00:05:17.857 · Sriram Parthasarathy
+Yeah.
+
+### 00:05:19.257 · Sriram Parthasarathy
+So this is something special that we did for,
+
+### 00:05:23.582 · Sriram Parthasarathy
+there are two customizations in the UI for the OSI tenant.
+
+### 00:05:29.129 · Sriram Parthasarathy
+One is the ordering contact and ordering contact email.
+
+### 00:05:34.394 · Sriram Parthasarathy
+So they need this to be distinct.
+
+### 00:05:38.057 · Sriram Parthasarathy
+From our, you know, from the other either ship from or ship
+
+### 00:05:42.963 · Sriram Parthasarathy
+to email ID contacts, they use this to calculate some internal
+
+### 00:05:48.114 · Sriram Parthasarathy
+commissions or effectivity analysis or whatever.
+
+### 00:05:52.121 · Sriram Parthasarathy
+They use it for their own reports defined in HubSpot.
+
+### 00:05:56.857 · Sriram Parthasarathy
+So, this ordering contact.
+
+### 00:06:02.097 · Sriram Parthasarathy
+So this is just instructions on how to populate it.
+
+### 00:06:06.228 · Sriram Parthasarathy
+These 2 fields in the sales proposal are specifically given only for this
+
+### 00:06:12.108 · Sriram Parthasarathy
+particular tenant. So no other customer has these two fields
+
+### 00:06:16.955 · Sriram Parthasarathy
+visible. And we have them defined.
+
+### 00:06:20.377 · Sriram Parthasarathy
+In, um, I think...
+
+### 00:06:24.697 · Sriram Parthasarathy
+See, so where do we take the ordering contact
+
+### 00:06:29.184 · Sriram Parthasarathy
+from? So, this is the, you know, key that indicates, you know,
+
+### 00:06:30.697 · Cliff Mauer
+Yeah.
+
+### 00:06:35.330 · Sriram Parthasarathy
+this parameter. This is the parameter name for ordering
+
+### 00:06:40.793 · Sriram Parthasarathy
+contact. The value itself is...
+
+### 00:06:43.897 · Sriram Parthasarathy
+The actual field from IQ reseller that we need to take this. So this one,
+
+### 00:06:49.790 · Sriram Parthasarathy
+this ordering contact email is stored in this particular, you know,
+
+### 00:06:55.205 · Sriram Parthasarathy
+field in IQ reseller. So that's one. And then we have another customization.
+
+### 00:07:04.457 · Sriram Parthasarathy
+Alright, let's send CV or contacts.
+
+### 00:07:13.817 · Sriram Parthasarathy
+And that you see the HubSpot internal ID, OK?
+
+### 00:07:18.217 · Sriram Parthasarathy
+So, this is the ID for this specific contact
+
+### 00:07:22.087 · Sriram Parthasarathy
+that has been taken from HubSpot and entered here manually by, you know,
+
+### 00:07:28.366 · Sriram Parthasarathy
+by an operator at OSN. So, what they do is they create companies and
+
+### 00:07:34.300 · Sriram Parthasarathy
+contacts in HubSpot first.
+
+### 00:07:37.017 · Sriram Parthasarathy
+And then they come here and create the corresponding companies and contacts here.
+
+### 00:07:42.163 · Sriram Parthasarathy
+And in order for us to be able to associate deals, sales proposals with,
+
+### 00:07:46.745 · Sriram Parthasarathy
+you know, these contacts in HubSpot, since we only have a one-way integration,
+
+### 00:07:51.703 · Sriram Parthasarathy
+it only goes from IQ to HubSpot. We do not have a reverse one.
+
+### 00:07:56.137 · Sriram Parthasarathy
+There is one very tiny little special case which we will excuse me.
+
+### 00:08:02.577 · Sriram Parthasarathy
+My man.
+
+### 00:08:05.217 · Sriram Parthasarathy
+So where which you know, we'll see in a minute.
+
+### 00:08:08.723 · Sriram Parthasarathy
+So this HubSpot internal ID is the ID of this contact in HubSpot,
+
+### 00:08:13.545 · Sriram Parthasarathy
+which we will use to associate when we create deals.
+
+### 00:08:18.937 · Sriram Parthasarathy
+Let's also quickly check, you know, the properties in the integration
+
+### 00:08:24.602 · Sriram Parthasarathy
+settings here and in HubSpot as well. We'll keep today's session light.
+
+### 00:08:30.429 · Sriram Parthasarathy
+We will not go through any stepwise runs and whatnot because the next two sessions
+
+### 00:08:37.146 · Sriram Parthasarathy
+I think we will completely cover.
+
+### 00:08:40.137 · Sriram Parthasarathy
+The PowerPoint integration and that's going to be quite heavy.
+
+### 00:08:43.605 · Sriram Parthasarathy
+So we'll keep it a little light today.
+
+### 00:08:48.457 · Sriram Parthasarathy
+As I said, these are the three basic settings that
+
+### 00:08:51.384 · Sriram Parthasarathy
+we need, mandatory settings that we need in the
+
+### 00:08:54.138 · Sriram Parthasarathy
+config section dot HubSpot integration.
+
+### 00:08:58.457 · Sriram Parthasarathy
+For OSI, we have those three, yes, plus, you know,
+
+### 00:09:02.875 · Sriram Parthasarathy
+we need from where do we take the HubSpot, I know,
+
+### 00:09:07.294 · Sriram Parthasarathy
+company ID and the deal type from where do we take the deal type. Okay,
+
+### 00:09:13.532 · Sriram Parthasarathy
+that is another customization that I need to show you.
+
+### 00:09:19.817 · Sriram Parthasarathy
+So let me go open another sales proposal.
+
+### 00:09:28.057 · Sriram Parthasarathy
+So here is a special customized field for OSI.
+
+### 00:09:31.955 · Sriram Parthasarathy
+They have some categories for their deal types. So I mean for their deals.
+
+### 00:09:38.175 · Sriram Parthasarathy
+So this variable here provides that category.
+
+### 00:09:41.990 · Sriram Parthasarathy
+It is a list that is taken directly from HubSpot.
+
+### 00:09:46.697 · Sriram Parthasarathy
+and it's given here. We can, we'll check that in just a second.
+
+### 00:09:54.297 · Sriram Parthasarathy
+Then we have internal comments. So they have,
+
+### 00:09:58.307 · Sriram Parthasarathy
+they set internal comments on sales proposals and they would like to have
+
+### 00:10:04.759 · Sriram Parthasarathy
+that copied over to a corresponding special custom property field in HubSpot
+
+### 00:10:11.473 · Sriram Parthasarathy
+as well. So you carry it over from IQ SP internal
+
+### 00:10:15.832 · Sriram Parthasarathy
+comments.
+
+### 00:10:17.017 · Sriram Parthasarathy
+to HubSpot deal internal comments. So this flag indicates whether we should,
+
+### 00:10:23.134 · Sriram Parthasarathy
+you know, use it or not. So we can quickly go here, take a look at.
+
+### 00:10:30.057 · Sriram Parthasarathy
+So, this is the internal field name, and you know, these two, you know,
+
+### 00:10:36.063 · Sriram Parthasarathy
+we check instead of making it OSI specific, we check if that particular,
+
+### 00:10:42.153 · Sriram Parthasarathy
+you know, field is enabled, and if it is, then we post it over,
+
+### 00:10:47.492 · Sriram Parthasarathy
+so just to avoid too many API calls to HubSpot.
+
+### 00:10:51.897 · Sriram Parthasarathy
+We check both together, and you know, depending on which one is on,
+
+### 00:10:59.476 · Sriram Parthasarathy
+we create this JSON and send it over to HubSpot.
+
+### 00:11:08.697 · Sriram Parthasarathy
+These are fields that were initially created and they were later dropped.
+
+### 00:11:13.953 · Sriram Parthasarathy
+So instead of going back and removing it in the code,
+
+### 00:11:17.790 · Sriram Parthasarathy
+we just made them empty so that when the code looks at this,
+
+### 00:11:22.123 · Sriram Parthasarathy
+it knows it doesn't have to handle this especially.
+
+### 00:11:27.377 · Sriram Parthasarathy
+Then delay 30 is the nascent record concept that I told you about,
+
+### 00:11:34.435 · Sriram Parthasarathy
+if you remember. You know, just to refresh your memory,
+
+### 00:11:40.335 · Sriram Parthasarathy
+we have two HubSpot company feed, which takes...
+
+### 00:11:47.417 · Sriram Parthasarathy
+The CV records from IQ reseller and sends them over to HubSpot.
+
+### 00:11:53.032 · Sriram Parthasarathy
+And we have a contact feed that takes contact records from IQ reseller and send
+
+### 00:12:00.051 · Sriram Parthasarathy
+them over to HubSpot. And we have this SP feed which runs to
+
+### 00:12:05.403 · Sriram Parthasarathy
+create.
+
+### 00:12:07.337 · Sriram Parthasarathy
+new deals in HubSpot based on new sales proposals in IQ. So what is the trigger?
+
+### 00:12:13.602 · Sriram Parthasarathy
+Yes, it does run on a timed trigger, but how do we know, you know,
+
+### 00:12:18.784 · Sriram Parthasarathy
+with what sales proposal to include? Whenever a sales proposal shows up anew
+
+### 00:12:24.739 · Sriram Parthasarathy
+in the SP table,
+
+### 00:12:26.537 · Sriram Parthasarathy
+And we do not have that, you know, sales proposal ID in our IQ Connect CRM
+
+### 00:12:32.803 · Sriram Parthasarathy
+SP table, then you know, we we just create, you know,
+
+### 00:12:37.314 · Sriram Parthasarathy
+take that as a new SP and send it over as a deal to HubSpot. Like I said,
+
+### 00:12:43.497 · Sriram Parthasarathy
+with this integration program depends on.. .
+
+### 00:12:48.337 · Sriram Parthasarathy
+A new SP record being created in the SP table.
+
+### 00:12:52.390 · Sriram Parthasarathy
+The assumption was that it would be saved only when the save button is clicked in a
+
+### 00:12:59.635 · Sriram Parthasarathy
+new SP, but that's not true. The, you know,
+
+### 00:13:03.430 · Sriram Parthasarathy
+the IQ we reseller UI actually creates a new SP.
+
+### 00:13:09.337 · Sriram Parthasarathy
+on its own in the database when a new line item is added to.
+
+### 00:13:18.057 · Sriram Parthasarathy
+NSP, so when the very first line item is added
+
+### 00:13:21.857 · Sriram Parthasarathy
+to the SP, then there is a SP record created in the
+
+### 00:13:26.061 · Sriram Parthasarathy
+back end, so that you know we can refer back to
+
+### 00:13:29.941 · Sriram Parthasarathy
+that ID to save these line items, so this caused some issues because you
+
+### 00:13:35.843 · Sriram Parthasarathy
+know half baked.
+
+### 00:13:37.497 · Sriram Parthasarathy
+some SPs were showing up as deals and they didn't yet have line items and
+
+### 00:13:43.116 · Sriram Parthasarathy
+whatnot because we are synchronizing over at 30 second one minute intervals and it
+
+### 00:13:49.419 · Sriram Parthasarathy
+was too fast for the operator to create anything.
+
+### 00:13:53.216 · Sriram Parthasarathy
+So we provided this mechanism for them to delay.
+
+### 00:13:57.977 · Sriram Parthasarathy
+The creation of an SP record as a deal record and that particular setting here
+
+### 00:14:05.452 · Sriram Parthasarathy
+at the bottom.
+
+### 00:14:09.737 · Sriram Parthasarathy
+Delay, delay, yeah, so this specifies the number of minutes,
+
+### 00:14:14.815 · Sriram Parthasarathy
+you know, that you need to wait before creating,
+
+### 00:14:18.893 · Sriram Parthasarathy
+before letting a SP record mature in IQ. That's why we call them nascent records.
+
+### 00:14:25.719 · Sriram Parthasarathy
+They are just freshly created.
+
+### 00:14:28.617 · Sriram Parthasarathy
+So you wait for the nascent records to mature into proper records and then send
+
+### 00:14:33.452 · Sriram Parthasarathy
+them over.
+
+### 00:14:37.097 · Sriram Parthasarathy
+So, that would be the SP feed, and the 4th feed is the SP update feed.
+
+### 00:14:43.257 · Cliff Mauer
+Okay.
+
+### 00:14:43.889 · Sriram Parthasarathy
+This, you know, the what records are in scope for this
+
+### 00:14:49.150 · Sriram Parthasarathy
+feed, those records, those SP records that have changed state.
+
+### 00:14:55.337 · Sriram Parthasarathy
+since the time that we created those SPs, meaning they have gone from open to
+
+### 00:15:01.872 · Sriram Parthasarathy
+closed or open to voided. So those are the four default feeds that
+
+### 00:15:07.486 · Sriram Parthasarathy
+we use, you know, for...
+
+### 00:15:10.457 · Sriram Parthasarathy
+all customers in HubSpot. As I mentioned earlier,
+
+### 00:15:14.995 · Sriram Parthasarathy
+some customers do not use company because they have this ability to.
+
+### 00:15:22.897 · Sriram Parthasarathy
+Let me.
+
+### 00:15:25.017 · Sriram Parthasarathy
+Show how it's done, so.
+
+### 00:15:28.777 · Sriram Parthasarathy
+O, we have objects.
+
+### 00:15:33.577 · Sriram Parthasarathy
+Companies.
+
+### 00:15:37.457 · Sriram Parthasarathy
+And that is the setting that says create and associate companies with contacts.
+
+### 00:15:43.432 · Sriram Parthasarathy
+The advantage of this is, you know, the domain name is taken from a contact's
+
+### 00:15:49.258 · Sriram Parthasarathy
+email ID and companies are auto-created based on the domain ID and publicly
+
+### 00:15:54.935 · Sriram Parthasarathy
+available information is taken, including the company logo and all of
+
+### 00:16:00.163 · Sriram Parthasarathy
+that.
+
+### 00:16:00.577 · Sriram Parthasarathy
+those things. Usually this comes from the logo,
+
+### 00:16:05.276 · Sriram Parthasarathy
+this auto icon from the website itself. So these are things that we do not
+
+### 00:16:12.618 · Sriram Parthasarathy
+provide because if CV records are carried over as company records.
+
+### 00:16:19.377 · Sriram Parthasarathy
+The limitation is that we do not have a domain name field in IQ,
+
+### 00:16:24.067 · Sriram Parthasarathy
+so they don't get a domain name here. But if they use, you know, this setting,
+
+### 00:16:29.767 · Sriram Parthasarathy
+they get it automatically. So some customers use this feature,
+
+### 00:16:34.313 · Sriram Parthasarathy
+some customers don't. So if somebody uses this and is also
+
+### 00:16:38.570 · Sriram Parthasarathy
+synchronizing companies over from IQ to.
+
+### 00:16:41.817 · Sriram Parthasarathy
+HubSpot, then they will end up with duplicate
+
+### 00:16:45.002 · Sriram Parthasarathy
+companies in HubSpot.
+
+### 00:16:47.897 · Sriram Parthasarathy
+So that's one thing.
+
+### 00:16:51.977 · Sriram Parthasarathy
+Wallets.
+
+### 00:16:55.977 · Sriram Parthasarathy
+Okay, so a gross margin like we saw yesterday
+
+### 00:16:59.844 · Sriram Parthasarathy
+is a special feed that we run for only DHD and OSI.
+
+### 00:17:06.297 · Sriram Parthasarathy
+And this we have already seen.
+
+### 00:17:09.977 · Sriram Parthasarathy
+Or we were seeing OSI, so we saw delay.
+
+### 00:17:15.577 · Sriram Parthasarathy
+UTC flag is to set the time zone as UTC. Sometimes the default time zone or the
+
+### 00:17:25.601 · Sriram Parthasarathy
+actually the unchangeable time zone is in Azure is even your in cron tabs and
+
+### 00:17:35.374 · Sriram Parthasarathy
+whatnot.
+
+### 00:17:36.937 · Sriram Parthasarathy
+They are all, you know, in Pacific Time. So when I say 0, 30, 23 * * 1 to 5,
+
+### 00:17:48.296 · Sriram Parthasarathy
+this means, you know, on weekdays, any month, any day, any day.
+
+### 00:17:58.857 · Sriram Parthasarathy
+This runs at 1130 P.m. in the night. This 1130 actually corresponds to Pacific
+
+### 00:18:10.782 · Sriram Parthasarathy
+Time.
+
+### 00:18:13.337 · Sriram Parthasarathy
+So the records, if we take the local time from the server,
+
+### 00:18:18.644 · Sriram Parthasarathy
+that may be different, but the cron tab itself follows the
+
+### 00:18:23.951 · Sriram Parthasarathy
+Pacific Time only. So if we look at this, you know, for PartPoint,
+
+### 00:18:29.978 · Sriram Parthasarathy
+when we say it runs.
+
+### 00:18:31.897 · Sriram Parthasarathy
+from 5 to 17 every two hours, it means that it runs California time.
+
+### 00:18:38.984 · Sriram Parthasarathy
+So if they are in the central time zone, you add 2 hours, Eastern time zone,
+
+### 00:18:46.892 · Sriram Parthasarathy
+add 3 hours. So, you know, it's dependent on.
+
+### 00:18:51.697 · Sriram Parthasarathy
+what the target systems mandate is, you know, from what time to what time.
+
+### 00:18:56.828 · Sriram Parthasarathy
+I think Best Buy requires that you run the feeds from 9 A.m. to, you know, 9 P.m.
+
+### 00:19:02.437 · Sriram Parthasarathy
+or something like that. I don't exactly remember,
+
+### 00:19:05.858 · Sriram Parthasarathy
+but that's what it is. So we start an hour early and end an hour
+
+### 00:19:10.305 · Sriram Parthasarathy
+late just to make sure that we cover everything.
+
+### 00:19:14.377 · Sriram Parthasarathy
+and don't leave anything out. So we'll also see how we can validate
+
+### 00:19:19.888 · Sriram Parthasarathy
+these cron tabs and whatnot. Before that, we will let's finish the properties here.
+
+### 00:19:28.057 · Sriram Parthasarathy
+So this again, we have touched upon it before.
+
+### 00:19:35.097 · Sriram Parthasarathy
+Do you want to skip the create date? Meaning,
+
+### 00:19:38.792 · Sriram Parthasarathy
+do you want to set create date or not set create date? So when you set create date,
+
+### 00:19:45.540 · Sriram Parthasarathy
+you take the deal creation date from IQ Reseller and set it as the deal creation
+
+### 00:19:52.046 · Sriram Parthasarathy
+date in HubSpot. If this is set.
+
+### 00:19:53.177 · Cliff Mauer
+Oh.
+
+### 00:19:55.337 · Sriram Parthasarathy
+then we do not set that. And you know, for the same SP,
+
+### 00:20:00.454 · Sriram Parthasarathy
+maybe you created it yesterday in IQ reseller,
+
+### 00:20:04.748 · Sriram Parthasarathy
+but it is only going over to HubSpot today. So in IQ,
+
+### 00:20:09.683 · Sriram Parthasarathy
+it would have yesterday's date, and in HubSpot it will have.
+
+### 00:20:15.497 · Sriram Parthasarathy
+Today's data.
+
+### 00:20:18.137 · Sriram Parthasarathy
+Ordering contact, I already showed this, you know, in the UI.
+
+### 00:20:23.017 · Sriram Parthasarathy
+And we have one additional setting, ohh, excuse me, for gross margin,
+
+### 00:20:28.873 · Sriram Parthasarathy
+and you know that this query is just given there.
+
+### 00:20:33.057 · Sriram Parthasarathy
+This is what we run from the this is saved as a text value in in our
+
+### 00:20:37.177 · Cliff Mauer
+Okay.
+
+### 00:20:38.830 · Sriram Parthasarathy
+integration settings table. You may remember that.
+
+### 00:20:43.657 · Sriram Parthasarathy
+The integration setting table supports JSON and text.
+
+### 00:20:48.379 · Sriram Parthasarathy
+There is also room to support XML, but we are not using XML for anything at
+
+### 00:20:55.026 · Sriram Parthasarathy
+this point. Similarly, for DHD.
+
+### 00:20:59.737 · Sriram Parthasarathy
+We have a custom rep field, which is, you know, this one. Custom deal stage,
+
+### 00:21:04.889 · Sriram Parthasarathy
+we already saw that. And we are saying, you know,
+
+### 00:21:08.234 · Sriram Parthasarathy
+use deal stage probability or not. This is something that you can turn on
+
+### 00:21:13.185 · Sriram Parthasarathy
+and off. If you turn this off, then we do not send the probability
+
+### 00:21:17.668 · Sriram Parthasarathy
+factor.
+
+### 00:21:18.217 · Sriram Parthasarathy
+If you turn this on, we do send it. Use promise date for close date. Again,
+
+### 00:21:25.738 · Sriram Parthasarathy
+we saw this. When there is a close date in HubSpot for
+
+### 00:21:31.182 · Sriram Parthasarathy
+a completed deal, you know, if it's closed won or closed lost.
+
+### 00:21:38.057 · Sriram Parthasarathy
+The close date is actually the day on which the record was closed,
+
+### 00:21:43.963 · Sriram Parthasarathy
+either as a deal won or a deal lost. That would be the close date.
+
+### 00:21:49.869 · Sriram Parthasarathy
+For an open deal in HubSpot, the close date can still be set,
+
+### 00:21:55.334 · Sriram Parthasarathy
+but it would mean...
+
+### 00:21:57.817 · Sriram Parthasarathy
+that it's a promised date rather than an actual closure date.
+
+### 00:22:02.189 · Sriram Parthasarathy
+So do we want to use this? This is an additional customization we
+
+### 00:22:06.843 · Sriram Parthasarathy
+have done for HubSpot, but it is available for all customers if
+
+### 00:22:11.355 · Sriram Parthasarathy
+you just copy paste these settings, you know, to any tenant.
+
+### 00:22:16.057 · Sriram Parthasarathy
+They would also have the same features carried over.
+
+### 00:22:20.777 · Sriram Parthasarathy
+Oh, that's that.
+
+### 00:22:23.497 · Sriram Parthasarathy
+So let's go to HubSpot and see some more settings. We'll go to Properties.
+
+### 00:22:32.977 · Sriram Parthasarathy
+Let me just see.
+
+### 00:22:35.417 · Sriram Parthasarathy
+View properties.
+
+### 00:22:38.937 · Sriram Parthasarathy
+So there are a lot of, you know, probably, as you can see, we have many,
+
+### 00:22:43.652 · Sriram Parthasarathy
+many properties here. Let's say 100.
+
+### 00:22:49.417 · Sriram Parthasarathy
+So we have 100 and what, we're not seeing the count.
+
+### 00:22:54.963 · Sriram Parthasarathy
+So it's about greater than 150 or something like that. So here,
+
+### 00:23:01.661 · Sriram Parthasarathy
+we encourage our customers to create a separate group.
+
+### 00:23:07.497 · Cliff Mauer
+Yeah.
+
+### 00:23:08.857 · Sriram Parthasarathy
+for all the properties that they create, for all the custom properties that they
+
+### 00:23:14.660 · Sriram Parthasarathy
+create for the purpose of this integration. So for instance,
+
+### 00:23:19.030 · Sriram Parthasarathy
+DHD has created, sorry, I think it's OSI. Let's go to OSI.
+
+### 00:23:29.977 · Sriram Parthasarathy
+Objects, deals.
+
+### 00:23:32.817 · Sriram Parthasarathy
+We are interested in, yeah, and Dean says what we are interested in.
+
+### 00:23:39.737 · Sriram Parthasarathy
+Properties.
+
+### 00:23:42.857 · Sriram Parthasarathy
+Do properties, and then the group there is an IQR sync
+
+### 00:23:47.398 · Sriram Parthasarathy
+that they have created, so all of these properties, you know,
+
+### 00:23:52.516 · Sriram Parthasarathy
+these...
+
+### 00:23:55.937 · Sriram Parthasarathy
+You know, one and a half dozen properties that are
+
+### 00:24:00.420 · Sriram Parthasarathy
+created for the purpose of this integration.
+
+### 00:24:06.457 · Sriram Parthasarathy
+They are here, so it's easy to look up, or you know,
+
+### 00:24:10.615 · Sriram Parthasarathy
+if we are go if we are to go and check an S.P.I.D.
+
+### 00:24:16.057 · Sriram Parthasarathy
+It should say they also have deals from other integrations.
+
+### 00:24:20.770 · Sriram Parthasarathy
+There are other software applications are manually created by their, you know,
+
+### 00:24:26.975 · Sriram Parthasarathy
+by their market for marketing for people. So they are all in one place in HubSpot.
+
+### 00:24:33.495 · Sriram Parthasarathy
+So the way that you distinguish is by this SPID here.
+
+### 00:24:39.497 · Sriram Parthasarathy
+You go.
+
+### 00:24:42.457 · Sriram Parthasarathy
+View all properties.
+
+### 00:24:46.657 · Sriram Parthasarathy
+And then you have IQR sync.
+
+### 00:24:50.697 · Sriram Parthasarathy
+And there you go.
+
+### 00:24:53.177 · Sriram Parthasarathy
+So all of these are relevant to, so it doesn't mean that we are only
+
+### 00:24:57.793 · Sriram Parthasarathy
+setting these properties. These are the custom properties that are
+
+### 00:25:02.276 · Sriram Parthasarathy
+needed for the integration. We also use the, you know,
+
+### 00:25:05.955 · Sriram Parthasarathy
+native deal information properties like, you know, close date, create date,
+
+### 00:25:11.040 · Sriram Parthasarathy
+the deal name.
+
+### 00:25:13.177 · Sriram Parthasarathy
+See, deal description, this is what comes from, let me show you,
+
+### 00:25:20.023 · Sriram Parthasarathy
+SPID 2232. I hope we still have that open. Yes, we do.
+
+### 00:25:31.017 · Sriram Parthasarathy
+You can see that it says HubSpot deal type optics.
+
+### 00:25:36.217 · Sriram Parthasarathy
+That's exactly what is set here.
+
+### 00:25:40.697 · Sriram Parthasarathy
+See, after we post, they may go and make some edits, you know,
+
+### 00:25:45.934 · Sriram Parthasarathy
+whatever makes sense to them, but this is what it is,
+
+### 00:25:50.423 · Sriram Parthasarathy
+and we have the deal probability carryover from the, you know,
+
+### 00:25:55.660 · Sriram Parthasarathy
+probability factor field, and so on and so forth.
+
+### 00:26:00.297 · Sriram Parthasarathy
+And here you can also see.
+
+### 00:26:03.537 · Sriram Parthasarathy
+The companies and contacts that we associate with. Hold on. Yep.
+
+### 00:26:09.855 · Sriram Parthasarathy
+So you can see Tanya.
+
+### 00:26:13.097 · Sriram Parthasarathy
+Ohh, let us see if we do have that.
+
+### 00:26:17.017 · Sriram Parthasarathy
+Contact here.
+
+### 00:26:19.817 · Sriram Parthasarathy
+Yes, Tanya Valdez.
+
+### 00:26:23.657 · Sriram Parthasarathy
+You have none of this.
+
+### 00:26:27.017 · Sriram Parthasarathy
+The company name is Decipher Technologies.
+
+### 00:26:32.177 · Sriram Parthasarathy
+that is also linked.
+
+### 00:26:34.937 · Sriram Parthasarathy
+Oh, you know, we see, I remember when we stepped through,
+
+### 00:26:39.675 · Sriram Parthasarathy
+I showed you that we associate, you know, company IDs for HubSpot entity ID,
+
+### 00:26:45.967 · Sriram Parthasarathy
+or rather HubSpot object ID with the deals after we have created a deal in
+
+### 00:26:52.094 · Sriram Parthasarathy
+HubSpot through our code.
+
+### 00:26:55.017 · Sriram Parthasarathy
+Here we do not make 2 associations, we just make a single association.
+
+### 00:26:59.469 · Sriram Parthasarathy
+That is, we associate directly to the contact.
+
+### 00:27:03.497 · Sriram Parthasarathy
+And it gets assigned to that company internally because HubSpot already has,
+
+### 00:27:09.517 · Sriram Parthasarathy
+you know, that capability internally. It already has the references. One little,
+
+### 00:27:15.851 · Sriram Parthasarathy
+you know, special thing that you have to remember
+
+### 00:27:19.760 · Sriram Parthasarathy
+here is that.
+
+### 00:27:22.537 · Sriram Parthasarathy
+We have Tania Waldes here, and we also have Tania Waldes here.
+
+### 00:27:28.297 · Sriram Parthasarathy
+Sometimes.
+
+### 00:27:30.617 · Sriram Parthasarathy
+The company's primary contact here in HubSpot may be a different person.
+
+### 00:27:37.335 · Sriram Parthasarathy
+So let us say it's some John Smith. So even if we had said Tanya Valdis here,
+
+### 00:27:44.514 · Sriram Parthasarathy
+if the company had had John Smith as the main contact, we set the contact.
+
+### 00:27:51.577 · Sriram Parthasarathy
+It deciphers the company name, and then when it shows here,
+
+### 00:27:55.864 · Sriram Parthasarathy
+it will always show the primary contact of the company here.
+
+### 00:28:00.224 · Sriram Parthasarathy
+So that is a special case. They are aware of it.
+
+### 00:28:03.725 · Sriram Parthasarathy
+It's HubSpot behavior. There is nothing they can do about it,
+
+### 00:28:08.156 · Sriram Parthasarathy
+but it is what it is.
+
+### 00:28:10.377 · Sriram Parthasarathy
+But those cases are like few and far between, so you have deal type optics.
+
+### 00:28:18.137 · Sriram Parthasarathy
+everything, the margin, the margin percentage.
+
+### 00:28:21.203 · Sriram Parthasarathy
+So this is something that we send, the gross margin.
+
+### 00:28:24.661 · Sriram Parthasarathy
+This is something that they calculate based on the numbers that they have.
+
+### 00:28:29.554 · Sriram Parthasarathy
+This is a closed one deal, so you have the SOID as well.
+
+### 00:28:33.272 · Sriram Parthasarathy
+So if we go there, we should be seeing.
+
+### 00:28:36.457 · Sriram Parthasarathy
+The actual SOA, you see.
+
+### 00:28:40.377 · Sriram Parthasarathy
+It's the same one, so, and I know IQR sync.
+
+### 00:28:46.857 · Sriram Parthasarathy
+RSPs made in IQR is something that they have, you know, added to their view here.
+
+### 00:28:52.906 · Sriram Parthasarathy
+So it's all highly customizable in HubSpot.
+
+### 00:28:56.152 · Sriram Parthasarathy
+And you can also see the deal items here.
+
+### 00:29:03.577 · Sriram Parthasarathy
+And that's pretty much it; the address is web.
+
+### 00:29:12.857 · Sriram Parthasarathy
+And.
+
+### 00:29:15.097 · Sriram Parthasarathy
+Do you remember what I said? We'll come back and see.
+
+### 00:29:20.697 · Sriram Parthasarathy
+Ohh, the Encron tab validator. OK, so we'll go to that.
+
+### 00:29:26.617 · Sriram Parthasarathy
+Copy this.
+
+### 00:29:29.177 · Sriram Parthasarathy
+On time, well.
+
+### 00:29:31.657 · Sriram Parthasarathy
+Open a new window.
+
+### 00:29:35.017 · Sriram Parthasarathy
+In Chrome Tab.
+
+### 00:29:38.457 · Sriram Parthasarathy
+Validator.
+
+### 00:29:49.377 · Cliff Mauer
+Okay.
+
+### 00:29:53.337 · Cliff Mauer
+This would be helpful.
+
+### 00:29:55.337 · Sriram Parthasarathy
+Yes.
+
+### 00:30:01.817 · Sriram Parthasarathy
+It's taking a lot of time.
+
+### 00:30:05.097 · Sriram Parthasarathy
+Okay, let me open it. Sometimes Chrome is highly unreliable.
+
+### 00:30:20.337 · Sriram Parthasarathy
+So, this actually is cron tab. The difference here between cron tab and
+
+### 00:30:26.236 · Sriram Parthasarathy
+end cron tab is the end cron tab has seconds,
+
+### 00:30:30.005 · Sriram Parthasarathy
+whereas cron tab doesn't have seconds, so we would have to delete this for this
+
+### 00:30:36.561 · Sriram Parthasarathy
+error to go. So, how it says.
+
+### 00:30:39.497 · Sriram Parthasarathy
+At minute 25 past every second hour from 5 to 19 on every day of the week,
+
+### 00:30:45.345 · Sriram Parthasarathy
+Sunday through Saturday.
+
+### 00:30:48.777 · Sriram Parthasarathy
+This is a very nifty way for you to, so if you are just using this cron tab
+
+### 00:30:54.407 · Sriram Parthasarathy
+guru, remember to delete the second part. So it starts from the lowest, you know,
+
+### 00:31:00.482 · Sriram Parthasarathy
+granularity. So it starts with second and ends with
+
+### 00:31:04.335 · Sriram Parthasarathy
+the day of the week.
+
+### 00:31:06.857 · Sriram Parthasarathy
+We also have month and whatnot. See, this is minute, this is hour,
+
+### 00:31:12.623 · Sriram Parthasarathy
+this is day of month, this is month of year,
+
+### 00:31:16.496 · Sriram Parthasarathy
+this is day of week.
+
+### 00:31:19.417 · Sriram Parthasarathy
+So the difference here between this and this is that this would be 1 to 31.
+
+### 00:31:30.137 · Sriram Parthasarathy
+And this would be 0 to 6, just the day of the week. Zero is Sunday,
+
+### 00:31:34.913 · Sriram Parthasarathy
+6 is Saturday.
+
+### 00:31:36.737 · Sriram Parthasarathy
+OK, and let's also check.
+
+### 00:31:40.937 · Cliff Mauer
+No.
+
+### 00:31:41.177 · Sriram Parthasarathy
+And Chron tab.
+
+### 00:31:45.257 · Sriram Parthasarathy
+Calculator.
+
+### 00:31:48.297 · Sriram Parthasarathy
+This is also very useful.
+
+### 00:31:51.897 · Sriram Parthasarathy
+See, now I paste this right and it shows some
+
+### 00:31:56.518 · Sriram Parthasarathy
+sample times in which this will trigger.
+
+### 00:32:01.977 · Sriram Parthasarathy
+So, it's today.
+
+### 00:32:05.017 · Sriram Parthasarathy
+525 is the first time it starts because it's 5 to 19 every two hours.
+
+### 00:32:10.019 · Sriram Parthasarathy
+And this is 25, which is the minute. And second,
+
+### 00:32:13.521 · Sriram Parthasarathy
+we are just leaving it as zero. You know, we're not considering it.
+
+### 00:32:18.381 · Sriram Parthasarathy
+Remember to leave second as zero. If you put it as star,
+
+### 00:32:22.455 · Sriram Parthasarathy
+then it will fire every second. So we do not want that.
+
+### 00:32:26.937 · Sriram Parthasarathy
+So it has to be 0. So 52500 is the first time that it will
+
+### 00:32:32.847 · Sriram Parthasarathy
+fire. And after that, in two hour increments, so 7.
+
+### 00:32:38.977 · Sriram Parthasarathy
+excuse me, 725, 925, 1125, and so on and so forth until 19,
+
+### 00:32:46.131 · Sriram Parthasarathy
+which is 7 P.m. So it ends here. And just for good measure,
+
+### 00:32:53.284 · Sriram Parthasarathy
+they show the first two runs of the.
+
+### 00:32:57.977 · Sriram Parthasarathy
+next day. So you can see that until this point,
+
+### 00:33:02.422 · Sriram Parthasarathy
+it's 15th. So it starts from the hour 5 to hour and
+
+### 00:33:07.237 · Sriram Parthasarathy
+goes on to hour 19. And then next day it starts again from 5
+
+### 00:33:12.886 · Sriram Parthasarathy
+A.m.
+
+### 00:33:14.457 · Sriram Parthasarathy
+Remember all this in Azure, agmchencentralbankcoin tab is always
+
+### 00:33:19.884 · Sriram Parthasarathy
+specific time. We cannot change it, we just need to remember that we need to
+
+### 00:33:26.313 · Sriram Parthasarathy
+set it to, so if PowerPoint wants to run this,
+
+### 00:33:30.237 · Sriram Parthasarathy
+you know, 9 A.m. to 9 P.m. Eastern Time.
+
+### 00:33:33.897 · Sriram Parthasarathy
+then we would have to set it as 6 A.m. to 6 P.m. in contact time.
+
+### 00:33:41.417 · Sriram Parthasarathy
+So, that's that, and we can also check one more, you know,
+
+### 00:33:45.867 · Sriram Parthasarathy
+just for...
+
+### 00:33:52.057 · Sriram Parthasarathy
+Maybe we'll use the HubSpot.
+
+### 00:33:55.977 · Sriram Parthasarathy
+Stuff.
+
+### 00:33:58.537 · Sriram Parthasarathy
+Web jobs.
+
+### 00:34:09.097 · Sriram Parthasarathy
+So, we probably...
+
+### 00:34:11.337 · Sriram Parthasarathy
+Take this.
+
+### 00:34:15.097 · Sriram Parthasarathy
+So it's once every day.
+
+### 00:34:22.977 · Sriram Parthasarathy
+So every weekday. So we can see that after 15,
+
+### 00:34:26.495 · Sriram Parthasarathy
+it only goes to 18. Saturday and Sunday are skipped. And 19,
+
+### 00:34:31.060 · Sriram Parthasarathy
+20, 21 every day at 7pm.
+
+### 00:34:35.337 · Sriram Parthasarathy
+You can also validate this in Chron Tab Guru. Go here, remove these seconds,
+
+### 00:34:41.457 · Sriram Parthasarathy
+and let's say, you know, 7 P.m. every day of week from Monday through
+
+### 00:34:47.020 · Sriram Parthasarathy
+Friday.
+
+### 00:34:49.097 · Sriram Parthasarathy
+And one last check will do is this.
+
+### 00:34:55.417 · Sriram Parthasarathy
+OK, all this.
+
+### 00:34:58.217 · Sriram Parthasarathy
+every 35th. So this is actually every 35th minute for
+
+### 00:35:03.207 · Sriram Parthasarathy
+a backus. There are other customers where we do it
+
+### 00:35:07.921 · Sriram Parthasarathy
+every 30 seconds. But we cannot see that in Cron Tab Guru
+
+### 00:35:13.281 · Sriram Parthasarathy
+because they don't support seconds. So we'll come here.
+
+### 00:35:19.497 · Sriram Parthasarathy
+Show here so it's 0031132230. All of these are minutes and seconds.
+
+### 00:35:25.282 · Sriram Parthasarathy
+You can also print more if you want to. Check a few more.
+
+### 00:35:32.497 · Sriram Parthasarathy
+So, not much about...
+
+### 00:35:35.737 · Sriram Parthasarathy
+All this.
+
+### 00:35:40.217 · Sriram Parthasarathy
+Oh, I'll stop recording now.

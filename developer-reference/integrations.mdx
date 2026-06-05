@@ -1,0 +1,69 @@
+---
+title: "Integrations"
+description: "Migrated IQConnect developer reference page for Integrations."
+---
+
+# Integrations
+
+Integrations — IQConnect Architecture Overview Sync Engine Integrations Azure Database 
+Back to Overview 
+## Integration Wrappers 
+
+Each external system integration is encapsulated in a dedicated wrapper class within IqSync/ApiWrapper/ . These classes handle protocol translation, feed formatting, SFTP file management, and post-operation state tracking. 
+
+### Active Integrations 
+
+#### Best Buy Symphony Active 
+
+Customer: PARTpoint 
+File: Symphony.cs (6,305 lines) 
+Protocol: SFTP (XML files) 
+Feeds: Full bidirectional workflows — catalog, orders, ASN, invoices, returns, cancellations 
+
+#### SPS Commerce Active 
+
+Customer: OSI Global 
+File: SpsCommerce.cs (3,861 lines) + SpsCommerceDS.cs (1,171 lines) + SpsFormatConverter.cs (362 lines) 
+Protocol: SFTP (XML/JSON) 
+Feeds: Orders, ASN, invoices, acknowledgements 
+
+#### HubSpot Active 
+
+Customers: DHD, OSI Global, + others 
+File: HubSpot.cs (2,731 lines) 
+Protocol: REST API (JSON) + Webhooks 
+Feeds: Companies, contacts, deals/pipeline sync + inbound quote-to-SO automation 
+
+#### Channable Active 
+
+Customer: Renewtech 
+File: Channable.cs (801 lines) 
+Protocol: REST API 
+Feeds: Full product catalog push (SKU, brand, condition, pricing, stock, categories) 
+
+### Inactive / Shell Integrations 
+
+#### SellerCloud Not in Use 
+
+File: SellerCloud.cs (3,351 lines) + IqScSoap project 
+Protocol: REST API + SOAP 
+Feeds: Inventory sync, PO creation, order sync. Fully built but no active customers currently. 
+
+#### eBay Shell Only 
+
+Placeholder cases in IqSync routing. No active wrapper code. Reserved for future eBay MIP integration. 
+
+#### Staples Shell Only 
+
+Placeholder cases in IqSync routing. No active wrapper code. Reserved for future Staples Exchange integration. 
+
+### Common Integration Pattern 
+
+All active wrappers follow the same structural pattern: 
+1. Constructor receives IqReader (pre-fetched IQ data) + feedType + CheatSheet (config)
+2. Constructor calls PrepareFeed_[FeedType]() to transform IQ XML into target format
+3. WriteFeed() / WriteSymphonyFeedToFile() writes to SFTP or posts to API
+4. PostOpUpdateQuery is set with SQL to mark records as processed
+5. Caller (IqSync Program.cs) executes PostOpUpdateQuery via VssLastMile 
+
+IQConnect Architecture Reference — ISV Zen / IQ Reseller — Confidential IQR Dev Reference v5 — ISV Zen / IQ Reseller — Confidential

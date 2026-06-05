@@ -1,0 +1,39 @@
+---
+title: "Channable"
+description: "Migrated IQConnect developer reference page for Channable."
+---
+
+# Channable
+
+Channable — IQConnect Architecture Overview Sync Engine Integrations Azure Database 
+Back to Integrations 
+## Channable Product Feed 
+
+Product catalog feed integration with Channable , a marketplace aggregation platform. Used by Renewtech . Pushes the full IQ Reseller product catalog (items, pricing tiers, stock levels, categories) to Channable for distribution to downstream marketplaces. 
+801 
+Lines 
+
+1 
+Feed (catalog) 
+
+### Catalog Feed Structure 
+
+The catalog query ( Uri_FullCatalog ) joins maxlist_items with item to produce a flat feed containing: 
+
+ | Field | Source 
+ | id | Composite key: UPPER(CONCAT(mfgr, '~~', itemnumber, '~~', conditioncode)) 
+ | brand | mfgr 
+ | title / item_group_id | itemnumber 
+ | condition | conditioncode 
+ | description | item description 
+ | price | item price 
+ | sale_price1–8 | 8 tier pricing from item table 
+ | stock | available qty 
+ | product_type | Concatenated category hierarchy (up to 4 levels) 
+ | image_link | item imageurl 
+
+### Invocation 
+IqSync to-channable catalog &lt;tenantID&gt; production 
+Uses GetDataFromVendor_Channable() handler with PopulateCheetSheetFromDb() (settings loaded from database, not App.config). 
+
+IQConnect Architecture Reference — ISV Zen / IQ Reseller — Confidential IQR Dev Reference v5 — ISV Zen / IQ Reseller — Confidential

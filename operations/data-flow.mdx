@@ -1,0 +1,38 @@
+---
+title: "Data Flow"
+description: "Shared data-flow conventions across IQ Connect integrations."
+---
+
+
+# Data Flow
+
+IQ Connect integrations follow the same broad lifecycle even when each partner has a different protocol or data format.
+
+```mermaid
+sequenceDiagram
+  participant Job as IqSync Job
+  participant Settings as CheatSheet / Settings
+  participant IQ as IQ Reseller API
+  participant Partner as Partner System
+  participant Mirror as Mirror / Logs
+  Job->>Settings: Resolve active section and tenant context
+  Job->>IQ: Read or write IQ business data
+  Job->>Partner: Pull inbound files or push outbound payloads
+  Job->>Mirror: Save copies and operational evidence
+```
+
+## Outbound pattern
+
+1. Read candidate records from IQ or integration tables.
+2. Enrich records with tenant/integration settings.
+3. Format partner-specific XML, CSV, JSON, or API payloads.
+4. Send through SFTP or REST.
+5. Mark records complete through sync flags or integration tables.
+
+## Inbound pattern
+
+1. Pull partner files or receive a webhook.
+2. Save the original payload to a mirror location.
+3. Transform partner data into IQ API requests.
+4. Post to IQ and preserve the response.
+5. Send acknowledgements or updates when required.
