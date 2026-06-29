@@ -17,7 +17,7 @@ Customer-visible surfaces include:
 - Survey prompts.
 - Public signed survey response pages.
 
-These surfaces should never expose:
+These surfaces must never expose:
 
 - Raw API credentials.
 - Provider or model internals.
@@ -28,7 +28,14 @@ These surfaces should never expose:
 
 ## Credentials
 
-API credentials, source auth settings, provider keys, and integration secrets should stay server-side and encrypted or protected by the application's secret mechanism.
+API credentials, source auth settings, provider keys, and integration secrets
+must stay server-side and must remain separate from source documentation
+content, customer-visible messages, and model prompts. Source auth credentials
+are handled through the application's secure credential mechanism; workspace
+REST API keys are shown once at creation, then stored only as hashes.
+
+Secrets must never be returned in plaintext after creation, included in model
+context, or exposed through customer-facing surfaces.
 
 Do not put credentials in:
 

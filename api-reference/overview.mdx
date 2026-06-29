@@ -1,26 +1,31 @@
 ---
 title: "API Reference"
-description: "Use the Woes REST API and generated endpoint reference."
+sidebarTitle: "Start here"
+description: "Test and integrate the Woes REST API with workspace API keys, generated endpoint pages, and runnable examples."
 ---
 
 # API Reference
 
-Use the Woes API to read and manage workspace support data from server-side
-integrations. The public REST API uses `woesk_` workspace API keys and returns
-workspace-scoped conversations, issues, client aggregates, and agent metadata.
+Use the Woes REST API from server-side integrations to work with the same
+workspace-scoped records used by the Woes operator app: conversations, messages,
+issues, client aggregates, and agent metadata.
+
+The generated endpoint pages in this tab come from `openapi.json`. They include
+runnable request builders, schemas, examples, error responses, and Bearer-token
+authentication.
 
 <CardGroup cols={2}>
-  <Card title="REST API guide" icon="book-open" href="/api/overview">
-    Start with base URLs, authentication, scopes, response conventions, and
+  <Card title="Run your first request" icon="play" href="/api/authentication">
+    Create a `woesk_` key, paste it into the playground, and send a safe test
+    request against your workspace.
+  </Card>
+  <Card title="API fundamentals" icon="book-open" href="/api/overview">
+    Review base URLs, scopes, response conventions, pagination, limits, and
     safe integration patterns.
   </Card>
-  <Card title="Authentication" icon="key" href="/api/authentication">
-    Create workspace API keys, send Bearer tokens, and understand API key
-    errors.
-  </Card>
   <Card title="Conversations" icon="messages" href="/api/conversations">
-    Create support conversations, update status and priority, and append
-    messages.
+    Create support conversations, update status and priority, and append user
+    or assistant messages.
   </Card>
   <Card title="Issues" icon="circle-alert" href="/api/issues">
     Create, filter, read, and update customer support issues.
@@ -31,9 +36,22 @@ workspace-scoped conversations, issues, client aggregates, and agent metadata.
   <Card title="Agents" icon="bot" href="/api/agents">
     Read agent metadata and public widget keys for install automation.
   </Card>
+  <Card title="Keys and scopes" icon="key" href="/api/keys">
+    Understand `woesk_` API keys, resource scopes, rotation, usage tracking,
+    and the difference between API keys and widget keys.
+  </Card>
 </CardGroup>
 
-## Interactive Endpoint Reference
+## How The Reference Is Organized
+
+| Section | Use it for |
+| --- | --- |
+| API basics | Authentication, scopes, key handling, and integration rules. |
+| Resource guides | Human-readable workflow notes for each resource. |
+| Endpoint groups | Generated OpenAPI pages with runnable examples and schemas. |
+| Widget and surveys | Public customer-facing routes that are not authenticated with `woesk_` API keys. |
+
+## Test Calls In The Docs
 
 The endpoint pages in this API Reference tab are generated from `openapi.json`
 and include interactive request builders. Use them when you need exact request
@@ -48,17 +66,21 @@ parameters, body schemas, response examples, and test calls.
     Choose an endpoint in the **Endpoint Reference** section of this tab.
   </Step>
   <Step title="Paste your Bearer token">
-    Add your API key to the authorization field in the playground.
+    Add a disposable scoped test key to the authorization field in the
+    playground.
   </Step>
   <Step title="Send the request">
-    Review the example parameters or body before running a request against
-    `https://woes.dev`.
+    Review the example parameters or body, then run the request against
+    `https://woes.dev`. Calls are made against your workspace and count toward
+    public API usage.
   </Step>
 </Steps>
 
 <Warning>
   API keys are server-side secrets. Do not place `woesk_` keys in browser
-  snippets, frontend apps, customer-visible docs, or mobile clients.
+  snippets, frontend apps, customer-visible docs, or mobile clients. Use a
+  disposable, scoped test key in the docs playground and revoke it after use.
+  For production keys, run requests from your own backend.
 </Warning>
 
 ## Active Resources
@@ -69,7 +91,29 @@ parameters, body schemas, response examples, and test calls.
 | Issues        | Active      | [Issues](/api/issues)         |
 | Clients       | Active      | [Clients](/api/clients)       |
 | Agents        | Active      | [Agents](/api/agents)         |
-| Widget routes | Active      | [Widget API](/api/widget)     |
-| Surveys       | Active      | [Surveys API](/api/surveys)   |
 | Sources       | Planned     | Use [API Context](/context/sources) for ingestion workflows. |
 | Analytics     | Planned     | Use [Analytics](/platform/analytics) for the product view. |
+
+## Related Public Routes
+
+Widget and survey routes are active customer-facing surfaces, but they are not
+authenticated with `woesk_` REST API keys and they do not appear in the
+generated `/api/v1` endpoint reference.
+
+| Route family | Guide |
+| --- | --- |
+| Widget runtime | [Widget runtime](/api/widget) |
+| Survey delivery | [Survey delivery](/api/surveys) |
+
+## Response Boundaries
+
+REST API responses are scoped to the workspace attached to the API key. They do
+not include raw key material, workspace ids, service-role details, provider/model
+internals, operator-only debug traces, system prompts, or another workspace's
+data.
+
+<Tip>
+  Use guide pages when you need integration intent and edge-case behavior. Use
+  generated endpoint pages when you need exact parameters, request bodies, and
+  runnable examples.
+</Tip>

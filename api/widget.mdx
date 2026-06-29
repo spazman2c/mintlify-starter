@@ -1,11 +1,13 @@
 ---
-title: "Widget API"
-description: "Understand the public widget routes used by Woes live chat."
+title: "Widget Runtime"
+description: "Install and control the public Woes live chat widget runtime."
 ---
 
-# Widget API
+# Widget Runtime
 
-The widget API powers customer-facing live chat. It uses widget public keys plus route-level controls rather than broad table access.
+The widget runtime powers customer-facing live chat. It uses widget public keys
+plus route-level controls rather than broad table access. Widget routes are not
+`/api/v1` REST API endpoints and do not accept `woesk_` workspace API keys.
 
 ## Install Snippet
 
@@ -14,9 +16,9 @@ Use the install snippet from **Settings → Install** or **Settings → Keys**.
 ```html
 <script
   async
-  src="https://cdn.woes.dev/widget.js"
+  src="https://woes.dev/widget.js"
   data-public-key="YOUR_WIDGET_PUBLIC_KEY"
-  data-api="https://YOUR_APP_ORIGIN/api/widget/messages"
+  data-api="https://woes.dev/api/widget/messages"
 ></script>
 ```
 
@@ -57,6 +59,15 @@ window.Woes("onChangeUnreadMessagesCount", (count) => {
 ## Customer Identity
 
 For unsigned installs, send the customer details you already know.
+
+<Warning>
+  Unsigned `identify` fields are display and routing metadata, not
+  authentication. Any browser user can alter them. Use HMAC or JWT identity
+  verification before showing account-specific history or trusting
+  account/customer ids. In HMAC mode, only the normalized email is verified;
+  `name`, `company`, and `id` remain display metadata. Use JWT when
+  account/contact ids must be verified.
+</Warning>
 
 ```js
 window.Woes("identify", {
@@ -99,6 +110,16 @@ window.Woes("setNewConversationFields", {
 
 window.Woes("showNewMessage", "I hit a 401 on POST /orders.");
 ```
+
+## Conversation Continuity
+
+A widget public key only resolves the workspace or agent. Continuing or reading
+an existing widget conversation also requires the opaque `conversationSecret`
+returned when the conversation is created.
+
+Store the secret per widget key in the browser, do not send it to analytics or
+logs, and prefer the `x-widget-conversation-secret` header for history requests.
+Public key plus conversation id alone must not be treated as authorization.
 
 ## Ticket Forms
 

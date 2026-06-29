@@ -1,13 +1,21 @@
 ---
 title: "Conversations"
+sidebarTitle: "Conversations API"
 description: "Create, read, update, and add messages to Woes support conversations."
 ---
 
 # Conversations
 
-The Conversations API is the first active Woes REST API resource. It writes to
+The Conversations API is an active Woes REST API resource. It writes to
 the same workspace-scoped conversation and message model used by live chat,
 email, Discord, the operator inbox, and automations.
+
+<Note>
+  The REST Conversations API mutates workspace support records only. It does
+  not invoke widget identity, run the support agent, deliver Discord or email
+  messages, or execute channel-specific automation side effects. An `assistant`
+  REST message is externally supplied; it is not a Woes agent run.
+</Note>
 
 ## Conversation Object
 

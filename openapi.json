@@ -4,7 +4,11 @@
     "title": "Woes REST API",
     "summary": "Public REST API for workspace conversations, issues, clients, and agents.",
     "description": "Use workspace API keys to work with Woes support conversations, messages, issues, client account aggregates, and public agent metadata from server-side integrations.",
-    "version": "2026-06-29"
+    "version": "2026-06-29",
+    "license": {
+      "name": "Proprietary",
+      "identifier": "LicenseRef-Proprietary"
+    }
   },
   "servers": [
     {
@@ -660,19 +664,74 @@
                       "clients": [
                         {
                           "object": "client",
-                          "id": "example-api-co",
-                          "name": "Example API Co",
-                          "health": "watch",
-                          "metrics": {
-                            "conversations": 4,
-                            "openConversations": 1,
-                            "messages": 38,
-                            "verifiedContacts": 2,
-                            "visits": 6
-                          }
+                      "id": "example-api-co",
+                      "name": "Example API Co",
+                      "health": "watch",
+                      "healthScore": {
+                        "label": "watch",
+                        "score": 72,
+                        "activity": 85,
+                        "conversations": 66,
+                        "resolutions": 70,
+                        "reasons": [
+                          "1/4 conversations still open.",
+                          "75% resolution rate."
+                        ]
+                      },
+                      "metrics": {
+                        "conversations": 4,
+                        "openConversations": 1,
+                        "messages": 38,
+                        "verifiedContacts": 2,
+                        "visits": 6
+                      },
+                      "channels": [
+                        {
+                          "channel": "live-chat",
+                          "count": 3
+                        },
+                        {
+                          "channel": "email",
+                          "count": 1
                         }
-                      ]
+                      ],
+                      "contacts": [
+                        {
+                          "id": "cus_123",
+                          "name": "Ada Lovelace",
+                          "email": "ada@example.com",
+                          "identitySource": "headers",
+                          "lastMessageAt": "2026-06-29T13:00:00.000Z",
+                          "online": false,
+                          "visits": 4
+                        }
+                      ],
+                      "recentConversations": [
+                        {
+                          "id": "6f6b6f9a-1b6a-4e42-9f71-1b9a3f3d2a33",
+                          "channel": "live-chat",
+                          "subject": "OAuth redirect URI mismatch",
+                          "preview": "Customer reports a redirect_uri mismatch.",
+                          "status": "open",
+                          "lastMessageAt": "2026-06-29T13:00:00.000Z"
+                        }
+                      ],
+                      "tasks": [
+                        {
+                          "id": "6f6b6f9a-1b6a-4e42-9f71-1b9a3f3d2a33",
+                          "subject": "OAuth redirect URI mismatch",
+                          "preview": "Customer reports a redirect_uri mismatch.",
+                          "status": "open",
+                          "priority": "High",
+                          "lastMessageAt": "2026-06-29T13:00:00.000Z"
+                        }
+                      ],
+                      "firstContactAt": "2026-06-20T16:00:00.000Z",
+                      "lastMessageAt": "2026-06-29T13:00:00.000Z",
+                      "latestConversationId": "6f6b6f9a-1b6a-4e42-9f71-1b9a3f3d2a33"
                     }
+                  ]
+                }
                   }
                 }
               }
@@ -1191,7 +1250,7 @@
             "maxLength": 160
           },
           "email": {
-            "type": "string",
+            "type": ["string", "null"],
             "format": "email",
             "maxLength": 320
           },
@@ -1213,7 +1272,7 @@
             "maxLength": 160
           },
           "email": {
-            "type": "string",
+            "type": ["string", "null"],
             "format": "email",
             "maxLength": 320
           },

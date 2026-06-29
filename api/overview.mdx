@@ -1,11 +1,15 @@
 ---
 title: "REST API Overview"
+sidebarTitle: "REST API guide"
 description: "Use the Woes REST API to work with support conversations, issues, clients, and agents."
 ---
 
 # REST API Overview
 
-The Woes REST API lets server-side integrations work with workspace support data using `woesk_` workspace API keys.
+The Woes REST API lets server-side integrations work with workspace support
+data using `woesk_` workspace API keys. The API is designed for backend jobs,
+internal tools, customer portals, and workflow systems that need to create or
+read Woes support records without using the operator UI.
 
 <CardGroup cols={2}>
   <Card title="API Reference" icon="code" href="/api-reference/overview">
@@ -42,9 +46,8 @@ The Woes REST API lets server-side integrations work with workspace support data
 | Issues API                    | Active for listing, creating, reading, and updating issues.           |
 | Clients API                   | Active for listing and reading client account aggregates.             |
 | Agents API                    | Active for listing and reading public agent metadata.                 |
-| Widget API                    | Active for public widget messaging and events.                        |
-| Survey response API           | Active for signed email survey responses.                             |
 | Workspace API keys            | Active for REST API authentication.                                   |
+| Public API usage tracking     | Active for valid `woesk_` calls, counted by workspace key.            |
 | Sources and analytics exports | Planned.                                                              |
 
 ## Base URL
@@ -70,14 +73,24 @@ Open any page in the **Endpoint Reference** group to test an API request from
 the docs. Each endpoint page has an interactive playground with example
 parameters and request bodies already filled in.
 
-1. Paste your `woesk_` key into the Bearer token field.
-2. Review the prefilled parameters or JSON body.
-3. Click **Send** to run the request against `https://woes.dev`.
+1. Create a disposable scoped test key in **Settings → Keys**.
+2. Paste that `woesk_` key into the Bearer token field.
+3. Review the prefilled parameters or JSON body.
+4. Click **Send** to run the request against `https://woes.dev`.
 
 <Warning>
-  Only use your own workspace API key. The docs use placeholder values and never
-  include a real secret.
+  Use a disposable, scoped test key in the docs playground. Do not paste a
+  production integration key. Playground requests run against `https://woes.dev`
+  and may transit the docs runtime when proxying is enabled. For production
+  keys, run `curl` or SDK calls from your own backend and revoke playground test
+  keys after use.
 </Warning>
+
+<Note>
+  Valid public API calls are tracked against the workspace API key that
+  authenticated the request. Admins can review per-key usage from
+  **Settings → Billing** and manage keys from **Settings → Keys**.
+</Note>
 
 ## Active Resources
 
@@ -107,13 +120,40 @@ Workspace API keys can be unrestricted or scoped. Scoped keys use resource/actio
 | `conversations:write` | Create/update conversations and messages. |
 | `issues:read`         | List and read issues.                     |
 | `issues:write`        | Create and update issues.                 |
-| `agents:*`            | All agent operations.                     |
-| `clients:*`           | All client operations.                    |
-| `conversations:*`     | All conversation and message operations.  |
-| `issues:*`            | All issue operations.                     |
-| `*`                   | All REST API operations.                  |
+
+Only these exact scopes can be created today. Leaving the scope list empty
+creates an unrestricted key.
 
 <Warning>
   REST API keys are server-side secrets. Do not place `woesk_` keys in browser
   code, widget snippets, mobile apps, or customer-visible pages.
 </Warning>
+
+## Response Conventions
+
+Successful list responses use an `object: "list"` envelope and include
+`hasMore` when more matching records exist beyond the requested limit. Object
+responses are wrapped by resource name, such as `{ "conversation": { ... } }`
+or `{ "issue": { ... } }`.
+
+Error responses use a stable `code` plus a human-readable `error` message:
+
+```json
+{
+  "code": "invalid_request",
+  "error": "At least one issue field is required."
+}
+```
+
+Cross-workspace ids return `404` instead of revealing that a record exists in a
+different workspace.
+
+## Side-Effect Boundary
+
+The REST API mutates workspace support records only. It does not invoke the
+live-chat widget identity flow, run the support agent, deliver Discord or email
+messages, or execute channel-specific automation side effects. Use channel or
+widget routes for customer messaging behavior.
+
+An `assistant` message created through the REST API is an externally supplied
+message, not a Woes agent run.

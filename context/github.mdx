@@ -39,8 +39,13 @@ GitHub repositories can be used as context sources. This is useful when your API
 
 ## Security Notes
 
-Woes stores GitHub connection data server-side. Client-side access is denied by RLS, and source scanning should avoid exposing private secrets to customer-facing answers.
+Woes stores GitHub connection data server-side. Client-side access is denied by
+RLS, and attached repository content can become support evidence for agents.
+Treat selected repositories and branches as customer-support source material.
 
 <Warning>
-  Do not rely on private code comments containing secrets or unreleased behavior as customer-facing support context.
+  Do not attach repositories, branches, docs, code comments, or examples that
+  contain secrets, private customer data, unreleased behavior, or anything that
+  should not influence customer-facing support answers. Woes redaction and
+  grounding safeguards are not a substitute for source hygiene.
 </Warning>

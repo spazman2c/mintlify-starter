@@ -13,7 +13,7 @@ Woes can store source auth configuration and run guarded endpoint tests so suppo
 - Secret values are never returned in plaintext.
 - Test execution applies credentials server-side only.
 - Results are sanitized before display.
-- Unsafe or uncontrolled targets should be blocked by route-level safeguards.
+- Unsafe or uncontrolled targets are blocked by route-level safeguards.
 
 ## Configure Source Auth
 
@@ -42,6 +42,23 @@ Woes can store source auth configuration and run guarded endpoint tests so suppo
 | Body | Sanitized response body or parse error. |
 | Validation | Whether the result matched expected route behavior. |
 | Error | User-readable failure without leaking credentials. |
+
+## Live Test Guardrails
+
+Live tests are authenticated operator actions that require
+`context.test.execute`. They are limited to discovered server or endpoint
+origins for the source, run through SSRF-safe fetch, block private, loopback, and
+reserved hosts plus unsafe ports, and disable redirects for credentialed live
+calls.
+
+Woes returns redacted URLs, headers, bodies, previews, and generated curl
+commands. Source test payloads are bounded, and live API checks are tracked in
+billing usage when a guarded test executes.
+
+<Note>
+  mTLS credentials can be configured, but live mTLS transport is not enabled
+  yet.
+</Note>
 
 <Warning>
   Use non-production credentials or safe fixture endpoints whenever possible. Never paste API secrets into documentation pages, support messages, or agent prompts.

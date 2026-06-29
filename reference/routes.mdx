@@ -6,13 +6,50 @@ description: "A customer-facing map of important Woes route families and what th
 # Route Reference
 
 This page is a high-level route map. It is not a complete public API contract.
+Use [API Reference](/api-reference/overview) for generated `/api/v1` endpoint
+schemas and runnable examples.
 
-## Workspace Routes
+## Public REST API
+
+These routes use `Authorization: Bearer <woesk_...>` workspace API keys and are
+documented in the generated API Reference.
+
+| Route family | Purpose |
+| --- | --- |
+| `/api/v1/conversations` | List and create API-origin support conversations. |
+| `/api/v1/conversations/{conversationId}` | Read or update one workspace conversation. |
+| `/api/v1/conversations/{conversationId}/messages` | List or append conversation messages. |
+| `/api/v1/issues` | List and create support issues. |
+| `/api/v1/issues/{issueId}` | Read or update one support issue. |
+| `/api/v1/clients` | List client/account aggregates. |
+| `/api/v1/clients/{clientId}` | Read one client/account aggregate. |
+| `/api/v1/agents` | List public agent metadata. |
+| `/api/v1/agents/{agentId}` | Read one public agent metadata object. |
+
+## Widget And Customer Routes
+
+These routes are customer-facing or webhook-facing. They do not accept `woesk_`
+workspace API keys.
+
+| Route family | Purpose |
+| --- | --- |
+| `/api/widget/messages` | Customer widget conversation flow. |
+| `/api/widget/events` | Widget event tracking. |
+| `/api/widget/presence` | Customer presence heartbeat. |
+| `/api/widget/csat` | Widget survey responses. |
+| `/api/surveys/email-response` | Signed email survey response capture. |
+| `/api/email/inbound/resend` | Inbound email webhook. |
+| `/api/discord/events` | Discord event handling. |
+
+## Authenticated Workspace Routes
+
+These routes power the Woes app and require a signed-in workspace user with the
+right permissions.
 
 | Route family | Purpose |
 | --- | --- |
 | `/api/account/settings` | Load and save workspace settings. |
-| `/api/account/api-keys` | Create, list, and revoke reserved workspace API keys. |
+| `/api/account/api-keys` | Create, list, and revoke workspace API keys. |
 | `/api/account/csat` | Compatibility analytics route returning typed survey responses. |
 | `/api/account/surveys/email` | Send enabled email surveys. |
 | `/api/account/widget-analytics` | Load widget event analytics. |
@@ -26,18 +63,8 @@ This page is a high-level route map. It is not a complete public API contract.
 | `/api/issues` | Manage support issues. |
 | `/api/notes` | Manage internal notes. |
 
-## Public Routes
-
-| Route family | Purpose |
-| --- | --- |
-| `/api/widget/messages` | Customer widget conversation flow. |
-| `/api/widget/events` | Widget event tracking. |
-| `/api/widget/presence` | Customer presence heartbeat. |
-| `/api/widget/csat` | Widget survey responses. |
-| `/api/surveys/email-response` | Signed email survey response capture. |
-| `/api/email/inbound/resend` | Inbound email webhook. |
-| `/api/discord/events` | Discord event handling. |
-
 <Note>
-  Routes listed here may require authentication, workspace permissions, signed tokens, provider webhooks, or public widget keys depending on the route family.
+  Routes listed here may require authentication, workspace permissions, signed
+  tokens, provider webhooks, or public widget keys depending on the route
+  family.
 </Note>

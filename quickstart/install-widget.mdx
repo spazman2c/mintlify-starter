@@ -11,7 +11,7 @@ The Woes widget lets customers ask questions from your product or docs site. Pub
 
 | Key                  | When to use it                                                                      |
 | -------------------- | ----------------------------------------------------------------------------------- |
-| Workspace widget key | A single support agent and one shared install path.                                 |
+| Workspace widget key | The default workspace agent and one shared install path.                            |
 | Agent widget key     | Different agents on different websites, products, docs areas, or customer segments. |
 
 Find widget keys in **Settings → Keys**. Agent widget keys also appear with each agent in **Agents**.
@@ -23,9 +23,9 @@ Add the Woes snippet to the pages where customers should be able to ask for help
 ```html
 <script
   async
-  src="https://cdn.woes.dev/widget.js"
+  src="https://woes.dev/widget.js"
   data-public-key="YOUR_WIDGET_PUBLIC_KEY"
-  data-api="https://YOUR_APP_ORIGIN/api/widget/messages"
+  data-api="https://woes.dev/api/widget/messages"
 ></script>
 ```
 
@@ -46,6 +46,13 @@ window.Woes("setTheme", "dark");
 ## Identify Customers
 
 For signed-in products, identify the customer so conversations are tied to a stable account.
+
+<Warning>
+  Unsigned `identify` fields are display and routing metadata, not
+  authentication. Any browser user can alter them. Use HMAC or JWT identity
+  verification before showing account-specific history or trusting
+  account/customer ids.
+</Warning>
 
 ```js
 window.Woes("identify", {

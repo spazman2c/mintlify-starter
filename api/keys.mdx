@@ -16,6 +16,7 @@ Workspace API keys are managed in **Settings → Keys** and authenticate calls t
 | Storage           | Only a hash and visible prefix are stored.                          |
 | Scope             | Workspace-scoped; can be unrestricted or scoped by resource/action. |
 | Current use       | REST API authentication.                                            |
+| Usage tracking    | Valid REST API calls are counted by key for billing and visibility. |
 
 ## Create a Key
 
@@ -46,6 +47,15 @@ curl https://woes.dev/api/v1/conversations \
 
 If the key is missing, unknown, revoked, or expired, the API returns `401`.
 
+## Track Usage
+
+Each valid public REST API request is recorded against the workspace and API key
+that authenticated the request. Admins can use this to understand which
+integrations are using the public API and to audit rotation work.
+
+Usage records do not store raw request bodies, raw responses, API key secrets,
+or customer-private payloads.
+
 ## Supported Scopes
 
 Unscoped keys can call every REST API endpoint. Scoped keys can be limited to
@@ -59,11 +69,9 @@ specific resources:
 | `conversations:write` | Create/update conversations and messages. |
 | `issues:read`         | List/read issues.                         |
 | `issues:write`        | Create/update issues.                     |
-| `agents:*`            | All agent operations.                     |
-| `clients:*`           | All client operations.                    |
-| `conversations:*`     | All conversation and message operations.  |
-| `issues:*`            | All issue operations.                     |
-| `*`                   | All REST API operations.                  |
 
 If a scoped key calls an endpoint outside its allowed scopes, the API returns
 `403 insufficient_scope`.
+
+Only these exact scopes can be created today. Leaving the scope list empty
+creates an unrestricted key.

@@ -2,10 +2,38 @@
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
   "name": "Woes",
+  "description": "Customer-facing documentation and REST API reference for Woes, the API-native developer support platform.",
   "colors": {
     "primary": "#FF7038",
     "light": "#FFF1E8",
-    "dark": "#202020"
+    "dark": "#181716"
+  },
+  "icons": {
+    "library": "lucide"
+  },
+  "background": {
+    "decoration": "grid",
+    "color": {
+      "light": "#FFF8F2",
+      "dark": "#11100F"
+    }
+  },
+  "styling": {
+    "eyebrows": "breadcrumbs",
+    "codeblocks": "dark"
+  },
+  "seo": {
+    "indexing": "navigable",
+    "metatags": {
+      "og:site_name": "Woes Docs",
+      "twitter:card": "summary_large_image"
+    }
+  },
+  "search": {
+    "prompt": "Search Woes docs, API guides, and endpoint reference..."
+  },
+  "metadata": {
+    "timestamp": true
   },
   "favicon": "/images/woes-mark.png",
   "logo": {
@@ -37,8 +65,93 @@
   "navbar": {
     "links": [
       {
+        "label": "Docs",
+        "href": "https://docs.woes.dev"
+      },
+      {
+        "label": "API Reference",
+        "href": "https://docs.woes.dev/api-reference/overview"
+      },
+      {
+        "label": "Trust",
+        "href": "https://docs.woes.dev/security/data-privacy"
+      },
+      {
         "label": "App",
         "href": "https://woes.dev"
+      }
+    ],
+    "primary": {
+      "type": "button",
+      "label": "Open app",
+      "href": "https://woes.dev"
+    }
+  },
+  "footer": {
+    "links": [
+      {
+        "header": "Product",
+        "items": [
+          {
+            "label": "Quickstart",
+            "href": "/quickstart/overview"
+          },
+          {
+            "label": "Inbox",
+            "href": "/platform/inbox"
+          },
+          {
+            "label": "Agents",
+            "href": "/agents/overview"
+          }
+        ]
+      },
+      {
+        "header": "API",
+        "items": [
+          {
+            "label": "API Reference",
+            "href": "/api-reference/overview"
+          },
+          {
+            "label": "Authentication",
+            "href": "/api/authentication"
+          },
+          {
+            "label": "Conversations",
+            "href": "/api/conversations"
+          }
+        ]
+      },
+      {
+        "header": "Security",
+        "items": [
+          {
+            "label": "Widget Identity",
+            "href": "/security/widget-identity"
+          },
+          {
+            "label": "Data Privacy",
+            "href": "/security/data-privacy"
+          },
+          {
+            "label": "Tenant Isolation",
+            "href": "/security/tenant-isolation"
+          }
+        ]
+      },
+      {
+        "header": "Company",
+        "items": [
+          {
+            "label": "Website",
+            "href": "https://woes.dev"
+          },
+          {
+            "label": "Blog",
+            "href": "https://woes.dev/blog"
+          }
+        ]
       }
     ]
   },
@@ -64,7 +177,7 @@
         "icon": "book-open",
         "groups": [
           {
-            "group": "Start Here",
+            "group": "Start here",
             "pages": [
               "index",
               "quickstart/overview",
@@ -74,7 +187,7 @@
             ]
           },
           {
-            "group": "Core Platform",
+            "group": "Core platform",
             "pages": [
               "platform/inbox",
               "platform/issues",
@@ -88,12 +201,13 @@
             "group": "Channels",
             "pages": [
               "channels/live-chat",
+              "api/widget",
               "channels/email",
               "channels/discord"
             ]
           },
           {
-            "group": "API Context",
+            "group": "API context",
             "pages": [
               "context/sources",
               "context/auth-testing",
@@ -115,6 +229,7 @@
               "settings/overview",
               "settings/keys",
               "settings/surveys",
+              "api/surveys",
               "settings/users-permissions",
               "settings/notifications",
               "settings/data-macros"
@@ -135,6 +250,18 @@
               "reference/glossary",
               "reference/troubleshooting"
             ]
+          },
+          {
+            "group": "REST API guides",
+            "pages": [
+              "api/overview",
+              "api/authentication",
+              "api/keys",
+              "api/conversations",
+              "api/issues",
+              "api/clients",
+              "api/agents"
+            ]
           }
         ]
       },
@@ -143,25 +270,15 @@
         "icon": "square-terminal",
         "groups": [
           {
-            "group": "Overview",
+            "group": "API basics",
             "pages": [
               "api-reference/overview",
-              "api/overview",
               "api/authentication",
               "api/keys"
             ]
           },
           {
-            "group": "REST API Guides",
-            "pages": [
-              "api/conversations",
-              "api/issues",
-              "api/clients",
-              "api/agents"
-            ]
-          },
-          {
-            "group": "Conversation Endpoints",
+            "group": "Conversations endpoints",
             "openapi": "openapi.json",
             "pages": [
               "GET /api/v1/conversations",
@@ -173,7 +290,7 @@
             ]
           },
           {
-            "group": "Issue Endpoints",
+            "group": "Issues endpoints",
             "openapi": "openapi.json",
             "pages": [
               "GET /api/v1/issues",
@@ -183,7 +300,7 @@
             ]
           },
           {
-            "group": "Client Endpoints",
+            "group": "Clients endpoints",
             "openapi": "openapi.json",
             "pages": [
               "GET /api/v1/clients",
@@ -191,18 +308,11 @@
             ]
           },
           {
-            "group": "Agent Endpoints",
+            "group": "Agents endpoints",
             "openapi": "openapi.json",
             "pages": [
               "GET /api/v1/agents",
               "GET /api/v1/agents/{agentId}"
-            ]
-          },
-          {
-            "group": "Widget & Surveys",
-            "pages": [
-              "api/widget",
-              "api/surveys"
             ]
           }
         ]

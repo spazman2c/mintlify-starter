@@ -1,0 +1,49 @@
+:root {
+  --woes-orange: #ff7038;
+  --woes-orange-soft: rgba(255, 112, 56, 0.14);
+  --woes-border: rgba(255, 112, 56, 0.24);
+}
+
+/* Mintlify loads root-level CSS on the docs site. Keep this layer visual only:
+   docs content and generated API behavior should continue to come from MDX and
+   openapi.json. */
+aside nav [class*="uppercase"],
+aside nav p[class*="uppercase"],
+aside nav span[class*="uppercase"] {
+  color: var(--woes-orange) !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.18em !important;
+}
+
+aside nav a[aria-current="page"],
+aside nav a[data-active="true"] {
+  color: var(--woes-orange) !important;
+}
+
+aside nav a[aria-current="page"] {
+  background: var(--woes-orange-soft) !important;
+  box-shadow: inset 2px 0 0 var(--woes-orange);
+}
+
+.card,
+[class*="card"] {
+  border-color: var(--woes-border);
+}
+
+code {
+  border-color: rgba(255, 112, 56, 0.18);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  aside nav a {
+    transition:
+      background-color 160ms ease,
+      color 160ms ease,
+      box-shadow 160ms ease,
+      transform 160ms ease;
+  }
+
+  aside nav a:hover {
+    transform: translateX(2px);
+  }
+}

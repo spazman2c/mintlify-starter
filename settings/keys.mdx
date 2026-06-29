@@ -1,11 +1,12 @@
 ---
 title: "Keys"
-description: "Manage widget public keys, agent widget keys, and reserved workspace API keys."
+description: "Manage widget public keys, agent widget keys, and workspace API keys."
 ---
 
 # Keys
 
-Settings → Keys centralizes platform keys used by the widget and future public API surfaces.
+Settings → Keys centralizes platform keys used by the widget and public REST
+API integrations.
 
 ## Key Types
 
@@ -13,7 +14,7 @@ Settings → Keys centralizes platform keys used by the widget and future public
 | --- | --- | --- |
 | Workspace widget key | `trovw_` | Public identifier for the default workspace widget install. |
 | Agent widget key | `trovw_` or agent-specific variant | Public identifier for a specific agent's widget install. |
-| Workspace API key | `woesk_` | Reserved for future public API authentication. |
+| Workspace API key | `woesk_` | Private secret for authenticated REST API calls. |
 
 ## Widget Keys
 
@@ -33,7 +34,9 @@ Each agent can have its own widget key. The Keys page lists all agent keys, sour
 
 Workspace API keys are table-backed and stored hashed. The full secret is shown once at creation time.
 
-These keys are currently reserved for the upcoming public API. They are not accepted by production public API routes yet.
+Use workspace API keys with the public REST API under `/api/v1`. Valid calls are
+tracked against the key that authenticated the request, so admins can review API
+usage by integration.
 
 <Warning>
   Treat `woesk_` secrets as private. Do not put them in browser code, docs pages, support messages, screenshots, or client-side snippets.

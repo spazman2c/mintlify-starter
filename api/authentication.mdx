@@ -8,6 +8,11 @@ description: "Authenticate Woes REST API requests with workspace API keys."
 The Woes REST API uses workspace API keys. Create a key in **Settings → Keys**,
 copy the full secret once, and store it in your server-side secret manager.
 
+<Note>
+  Workspace API keys start with `woesk_`. Widget keys are public install
+  identifiers and are not accepted by REST API endpoints.
+</Note>
+
 ## Bearer Token
 
 Pass the key in the `Authorization` header.
@@ -27,6 +32,13 @@ prefilled example parameters or JSON body, and click **Send** to run the call.
   The playground runs against `https://woes.dev`. Use a test workspace key when
   creating conversations, messages, or issues from the docs.
 </Note>
+
+<Warning>
+  Use a disposable, scoped test key in the docs playground. Do not paste a
+  production integration key. Playground requests may transit the docs runtime
+  when proxying is enabled. For production keys, run `curl` or SDK calls from
+  your own backend and revoke playground test keys after use.
+</Warning>
 
 ## Quick API Examples
 
@@ -131,6 +143,8 @@ read-only boundaries.
 - Do not put REST API keys in widget snippets or client-side JavaScript.
 - Revoke keys from **Settings → Keys** when rotating credentials.
 - Each key is workspace-scoped; it cannot read or write another workspace.
+- Valid REST API calls are tracked against the key that authenticated the
+  request.
 
 ## Error Responses
 
@@ -148,3 +162,6 @@ read-only boundaries.
   "error": "A valid workspace API key is required."
 }
 ```
+
+For `429 rate_limited`, back off and retry after a short delay. Public REST API
+requests are rate-limited per workspace API key.

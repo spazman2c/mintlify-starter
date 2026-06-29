@@ -7,6 +7,13 @@ description: "Securely identify customers in the Woes widget using anonymous, HM
 
 Widget identity connects a visitor to a stable customer record and conversation history.
 
+<Warning>
+  Unsigned `identify` fields are display and routing metadata, not
+  authentication. Any browser user can alter them. Use HMAC or JWT identity
+  verification before showing account-specific history or trusting
+  account/customer ids.
+</Warning>
+
 ## Modes
 
 | Mode       | Trust level | Description                                                                       |
@@ -20,6 +27,10 @@ Widget identity connects a visitor to a stable customer record and conversation 
 In HMAC mode, your backend signs the normalized customer email using the workspace identity secret. The browser sends the email and hash to Woes.
 
 Only the email is signed. Other fields such as name or company are treated as display metadata.
+
+In HMAC mode, only the normalized email is verified. `name`, `company`, and
+`id` remain display metadata. Use JWT when account or contact ids must be
+verified.
 
 ```js
 const { createHmac } = require("node:crypto");
@@ -94,6 +105,7 @@ Woes accepts verified widget identity JWTs up to 15 minutes from issue to expiry
 - Use stable customer identifiers.
 - Do not include raw secrets in identity metadata.
 - Confirm the widget install uses the correct workspace or agent key.
+- Treat unsigned browser identity fields as untrusted metadata.
 
 <Warning>
   A widget public key is public. It identifies the workspace or agent install,
