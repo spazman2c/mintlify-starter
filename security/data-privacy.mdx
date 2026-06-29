@@ -1,0 +1,46 @@
+---
+title: "Data Privacy"
+description: "Understand customer data, credentials, prompts, debug traces, and public surface boundaries in Woes."
+---
+
+# Data Privacy
+
+Woes is designed to keep customer-visible surfaces separate from operator-only and server-only data.
+
+## Customer-Visible Surfaces
+
+Customer-visible surfaces include:
+
+- Widget messages.
+- Email replies.
+- Discord replies.
+- Survey prompts.
+- Public signed survey response pages.
+
+These surfaces should never expose:
+
+- Raw API credentials.
+- Provider or model internals.
+- System prompts.
+- Operator-only debug traces.
+- Another workspace's data.
+- Service-role diagnostics.
+
+## Credentials
+
+API credentials, source auth settings, provider keys, and integration secrets should stay server-side and encrypted or protected by the application's secret mechanism.
+
+Do not put credentials in:
+
+- Source documentation content.
+- Agent prompts.
+- Macros.
+- Survey messages.
+- Customer replies.
+- Screenshots in public docs.
+
+## AI Context
+
+The support agent receives workspace-scoped context and sanitized customer fields. It should treat customer fields as hints, not API evidence.
+
+Endpoint claims, auth rules, schemas, fields, and response behavior must come from retrieved API context.

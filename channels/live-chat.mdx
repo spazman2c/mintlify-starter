@@ -1,0 +1,56 @@
+---
+title: "Live Chat"
+description: "Configure the Woes live chat widget for customer support and AI-assisted API answers."
+---
+
+# Live Chat
+
+Live chat is the fastest way to bring Woes into your product or documentation site. Customers can ask questions, receive grounded AI replies, and continue with a human operator when needed.
+
+## Setup Flow
+
+<Steps>
+  <Step title="Open Settings → Channels → Live chat">
+    Confirm the live chat channel is enabled and review widget behavior.
+  </Step>
+  <Step title="Choose a widget key">
+    Use the workspace widget key for a single default agent or an agent widget key for a specific agent.
+  </Step>
+  <Step title="Install the snippet">
+    Copy the current snippet from **Settings → Install** or **Settings → Keys**.
+  </Step>
+  <Step title="Identify customers">
+    Add identity data for signed-in users. For stronger trust, configure HMAC email verification or JWT.
+  </Step>
+  <Step title="Test a conversation">
+    Open the widget, send a question, confirm it appears in Inbox, and verify the right agent context is used.
+  </Step>
+</Steps>
+
+## Widget Capabilities
+
+- Customer identity and conversation history.
+- AI answers with source-grounded context.
+- Operator takeover and replies.
+- Delivery, unread, typing, loading, and closed states.
+- Agent-specific routing through widget keys.
+- CSAT or NPS survey prompts after resolution.
+
+## Customer Identity Modes
+
+| Mode | Use it when |
+| --- | --- |
+| Off | Anonymous or low-trust visitor support. |
+| HMAC email | Your backend can sign the customer's normalized email. |
+| JWT | Your backend can issue signed identity tokens with email claims. |
+
+Read [Widget Identity](/security/widget-identity) before using verified identity modes.
+
+## Troubleshooting
+
+| Problem | Fix |
+| --- | --- |
+| The widget opens as anonymous | Send an identify call or configure verified identity. |
+| The wrong agent answers | Use the correct agent widget key and confirm source attachments. |
+| Customers cannot see history | Verify the identity anchor is stable and signed where required. |
+| Surveys do not render | Enable a live chat or in-app survey in Settings → Surveys. |

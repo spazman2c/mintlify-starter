@@ -1,0 +1,49 @@
+---
+title: "Discord"
+description: "Connect Discord so community support messages become Woes conversations."
+---
+
+# Discord
+
+Discord support routes server messages into Woes using the same conversation and message model as live chat and email.
+
+## What Discord Adds
+
+- OAuth install flow for a Discord server.
+- Workspace-bound server installation.
+- Channel listing for text, announcement, and forum channels.
+- Inbound message forwarding to Woes.
+- Optional dedicated gateway worker for always-on Discord events.
+- Agent and operator handling from the same Inbox.
+
+## Setup Flow
+
+<Steps>
+  <Step title="Open Settings → Channels → Discord">
+    Start the Discord install flow.
+  </Step>
+  <Step title="Authorize the server">
+    Complete the Discord OAuth install and choose the server.
+  </Step>
+  <Step title="Choose channels">
+    Select the Discord channels Woes should listen to.
+  </Step>
+  <Step title="Run the gateway worker if required">
+    Production Discord events require the gateway process described in the deployment notes.
+  </Step>
+  <Step title="Test a message">
+    Send a message in the selected channel and confirm it appears in Inbox.
+  </Step>
+</Steps>
+
+## Discord Conversations
+
+Woes maps Discord messages to conversations using server and channel/thread context. Forum posts and threads can map to the same support conversation where supported.
+
+## Operator Workflow
+
+Operators handle Discord messages from Inbox just like other channels. They can take over from AI, reply, add notes, tag the conversation, or convert it into an issue.
+
+<Note>
+  Discord is a channel, not a separate product tree. Keep routing, tags, issues, notes, and analytics aligned with the shared Woes support model.
+</Note>

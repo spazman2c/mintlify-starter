@@ -1,0 +1,54 @@
+---
+title: "Context Learning"
+description: "Use context learning to auto-tune an agent from its attached sources."
+---
+
+# Context Learning
+
+Context learning analyzes an agent's attached sources and creates a context-aware operating brief. It helps the agent answer from the actual domains, endpoints, and constraints it is responsible for.
+
+## What Learning Produces
+
+Context learning can produce:
+
+- Markdown operating brief.
+- Summary of what the agent covers.
+- Domains and capabilities.
+- Per-source focus notes.
+- Coverage notes.
+- Cautions and guardrails.
+- Tuned persona.
+- Tuned runbook instructions.
+- Greeting message.
+- Confidence threshold suggestions.
+- Custom guardrails.
+
+## Statuses
+
+| Status | Meaning |
+| --- | --- |
+| Idle | No learning run is pending or ready. |
+| Pending | The agent has context and is waiting for a learning run. |
+| Ready | A learned profile is available. |
+| Failed | The learning run failed; review the operator-readable error and retry. |
+
+## Run Learning
+
+<Steps>
+  <Step title="Attach sources">
+    Add source context to the agent.
+  </Step>
+  <Step title="Open Context intelligence">
+    Use the Context intelligence button in the agent overview.
+  </Step>
+  <Step title="Tune or re-tune">
+    Run learning. Woes samples attached sources and generates a grounded operating brief.
+  </Step>
+  <Step title="Review before relying on it">
+    Confirm the brief accurately describes the agent's domain and boundaries.
+  </Step>
+</Steps>
+
+<Warning>
+  Context learning should reinforce grounding. It should not authorize the agent to answer outside attached source evidence.
+</Warning>

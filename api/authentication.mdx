@@ -1,0 +1,41 @@
+---
+title: "Authentication"
+description: "Authenticate Woes REST API requests with workspace API keys."
+---
+
+# Authentication
+
+The Woes REST API uses workspace API keys. Create a key in **Settings → Keys**,
+copy the full secret once, and store it in your server-side secret manager.
+
+## Bearer Token
+
+Pass the key in the `Authorization` header.
+
+```bash
+curl https://woes.dev/api/v1/conversations \
+  -H "Authorization: Bearer $WOES_API_KEY"
+```
+
+## Security Rules
+
+- Keep `woesk_` keys on your backend.
+- Do not put REST API keys in widget snippets or client-side JavaScript.
+- Revoke keys from **Settings → Keys** when rotating credentials.
+- Each key is workspace-scoped; it cannot read or write another workspace.
+
+## Error Responses
+
+| Status | Code             | Meaning                                 |
+| ------ | ---------------- | --------------------------------------- |
+| `401`  | `unauthorized`   | Missing, unknown, or revoked API key.   |
+| `401`  | `key_expired`    | API key has expired.                    |
+| `429`  | `rate_limited`   | Too many requests for the key.          |
+| `500`  | `internal_error` | The API request could not be completed. |
+
+```json
+{
+  "code": "unauthorized",
+  "error": "A valid workspace API key is required."
+}
+```

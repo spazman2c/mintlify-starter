@@ -1,0 +1,40 @@
+---
+title: "Surveys API"
+description: "Understand survey response routes for widget and email survey collection."
+---
+
+# Surveys API
+
+Survey APIs collect customer feedback from widget prompts and signed email links.
+
+## Widget Survey Responses
+
+Widget survey responses post through the compatibility widget survey route. The active survey definition determines whether the score must be:
+
+- CSAT: 1 to 5.
+- NPS: 0 to 10.
+
+## Email Survey Responses
+
+Email surveys use signed links generated when Woes sends the survey email.
+
+Flow:
+
+1. An operator or automation sends an enabled email survey.
+2. Woes generates a signed token containing workspace, conversation, survey, and expiration.
+3. The email includes one-click score links.
+4. The customer clicks a score.
+5. Woes verifies the token and score range.
+6. The response is inserted into `support_survey_responses`.
+
+## Active Routes
+
+| Route | Purpose |
+| --- | --- |
+| `/api/account/surveys/email` | Authenticated operator route to send an email survey. |
+| `/api/surveys/email-response` | Public signed response capture route. |
+| `/api/widget/csat` | Public widget survey response route. |
+
+<Warning>
+  Email response links are intended for the recipient. Do not expose signed survey links in public docs, tickets, or screenshots.
+</Warning>

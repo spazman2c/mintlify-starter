@@ -1,0 +1,58 @@
+---
+title: "Client Portal"
+description: "Configure and preview the customer-facing client portal for issue visibility, customer forms, and branded account access."
+---
+
+# Client Portal
+
+The Client Portal is the customer-facing account experience for support issues and requests. It is currently available as an authenticated operator preview from **Clients → Portal Preview** while public customer login and custom-domain routing are completed.
+
+## Current Status
+
+| Capability | Status |
+| --- | --- |
+| Operator preview at `/clients/portal` | Available behind workspace auth. |
+| Portal settings in Clients | Available. |
+| Branded light portal shell | Available in preview. |
+| Customer-facing issue list and detail routes | Backend routes exist for portal sessions. |
+| OTP login delivery | Future backend work. |
+| Custom-auth token exchange | Future backend work. |
+| Public custom-domain routing | Future backend work. |
+
+## Portal Settings
+
+Portal settings are stored on workspace settings and require `customers.write` to save.
+
+Settings include:
+
+- Enablement.
+- Portal name.
+- Logo URL.
+- Accent color.
+- Header links.
+- Footer link sections.
+- Default access behavior.
+- Visible and editable issue fields.
+- Customer-facing issue status labels.
+- Customer-facing task status labels.
+- Customer-facing forms.
+- Custom domain and DNS record display.
+- OTP or custom-auth URL mode.
+
+## Access Levels
+
+| Access level | Meaning |
+| --- | --- |
+| Admin | Can see account-level portal issues for the same customer company. |
+| Member | Can see issues tied to their customer email. |
+| No access | Cannot access portal issues. |
+
+## Portal Issues
+
+Portal-visible issues use the same issue model as Woes support issues. Portal routes return customer-safe issue fields and customer/support message roles.
+
+Public portal access depends on a valid portal session. In non-production environments, a development session header may be used for testing.
+
+<Warning>
+  The operator preview is not the final public customer login flow. Do not promise customer OTP, custom-auth, or custom-domain behavior until those routes are enabled in production.
+</Warning>

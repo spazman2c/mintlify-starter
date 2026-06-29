@@ -1,19 +1,24 @@
 {
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
-  "name": "IQ Connect KT",
+  "name": "Woes",
   "colors": {
-    "primary": "#0B6BCB",
-    "light": "#E8F2FF",
-    "dark": "#111827"
+    "primary": "#FF7038",
+    "light": "#FFF1E8",
+    "dark": "#202020"
   },
-  "favicon": "/images/iqrlogo.png",
+  "favicon": "/images/woes-mark.png",
   "logo": {
-    "light": "/images/iqrlogo.png",
-    "dark": "/images/iqrlogo.png"
+    "light": "/images/woes-wordmark.png",
+    "dark": "/images/woes-wordmark.png"
   },
   "navbar": {
-    "links": []
+    "links": [
+      {
+        "label": "App",
+        "href": "https://woes.dev"
+      }
+    ]
   },
   "navigation": {
     "groups": [
@@ -21,48 +26,76 @@
         "group": "Start Here",
         "pages": [
           "index",
-          "start-here/how-to-use",
-          "start-here/system-map",
-          "start-here/security-boundary"
+          "quickstart/overview",
+          "quickstart/add-context",
+          "quickstart/install-widget",
+          "quickstart/invite-team"
         ]
       },
       {
-        "group": "Operations",
+        "group": "Core Platform",
         "pages": [
-          "operations/command-reference",
-          "operations/best-buy-promise-date-resend",
-          "operations/support-runbook",
-          "operations/publish-and-deployment",
-          "operations/data-flow"
+          "platform/inbox",
+          "platform/issues",
+          "platform/clients",
+          "platform/client-portal",
+          "platform/automations",
+          "platform/analytics"
         ]
       },
       {
-        "group": "Integrations",
+        "group": "Channels",
+        "pages": ["channels/live-chat", "channels/email", "channels/discord"]
+      },
+      {
+        "group": "API Context",
+        "pages": ["context/sources", "context/auth-testing", "context/github"]
+      },
+      {
+        "group": "Agents",
         "pages": [
-          "integrations/sps-commerce",
-          "integrations/hubspot",
-          "integrations/channable",
-          "integrations/symphony"
+          "agents/overview",
+          "agents/create-agents",
+          "agents/context-learning",
+          "agents/routing-widget"
         ]
       },
       {
-        "group": "Developer Reference",
+        "group": "Settings",
         "pages": [
-          "developer-reference/overview",
-          "developer-reference/azure",
-          "developer-reference/channable",
-          "developer-reference/cheatsheet",
-          "developer-reference/dashboards",
-          "developer-reference/database",
-          "developer-reference/feedapi",
-          "developer-reference/helpers",
-          "developer-reference/hubspot",
-          "developer-reference/index",
-          "developer-reference/integrations",
-          "developer-reference/iqreader",
-          "developer-reference/iqsync",
-          "developer-reference/lastmile",
-          "developer-reference/sellercloud"
+          "settings/overview",
+          "settings/keys",
+          "settings/surveys",
+          "settings/users-permissions",
+          "settings/notifications",
+          "settings/data-macros"
+        ]
+      },
+      {
+        "group": "REST API",
+        "pages": [
+          "api/overview",
+          "api/authentication",
+          "api/conversations",
+          "api/keys"
+        ]
+      },
+      {
+        "group": "Widget API & Security",
+        "pages": [
+          "api/widget",
+          "api/surveys",
+          "security/widget-identity",
+          "security/data-privacy",
+          "security/tenant-isolation"
+        ]
+      },
+      {
+        "group": "Reference",
+        "pages": [
+          "reference/routes",
+          "reference/glossary",
+          "reference/troubleshooting"
         ]
       }
     ]

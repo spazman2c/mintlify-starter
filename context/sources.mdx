@@ -1,0 +1,60 @@
+---
+title: "Sources"
+description: "Manage API sources, endpoint Markdown, retrieval chunks, source health, and documentation coverage in Woes."
+---
+
+# Sources
+
+Sources are the material Woes uses to answer customer questions. They can be API specifications, docs pages, repositories, schemas, examples, or support knowledge.
+
+## Source Lifecycle
+
+<Steps>
+  <Step title="Create">
+    Add a URL, file, raw text, schema, or GitHub repository in Context.
+  </Step>
+  <Step title="Scan">
+    Woes fetches, parses, normalizes, and chunks the source.
+  </Step>
+  <Step title="Inspect">
+    Review endpoint groups, documents, generated endpoint Markdown, examples, auth, and health.
+  </Step>
+  <Step title="Attach">
+    Attach the source to one or more agents.
+  </Step>
+  <Step title="Rescan">
+    Rescan when source content changes. Woes avoids unnecessary re-embedding when content has not changed.
+  </Step>
+</Steps>
+
+## Detail View
+
+The source detail view can show:
+
+- Endpoint method and path.
+- Summary and description.
+- Parameters.
+- Request bodies.
+- Response codes and schemas.
+- Auth requirements.
+- Examples.
+- Generated Markdown.
+- Documents and chunks.
+- Source health and status.
+
+## Retrieval Quality
+
+High-quality sources include:
+
+- Exact endpoint paths.
+- Auth requirements.
+- Required and optional fields.
+- Request and response examples.
+- Error examples.
+- Webhook and event behavior.
+- SDK snippets.
+- Versioning notes.
+
+<Tip>
+  If customers often ask the same question and the agent clarifies or hands off, add that answer to source context instead of weakening the agent's confidence threshold.
+</Tip>

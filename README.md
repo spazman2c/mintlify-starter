@@ -1,11 +1,7 @@
-# IQ Connect KT Mintlify Docs
+# Woes Mintlify Docs
 
-Generated from the local KT folder.
+Customer-facing documentation for Woes, the API-native developer support platform.
 
-Preview locally:
+The docs source is intentionally written without workspace IDs, API secrets, raw customer data, provider internals, or operator-only debug traces.
 
-```bash
-npx mint dev
-```
-
-Deploy through a Mintlify-connected Git repository. Mintlify's REST deployment trigger requires an admin API key beginning with `mint_` and a project ID.
+Use `docs.json` as the navigation source of truth.

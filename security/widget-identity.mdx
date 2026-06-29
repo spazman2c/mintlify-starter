@@ -1,0 +1,101 @@
+---
+title: "Widget Identity"
+description: "Securely identify customers in the Woes widget using anonymous, HMAC email, or JWT modes."
+---
+
+# Widget Identity
+
+Widget identity connects a visitor to a stable customer record and conversation history.
+
+## Modes
+
+| Mode       | Trust level | Description                                                                       |
+| ---------- | ----------- | --------------------------------------------------------------------------------- |
+| Off        | Low         | Customers can use the widget anonymously or with client-provided identity fields. |
+| HMAC email | Medium      | Your backend signs the normalized customer email.                                 |
+| JWT        | Higher      | Your backend issues a signed token with verified customer claims.                 |
+
+## HMAC Email
+
+In HMAC mode, your backend signs the normalized customer email using the workspace identity secret. The browser sends the email and hash to Woes.
+
+Only the email is signed. Other fields such as name or company are treated as display metadata.
+
+```js
+const { createHmac } = require("node:crypto");
+
+const secret = process.env.WOES_WIDGET_IDENTITY_SECRET;
+const email = user.email.trim().toLowerCase();
+const secretBytes = Buffer.from(secret, "hex");
+const emailHash = createHmac("sha256", secretBytes).update(email).digest("hex");
+
+res.json({
+  email,
+  name: user.name,
+  company: account.name,
+  id: user.id,
+  email_hash: emailHash,
+});
+```
+
+Send the returned identity payload to the widget in the browser.
+
+```js
+window.Woes("identify", {
+  email: identity.email,
+  name: identity.name,
+  company: identity.company,
+  id: identity.id,
+  email_hash: identity.email_hash,
+});
+```
+
+## JWT
+
+In JWT mode, your backend signs a token that includes the customer's email and optional identity fields. Woes verifies the token before trusting the identity.
+
+```js
+const jwt = require("jsonwebtoken");
+
+const now = Math.floor(Date.now() / 1000);
+const token = jwt.sign(
+  {
+    email: user.email.trim().toLowerCase(),
+    name: user.name,
+    account_external_id: account.id,
+    contact_external_id: user.id,
+    aud: "YOUR_WIDGET_PUBLIC_KEY",
+    iat: now,
+    exp: now + 10 * 60,
+  },
+  process.env.WOES_WIDGET_IDENTITY_SECRET,
+  { algorithm: "HS256" },
+);
+
+res.json({ jwt: token });
+```
+
+Then identify the visitor with the signed token.
+
+```js
+window.Woes("identify", {
+  jwt: identity.jwt,
+});
+```
+
+JWT identity tokens must use `HS256`, include an `email` claim, and set `aud` to
+the widget public key used by the install snippet. Keep token lifetimes short;
+Woes accepts verified widget identity JWTs up to 15 minutes from issue to expiry.
+
+## Security Rules
+
+- Generate signatures server-side.
+- Never expose identity secrets to the browser.
+- Use stable customer identifiers.
+- Do not include raw secrets in identity metadata.
+- Confirm the widget install uses the correct workspace or agent key.
+
+<Warning>
+  A widget public key is public. It identifies the workspace or agent install,
+  but it is not a private authentication secret.
+</Warning>

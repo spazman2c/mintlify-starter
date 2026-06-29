@@ -1,0 +1,56 @@
+---
+title: "Add API Context"
+description: "Add documentation, specifications, repositories, and examples so Woes can answer from your actual API surface."
+---
+
+# Add API Context
+
+Woes answers developer questions from workspace-scoped source context. A source can be a formal API specification, a documentation site, raw Markdown, SDK examples, or a connected GitHub repository.
+
+## Supported Source Types
+
+| Source type | Good for |
+| --- | --- |
+| OpenAPI | REST endpoints, auth schemes, schemas, request bodies, responses, and examples. |
+| Postman documenter | Public Postman documentation pages and collection-style endpoint groups. |
+| Raw documentation URL | Hosted API docs, guides, reference pages, and conceptual documentation. |
+| Markdown or text | Internal guides, SDK notes, support runbooks, and concise product behavior notes. |
+| GraphQL schema | Query/mutation types, fields, arguments, and schema descriptions. |
+| AsyncAPI | Event, message, and webhook documentation. |
+| SOAP or gRPC docs | Service operations, request/response contracts, and integration notes. |
+| GitHub repository | Docs, SDK examples, sample apps, README files, and source-adjacent API guidance. |
+
+## Add a Source
+
+<Steps>
+  <Step title="Open Context">
+    Go to **Context** in the workspace sidebar.
+  </Step>
+  <Step title="Choose the source type">
+    Select the input path that best matches your material: URL, specification, raw docs, or GitHub repository.
+  </Step>
+  <Step title="Start ingestion">
+    Woes scans the source, normalizes endpoint and document content, and builds retrieval chunks for the support agent.
+  </Step>
+  <Step title="Inspect the result">
+    Open the source detail view to review endpoints, generated Markdown, documents, chunk coverage, auth readiness, and source health.
+  </Step>
+  <Step title="Attach the source to an agent">
+    In **Agents**, attach the source to the right agent and run context learning.
+  </Step>
+</Steps>
+
+## Source Health
+
+Woes shows status and coverage so operators can understand what the agent knows.
+
+| State | Meaning |
+| --- | --- |
+| Ready | The source was scanned and has usable content. |
+| Partial | Some content was parsed, but one or more pages, documents, or endpoints need attention. |
+| Failed | Woes could not safely fetch or parse the source. Review the error and source accessibility. |
+| No endpoints | The source may contain useful docs, but no endpoint-level reference was found. |
+
+<Warning>
+  Keep credentials separate from source content. Use source auth settings for test credentials instead of embedding secrets in documentation.
+</Warning>

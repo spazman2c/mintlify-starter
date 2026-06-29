@@ -1,0 +1,42 @@
+---
+title: "Settings Overview"
+description: "Understand the Woes settings areas for workspace identity, channels, agents, keys, users, roles, data, surveys, and notifications."
+---
+
+# Settings Overview
+
+Settings controls workspace behavior, team access, channels, install snippets, security options, and operator workflows.
+
+## Settings Areas
+
+| Area | Use it for |
+| --- | --- |
+| Workspace | Company name, support URL, timezone, and identity. |
+| Channels | Live chat, email, Discord, and context channel settings. |
+| Install | Widget install snippets and setup instructions. |
+| Keys | Workspace widget key, agent widget keys, and reserved public API keys. |
+| Users | Members, roles, and current viewing state. |
+| Permissions | Section-specific access controls. |
+| Notifications | In-app, browser, email, push, sound, and quiet-hour preferences. |
+| Data | Custom fields, tags, statuses, and priority labels. |
+| Macros | Reusable operator replies and ticket actions. |
+| Surveys | CSAT and NPS survey configuration. |
+| Security | Widget identity and workspace access controls. |
+
+## Permission Model
+
+Workspace settings writes are guarded by section-specific permissions. A user only needs write access to the sections that actually changed.
+
+Examples:
+
+- Editing macros requires macro permissions.
+- Editing automations requires automation permissions.
+- Changing company identity requires workspace write access.
+- Reading settings requires authenticated workspace access.
+
+## Safe Configuration Principles
+
+- Keep credentials in the correct secret settings, not in prompts or docs.
+- Use role-based permissions for changes that affect customers.
+- Prefer a narrow role for operators who do not manage setup.
+- Review keys before installing widgets on public pages.

@@ -1,0 +1,47 @@
+---
+title: "REST API Overview"
+description: "Use the Woes REST API to create, read, and update support conversations."
+---
+
+# REST API Overview
+
+The Woes REST API lets server-side integrations work with workspace support data using `woesk_` workspace API keys.
+
+## Current Status
+
+| Area                                                    | Status                                                                |
+| ------------------------------------------------------- | --------------------------------------------------------------------- |
+| Conversations API                                       | Active for listing, creating, reading, updating, and adding messages. |
+| Widget API                                              | Active for public widget messaging and events.                        |
+| Survey response API                                     | Active for signed email survey responses.                             |
+| Workspace API keys                                      | Active for REST API authentication.                                   |
+| Issues, clients, agents, sources, and analytics exports | Planned.                                                              |
+
+## Base URL
+
+```txt
+https://woes.dev/api/v1
+```
+
+## Authentication
+
+Send your workspace API key as a Bearer token.
+
+```bash
+curl https://woes.dev/api/v1/conversations \
+  -H "Authorization: Bearer $WOES_API_KEY"
+```
+
+Create keys in **Settings → Keys**. Full secrets are shown once and then stored hashed.
+
+## Active Resources
+
+| Resource      | Endpoints                                                                                                                   |
+| ------------- | --------------------------------------------------------------------------------------------------------------------------- |
+| Conversations | `GET /conversations`, `POST /conversations`, `GET /conversations/{conversationId}`, `PATCH /conversations/{conversationId}` |
+| Messages      | `GET /conversations/{conversationId}/messages`, `POST /conversations/{conversationId}/messages`                             |
+
+<Warning>
+  REST API keys are server-side secrets. Do not place `woesk_` keys in browser
+  code, widget snippets, mobile apps, or customer-visible pages.
+</Warning>

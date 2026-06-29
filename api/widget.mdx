@@ -1,0 +1,152 @@
+---
+title: "Widget API"
+description: "Understand the public widget routes used by Woes live chat."
+---
+
+# Widget API
+
+The widget API powers customer-facing live chat. It uses widget public keys plus route-level controls rather than broad table access.
+
+## Install Snippet
+
+Use the install snippet from **Settings → Install** or **Settings → Keys**.
+
+```html
+<script
+  async
+  src="https://cdn.woes.dev/widget.js"
+  data-public-key="YOUR_WIDGET_PUBLIC_KEY"
+  data-api="https://YOUR_APP_ORIGIN/api/widget/messages"
+></script>
+```
+
+The public key can be a workspace widget key or an agent widget key. Agent keys
+route the conversation to that agent's attached context.
+
+## JavaScript API
+
+The widget exposes a queued `window.Woes(command, payload)` API. Calls made after
+the snippet is added are queued until the widget runtime is ready.
+
+| Command                       | Payload               | Result                                                               |
+| ----------------------------- | --------------------- | -------------------------------------------------------------------- |
+| `show`                        | none                  | Opens the messenger.                                                 |
+| `hide`                        | none                  | Closes the messenger.                                                |
+| `onShow`                      | callback or `null`    | Runs a callback when the messenger opens. Pass `null` to remove it.  |
+| `onHide`                      | callback or `null`    | Runs a callback when the messenger closes. Pass `null` to remove it. |
+| `hideChatBubble`              | none                  | Hides the launcher bubble.                                           |
+| `showChatBubble`              | none                  | Shows the launcher bubble again.                                     |
+| `setTheme`                    | `"dark"` or `"light"` | Sets the widget theme.                                               |
+| `onChangeUnreadMessagesCount` | callback or `null`    | Receives unread-count changes.                                       |
+| `identify`                    | identity object       | Connects the visitor to a customer identity.                         |
+| `setNewConversationFields`    | object                | Adds metadata to the next new conversation.                          |
+| `showNewMessage`              | string                | Opens the messenger with a draft message.                            |
+| `showTicketForm`              | form key              | Opens a specific ticket form.                                        |
+| `setTicketFormFields`         | object                | Prefills ticket form fields.                                         |
+| `setVisibleTicketForms`       | array or `null`       | Restricts visible ticket forms. Pass `null` to reset.                |
+
+```js
+window.Woes("show");
+window.Woes("setTheme", "dark");
+
+window.Woes("onChangeUnreadMessagesCount", (count) => {
+  console.log("Unread Woes messages", count);
+});
+```
+
+## Customer Identity
+
+For unsigned installs, send the customer details you already know.
+
+```js
+window.Woes("identify", {
+  email: "ada@example.com",
+  name: "Ada Lovelace",
+  company: "Example API Co",
+  id: "user_123",
+});
+```
+
+For verified installs, pass either an HMAC email proof or a JWT minted by your
+backend. See [Widget Identity](/security/widget-identity) for the full security
+model.
+
+```js
+window.Woes("identify", {
+  email: "ada@example.com",
+  name: "Ada Lovelace",
+  company: "Example API Co",
+  id: "user_123",
+  email_hash: "SERVER_GENERATED_HMAC",
+});
+
+window.Woes("identify", {
+  jwt: "SERVER_GENERATED_WIDGET_IDENTITY_JWT",
+});
+```
+
+## Conversation Metadata
+
+Use conversation fields to attach page, product, account, or plan context to the
+next new conversation.
+
+```js
+window.Woes("setNewConversationFields", {
+  page: window.location.href,
+  plan: "enterprise",
+  account_id: "acct_123",
+});
+
+window.Woes("showNewMessage", "I hit a 401 on POST /orders.");
+```
+
+## Ticket Forms
+
+Ticket form commands let you open a specific form and control the customer-facing
+form choices.
+
+```js
+window.Woes("showTicketForm", "bug_report");
+
+window.Woes("setTicketFormFields", {
+  subject: "Checkout error",
+  priority_hint: "high",
+});
+
+window.Woes("setVisibleTicketForms", ["bug_report", "feature_request"]);
+window.Woes("setVisibleTicketForms", null);
+```
+
+## Public Widget Capabilities
+
+- Resolve workspace or agent by widget key.
+- Create or continue a conversation.
+- Store customer messages.
+- Return customer-safe message history.
+- Emit widget events such as launcher view and widget open.
+- Update customer presence for active visitors.
+- Submit CSAT or NPS widget survey responses.
+
+## Public Boundaries
+
+Widget responses must not include:
+
+- Operator-only debug traces.
+- Provider or model internals.
+- Raw secrets.
+- Another workspace's data.
+- Service-role information.
+
+## Common Widget Routes
+
+| Route family           | Purpose                                                       |
+| ---------------------- | ------------------------------------------------------------- |
+| `/api/widget/messages` | Customer message flow and conversation history.               |
+| `/api/widget/events`   | Widget impressions, opens, closes, and engagement events.     |
+| `/api/widget/presence` | Customer presence heartbeat.                                  |
+| `/api/widget/csat`     | Compatibility route for CSAT and NPS widget survey responses. |
+
+<Note>
+  The `/api/widget/csat` route name is kept for compatibility, but it can record
+  typed survey responses when the survey is configured as CSAT or NPS.
+</Note>

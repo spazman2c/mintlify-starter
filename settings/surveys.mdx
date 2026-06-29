@@ -1,0 +1,55 @@
+---
+title: "Surveys"
+description: "Configure CSAT and NPS surveys for live chat, in-app, and email feedback."
+---
+
+# Surveys
+
+Surveys collect customer feedback after support interactions. Woes supports both CSAT and NPS.
+
+## Survey Types
+
+| Type | Score range | Use it for |
+| --- | --- | --- |
+| CSAT | 1 to 5 | Satisfaction with a specific support interaction. |
+| NPS | 0 to 10 | Likelihood to recommend the support experience. |
+
+## Channels
+
+| Channel | Behavior |
+| --- | --- |
+| Live chat | Renders in the widget after a supported resolution event. |
+| In-app | Uses the same widget-style prompt where configured. |
+| Email | Sends signed one-click score links to the customer. |
+
+## Create a Survey
+
+<Steps>
+  <Step title="Open Settings → Surveys">
+    Start from a template or create a new survey.
+  </Step>
+  <Step title="Choose survey type">
+    Select CSAT or NPS.
+  </Step>
+  <Step title="Choose channel">
+    Select live chat, in-app, or email.
+  </Step>
+  <Step title="Write the prompt">
+    Configure the rating question, optional follow-up prompt, and thank-you message.
+  </Step>
+  <Step title="Choose timing">
+    Configure when the survey should be shown or sent.
+  </Step>
+</Steps>
+
+## Email NPS
+
+Email NPS surveys send signed links for scores 0 through 10. When a customer clicks a link, Woes verifies the token, validates the score, and records the response.
+
+## Analytics
+
+Survey responses appear in **Analytics → Surveys**. The dashboard combines CSAT and NPS while preserving the correct score ranges and summaries.
+
+<Tip>
+  Use CSAT for per-ticket satisfaction and NPS when you want a broader view of customer sentiment.
+</Tip>

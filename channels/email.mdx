@@ -1,0 +1,52 @@
+---
+title: "Email"
+description: "Connect email to Woes so inbound messages, outbound replies, notifications, and survey emails share the support workspace."
+---
+
+# Email
+
+Email support uses the same conversation model as live chat and Discord. Inbound email creates or updates conversations, and operators reply from Woes.
+
+## What Email Supports
+
+- Verified sending domains.
+- Default from name and local part.
+- Reply-to and support mailbox settings.
+- Inbound receiving through the Resend webhook.
+- Operator replies from the shared inbox.
+- Notification email delivery.
+- CSAT and NPS survey emails.
+
+## Configure Email
+
+<Steps>
+  <Step title="Open Settings → Channels → Email">
+    Review current domain state and email defaults.
+  </Step>
+  <Step title="Add a domain">
+    Add the domain Woes should send from.
+  </Step>
+  <Step title="Verify DNS">
+    Complete the DNS records shown in Woes and wait for the domain to become verified.
+  </Step>
+  <Step title="Set routing defaults">
+    Configure the local part, sender name, reply-to, and support mailbox.
+  </Step>
+  <Step title="Send a test">
+    Use a real verified-domain test email before relying on production support flows.
+  </Step>
+</Steps>
+
+## Inbound Email
+
+Inbound email is received through the Resend webhook and written into the shared `support_conversations` and `support_messages` model with `channel = email`.
+
+## Survey Emails
+
+Email surveys use signed score links. A customer clicks a score, Woes verifies the token, validates the score range for the survey type, and records the response.
+
+See [Surveys API](/api/surveys) and [Survey Settings](/settings/surveys).
+
+<Warning>
+  Email delivery depends on verified domain configuration and provider credentials in the application environment. Do not paste provider secrets into docs, macros, or customer replies.
+</Warning>

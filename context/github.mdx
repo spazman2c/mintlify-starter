@@ -1,0 +1,46 @@
+---
+title: "GitHub Context"
+description: "Connect GitHub repositories as API context sources for docs, SDK examples, and source-adjacent support material."
+---
+
+# GitHub Context
+
+GitHub repositories can be used as context sources. This is useful when your API support knowledge lives near code, SDK examples, docs folders, sample apps, or README files.
+
+## Setup Flow
+
+<Steps>
+  <Step title="Connect GitHub">
+    Open the GitHub integration from Context and authorize access.
+  </Step>
+  <Step title="Choose a repository">
+    Pick the owner, repository, and branch that should be scanned.
+  </Step>
+  <Step title="Create the source">
+    Woes creates a `github` source with repository metadata.
+  </Step>
+  <Step title="Scan files">
+    Woes collects supported documentation files and builds repository file documents.
+  </Step>
+  <Step title="Attach to an agent">
+    Add the repository source to the agent that should answer from that material.
+  </Step>
+</Steps>
+
+## Good Repository Content
+
+- `README.md` files.
+- Docs folders.
+- SDK examples.
+- API usage examples.
+- Error-handling guides.
+- Authentication examples.
+- Webhook examples.
+
+## Security Notes
+
+Woes stores GitHub connection data server-side. Client-side access is denied by RLS, and source scanning should avoid exposing private secrets to customer-facing answers.
+
+<Warning>
+  Do not rely on private code comments containing secrets or unreleased behavior as customer-facing support context.
+</Warning>

@@ -1,0 +1,47 @@
+---
+title: "API Keys"
+description: "Create and manage workspace API keys for the Woes REST API."
+---
+
+# API Keys
+
+Workspace API keys are managed in **Settings → Keys** and authenticate calls to the Woes REST API.
+
+## Key Properties
+
+| Property          | Behavior                                   |
+| ----------------- | ------------------------------------------ |
+| Prefix            | `woesk_`                                   |
+| Secret visibility | Full secret shown once at creation.        |
+| Storage           | Only a hash and visible prefix are stored. |
+| Scope             | Workspace-scoped.                          |
+| Current use       | REST API authentication.                   |
+
+## Create a Key
+
+<Steps>
+  <Step title="Open Settings → Keys">Find the Workspace API keys section.</Step>
+  <Step title="Name the key">Use a clear integration name.</Step>
+  <Step title="Create the key">Copy the full secret immediately.</Step>
+  <Step title="Store it safely">
+    Put the key in your server-side secret manager.
+  </Step>
+</Steps>
+
+## Revoke a Key
+
+Revoking a key prevents future use. Create a replacement key before revoking if an integration depends on uninterrupted access.
+
+<Note>
+  Workspace API keys are not widget keys. Do not use `woesk_` secrets in browser
+  snippets.
+</Note>
+
+## Use a Key
+
+```bash
+curl https://woes.dev/api/v1/conversations \
+  -H "Authorization: Bearer $WOES_API_KEY"
+```
+
+If the key is missing, unknown, revoked, or expired, the API returns `401`.

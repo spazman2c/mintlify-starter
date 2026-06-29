@@ -1,0 +1,48 @@
+---
+title: "Auth and API Testing"
+description: "Configure source authentication and run guarded API tests without exposing secrets."
+---
+
+# Auth and API Testing
+
+Woes can store source auth configuration and run guarded endpoint tests so support teams can validate API behavior while keeping credentials out of source content and model context.
+
+## Auth Principles
+
+- Credentials are configured separately from documentation content.
+- Secret values are never returned in plaintext.
+- Test execution applies credentials server-side only.
+- Results are sanitized before display.
+- Unsafe or uncontrolled targets should be blocked by route-level safeguards.
+
+## Configure Source Auth
+
+<Steps>
+  <Step title="Open the source">
+    Go to **Context** and open the API source.
+  </Step>
+  <Step title="Open auth settings">
+    Choose the auth type and fill the required fields.
+  </Step>
+  <Step title="Save safely">
+    Leaving a secret field unchanged should preserve the stored secret.
+  </Step>
+  <Step title="Run a test">
+    Use a safe endpoint and inspect the status, latency, sanitized headers, sanitized body, and validation details.
+  </Step>
+</Steps>
+
+## Test Result Fields
+
+| Field | Meaning |
+| --- | --- |
+| Status | HTTP status returned by the target or a safe failure state. |
+| Latency | Time spent on the request. |
+| Headers | Sanitized response headers. |
+| Body | Sanitized response body or parse error. |
+| Validation | Whether the result matched expected route behavior. |
+| Error | User-readable failure without leaking credentials. |
+
+<Warning>
+  Use non-production credentials or safe fixture endpoints whenever possible. Never paste API secrets into documentation pages, support messages, or agent prompts.
+</Warning>

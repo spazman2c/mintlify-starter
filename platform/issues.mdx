@@ -1,0 +1,50 @@
+---
+title: "Issues"
+description: "Track support work as standalone issues or issues linked to conversations."
+---
+
+# Issues
+
+Issues are durable support records for work that needs follow-up, coordination, or workflow tracking. They can be created directly or linked from a conversation.
+
+## Issue Types
+
+| Type | Use it for |
+| --- | --- |
+| Linked issue | A customer conversation needs durable tracking. |
+| Standalone issue | Internal support work, known defects, follow-ups, or tasks that do not start from a conversation. |
+
+## Issue Detail View
+
+The issue detail view includes:
+
+- Stable issue reference and persisted issue id.
+- Title, description, customer, account, and email fields.
+- Status, priority, tags, and workflow details.
+- Internal notes.
+- Linked conversation context when available.
+- Active viewer avatars for operators looking at the issue.
+
+## Tags
+
+Issue tags render as colored chips. Operators with reply access can add or remove issue tags from the issue detail view.
+
+Tags can be managed globally in **Settings → Data → Tags**. Unknown tag ids are still shown with a neutral fallback so historical records do not disappear.
+
+## Internal Notes
+
+Issue notes are stored in the same notes system as conversation notes, with `target_type = issue`. Operator notes can be deleted by operators; automation notes are kept as provenance.
+
+## Saving Behavior
+
+Issue fields save automatically after edits settle. The UI shows saved state so operators know whether the current changes have been persisted.
+
+## When To Create an Issue
+
+Create an issue when:
+
+- A conversation requires follow-up after the chat ends.
+- An API bug or docs gap needs tracking.
+- Multiple operators need visibility.
+- A customer asks for status on a durable support item.
+- An automation routes work into a specific support queue.

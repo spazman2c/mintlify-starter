@@ -1,0 +1,54 @@
+---
+title: "Quickstart Overview"
+description: "A practical path to get a Woes workspace ready for API-native developer support."
+---
+
+# Quickstart Overview
+
+Use this guide to move from an empty workspace to a support-ready Woes setup.
+
+## Setup Checklist
+
+<Steps>
+  <Step title="Create or open your workspace">
+    Confirm the workspace name, support URL, timezone, and company details in **Settings**.
+  </Step>
+  <Step title="Add source context">
+    Add at least one source in **Context**. Woes works best when the source includes endpoint paths, auth rules, examples, request bodies, response shapes, and error cases.
+  </Step>
+  <Step title="Create or tune an agent">
+    Use **Agents** to attach source context to an agent. Each agent can have its own context, behavior, guardrails, and widget key.
+  </Step>
+  <Step title="Install a customer channel">
+    Install the live chat widget, connect an email domain, or connect Discord.
+  </Step>
+  <Step title="Invite operators">
+    Add team members in **Settings → Users** and assign the right role.
+  </Step>
+  <Step title="Review analytics">
+    Use **Analytics** after the first conversations to inspect answer rate, skip reasons, confidence, surveys, and feedback.
+  </Step>
+</Steps>
+
+## Workspace Surfaces
+
+| Surface | Use it for |
+| --- | --- |
+| Inbox | Live customer conversations across live chat, email, and Discord. |
+| Issues | Durable support work, standalone tickets, linked conversation issues, notes, tags, and workflow state. |
+| Context | API docs, repositories, specs, endpoint Markdown, auth configuration, and test readiness. |
+| Agents | Multi-agent setup, context attachments, prompts, guardrails, learning, and widget keys. |
+| Automations | Triggered workflows for assignment, status, priority, tags, notes, SLA, snooze, CSAT, and auto-replies. |
+| Analytics | Operational reporting for conversations, agents, workforce, SLA, surveys, live chat, sources, clients, and feedback. |
+| Settings | Workspace configuration, channels, keys, users, roles, surveys, notifications, tags, macros, statuses, and install snippets. |
+
+## What To Avoid
+
+- Do not paste production credentials into API source content.
+- Do not expose provider or model routing to customers.
+- Do not expect the agent to answer from memory when source context is missing.
+- Do not use public widget keys as account-level API credentials.
+
+<Tip>
+  For best results, add one high-quality source first, test the agent with exact endpoint questions, then expand context coverage.
+</Tip>

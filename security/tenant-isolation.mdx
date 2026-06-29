@@ -1,0 +1,46 @@
+---
+title: "Tenant Isolation"
+description: "How Woes keeps workspace records, routes, public widget access, and service-role work scoped to the correct tenant."
+---
+
+# Tenant Isolation
+
+Every workspace-owned record and query must preserve tenant isolation.
+
+## Workspace-Scoped Records
+
+Workspace-scoped records include:
+
+- Conversations and messages.
+- Issues and notes.
+- API sources, documents, endpoints, and chunks.
+- Agents and source attachments.
+- Settings and permissions.
+- Tags, macros, statuses, and custom fields.
+- Survey responses.
+- API keys.
+- Integration connections.
+
+## Public Widget Boundary
+
+Public widget access uses a workspace or agent public key plus route-level controls. It does not grant general table access.
+
+The widget can only perform customer-safe actions such as:
+
+- Start or continue the correct conversation.
+- Send customer messages.
+- Read customer-safe message history.
+- Submit widget events.
+- Submit survey responses for known surveys.
+
+## Operator Routes
+
+Authenticated workspace routes resolve the requesting account and workspace before reading or mutating data.
+
+## Service-Role Work
+
+Server-side service-role access is used for controlled backend operations. Routes must still filter by workspace id and verify parent/child tenant relationships.
+
+<Warning>
+  Never use a public key, route parameter, or client-provided id by itself as proof that a record belongs to the current workspace.
+</Warning>

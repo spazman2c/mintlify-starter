@@ -1,0 +1,68 @@
+---
+title: "Inbox"
+description: "Use the Woes inbox to manage live chat, email, and Discord conversations in one operator workflow."
+---
+
+# Inbox
+
+Inbox is the main operator workspace. It shows live chat, email, and Discord conversations through one shared conversation and message model.
+
+## What Operators See
+
+| Area | Purpose |
+| --- | --- |
+| Queue | Filtered conversations with channel, priority, status, unread state, assigned agent, and active viewers. |
+| Transcript | Customer, operator, and AI messages in order. |
+| Composer | Operator replies, macros, and takeover actions. |
+| Context panel | Customer details, tags, internal notes, issue links, and AI evidence where available. |
+| Viewer avatars | Operators currently viewing the conversation in real time. |
+
+## Conversation Channels
+
+Woes treats channels as values on the same conversation model:
+
+- **Live chat** from the website or product widget.
+- **Email** from verified workspace routes.
+- **Discord** from connected servers and channels.
+
+This keeps history, notes, tags, AI state, and issue conversion consistent across channels.
+
+## Operator Takeover
+
+When the AI is actively handling a conversation, the normal operator composer is replaced by a takeover action.
+
+<Steps>
+  <Step title="Open the conversation">
+    Review the transcript, customer context, and any AI evidence.
+  </Step>
+  <Step title="Click takeover">
+    Woes updates the conversation so a human operator can reply.
+  </Step>
+  <Step title="Reply from the composer">
+    The reply is stored on the same conversation and delivered through the current channel.
+  </Step>
+</Steps>
+
+## Active Viewing
+
+Inbox shows who is viewing a conversation in real time. Avatars appear in the conversation header and queue rows so operators can avoid duplicate work.
+
+Admins can also open **Settings → Users** to see what each user is currently viewing and jump directly to that item when available.
+
+## Internal Notes
+
+Operators can add internal notes to conversations. Notes are operator-only and are not shown to customers or the widget.
+
+When a conversation is converted to an issue, manual notes and automation notes are copied to the issue when possible.
+
+## Good Operating Habits
+
+- Use tags for lightweight grouping.
+- Use custom fields for structured customer context.
+- Use notes for operator-only details.
+- Use takeover when the customer needs a human answer.
+- Leave feedback on AI messages when the answer was helpful, incomplete, or wrong.
+
+<Warning>
+  Do not paste raw credentials, private customer secrets, or production tokens into customer-visible replies.
+</Warning>

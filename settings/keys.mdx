@@ -1,0 +1,40 @@
+---
+title: "Keys"
+description: "Manage widget public keys, agent widget keys, and reserved workspace API keys."
+---
+
+# Keys
+
+Settings → Keys centralizes platform keys used by the widget and future public API surfaces.
+
+## Key Types
+
+| Key type | Prefix | Purpose |
+| --- | --- | --- |
+| Workspace widget key | `trovw_` | Public identifier for the default workspace widget install. |
+| Agent widget key | `trovw_` or agent-specific variant | Public identifier for a specific agent's widget install. |
+| Workspace API key | `woesk_` | Reserved for future public API authentication. |
+
+## Widget Keys
+
+Widget keys are public identifiers. They can live in client-side install snippets, but they do not grant account or operator access by themselves.
+
+Use widget keys to:
+
+- Install the Woes widget.
+- Route a page to the default workspace agent.
+- Route a page to a specific support agent.
+
+## Agent Keys
+
+Each agent can have its own widget key. The Keys page lists all agent keys, source counts, and copy actions so teams can install the right agent in the right place.
+
+## Workspace API Keys
+
+Workspace API keys are table-backed and stored hashed. The full secret is shown once at creation time.
+
+These keys are currently reserved for the upcoming public API. They are not accepted by production public API routes yet.
+
+<Warning>
+  Treat `woesk_` secrets as private. Do not put them in browser code, docs pages, support messages, screenshots, or client-side snippets.
+</Warning>

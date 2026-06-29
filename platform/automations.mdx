@@ -1,0 +1,64 @@
+---
+title: "Automations"
+description: "Create workflow automations for routing, tagging, assignment, SLA, surveys, notes, and replies."
+---
+
+# Automations
+
+Automations are workspace-level workflow rules. They help route support work, apply labels, set lifecycle state, and trigger follow-up actions.
+
+Automations are managed from the primary **Automations** surface, not inside Settings.
+
+## Permissions
+
+| Permission | Access |
+| --- | --- |
+| `automations.read` | View automation rules and logs. |
+| `automations.write` | Create, edit, publish, unpublish, and delete automations. |
+
+Owners and Admins receive both permissions by default. Members and Viewers receive read access by default.
+
+## Automation Structure
+
+An automation contains:
+
+- Kickoff event.
+- Optional conditions.
+- One or more ordered paths.
+- Optional delays.
+- Actions.
+- Version and publish state.
+- Logs and test results.
+
+## Common Kickoff Events
+
+- Issue created.
+- New live chat conversation.
+- Inbound Discord message.
+- Customer replied.
+- Tag added.
+- Conversation archived.
+- CSAT completed.
+- SLA breached.
+
+## Supported Actions
+
+| Action | Result |
+| --- | --- |
+| Assign | Sets an operator or team assignment. |
+| Set status | Moves the conversation or issue lifecycle. |
+| Set priority | Updates the priority label. |
+| Add tag | Applies a managed or free-form tag. |
+| Add note | Writes an operator-only automation note. |
+| Set SLA | Applies a support target. |
+| Snooze | Moves the item into a waiting state until a future time. |
+| Send CSAT survey | Requests customer satisfaction feedback. |
+| Auto-reply | Inserts a delivered assistant message when configured. |
+
+## Testing Automations
+
+Use the built-in test flow before publishing. Woes creates a sandbox record, applies the automation, verifies each expected effect, then removes the sandbox.
+
+<Warning>
+  Automation tests are designed to avoid production data mutation. Do not test by manually triggering rules on real customer records unless you intend the workflow to run.
+</Warning>

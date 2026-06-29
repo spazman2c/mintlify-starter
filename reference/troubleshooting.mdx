@@ -1,0 +1,54 @@
+---
+title: "Troubleshooting"
+description: "Common Woes setup and support troubleshooting checks."
+---
+
+# Troubleshooting
+
+Use this page when a workspace setup or support workflow does not behave as expected.
+
+## Widget
+
+| Symptom | Check |
+| --- | --- |
+| Widget does not load | Confirm script URL, public key, CSP, and page installation. |
+| Wrong agent answers | Use the correct agent widget key and verify the agent has attached sources. |
+| Customer appears anonymous | Add identify calls or configure verified widget identity. |
+| History does not load | Confirm stable identity and conversation secret handling. |
+
+## Context
+
+| Symptom | Check |
+| --- | --- |
+| Source fails to scan | Confirm the URL is reachable and safe to fetch. |
+| No endpoints found | Add OpenAPI/Postman/schema material or endpoint reference pages. |
+| Agent asks too many clarifying questions | Inspect source coverage and add missing endpoint/auth/error details. |
+| Test request fails | Confirm source auth settings and safe endpoint URL. |
+
+## Agents
+
+| Symptom | Check |
+| --- | --- |
+| Agent skips answers | Review confidence, retrieved context, and source coverage. |
+| Agent gives generic answers | Attach more specific sources and run context learning. |
+| Agent labels missing in analytics | Confirm agents are configured and runs include agent identity. |
+
+## Surveys
+
+| Symptom | Check |
+| --- | --- |
+| Widget survey does not appear | Confirm survey channel, trigger timing, and closed/solved conversation state. |
+| Email survey does not send | Confirm Resend configuration, verified domain, customer email, and enabled email survey. |
+| NPS score is rejected | Confirm the survey type is NPS and score is 0 to 10. |
+
+## Analytics
+
+| Symptom | Check |
+| --- | --- |
+| A filter is missing | Filters are dashboard-specific; switch dashboards to see relevant controls. |
+| Live chat views are low | Some reports infer views from widget opens when launcher views are unavailable. |
+| No survey responses | Enable surveys and confirm customers have submitted feedback. |
+
+<Tip>
+  If an issue looks like missing data, check the relevant source route or setup page before assuming analytics is broken.
+</Tip>

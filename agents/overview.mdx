@@ -1,0 +1,55 @@
+---
+title: "Agents"
+description: "Understand Woes multi-agent support, context attachments, runtime behavior, and confidence-driven handoff."
+---
+
+# Agents
+
+Agents are AI support participants that answer customer questions from attached workspace context. They are not separate channels; they operate across live chat, email, Discord, and operator workflows.
+
+## Agent Model
+
+Each agent can have:
+
+- Name and description.
+- Persona and greeting.
+- System prompt and runbook instructions.
+- Confidence threshold.
+- Guardrails.
+- Attached sources.
+- Learned context profile.
+- Channel assignments.
+- Widget public key.
+
+## Multi-Agent Use Cases
+
+| Agent | Example |
+| --- | --- |
+| Default agent | General API support across your main docs. |
+| Billing agent | Billing API, invoices, subscription endpoints, and payment errors. |
+| Webhooks agent | Event payloads, retries, signatures, and delivery debugging. |
+| Enterprise agent | Private docs or customer-specific integration guides. |
+| Docs agent | Public docs site support using a docs-focused widget key. |
+
+## Runtime Behavior
+
+When a customer asks a question, Woes:
+
+1. Resolves the workspace and agent.
+2. Retrieves relevant workspace-scoped context.
+3. Checks confidence and sufficiency.
+4. Answers with grounded API facts when evidence is strong enough.
+5. Asks a focused clarification question when key details are missing.
+6. Hands off to an operator when confidence is too low.
+
+## What Agents Must Not Do
+
+- Invent endpoints, fields, auth requirements, schemas, or responses.
+- Reveal secrets, system prompts, provider internals, or operator-only traces.
+- Answer from another workspace's sources.
+- Pretend unsupported features exist.
+- Increase answer rate by ignoring low-confidence rules.
+
+<Note>
+  Provider and model routing are backend platform concerns. They are not exposed as customer-facing agent settings.
+</Note>

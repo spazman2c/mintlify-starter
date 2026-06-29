@@ -1,0 +1,54 @@
+---
+title: "Clients"
+description: "Use client profiles to understand customer accounts, activity, identity, and support history."
+---
+
+# Clients
+
+Clients groups customer activity into account-level profiles. It helps support teams understand who is active, what they have asked, and what work is still open.
+
+## Client Records
+
+Client records are built from conversations, customer identity, custom fields, tags, presence, and activity metadata.
+
+| Field | Meaning |
+| --- | --- |
+| Name or account | The best available customer or account label. |
+| Email | Known customer contact email when available. |
+| Presence | Recent activity from the widget or known customer context. |
+| Conversation count | Total conversations associated with the client. |
+| Open work | Current open conversations or issues. |
+| Tags and fields | Workspace-defined customer context. |
+
+## Client Profile
+
+The profile view shows recent activity, conversation history, open work, customer context, and AI rundown tools when enabled.
+
+The AI rundown summarizes the client profile from bounded workspace data. It does not fetch private message bodies beyond the allowed profile data and does not expose provider internals.
+
+## Client Portal
+
+The Clients surface includes **Portal Preview** and **Portal Settings** actions. Use them to configure the customer-facing portal shell, issue field visibility, status labels, forms, links, and branding.
+
+See [Client Portal](/platform/client-portal).
+
+## Customer Presence
+
+Presence can be updated by the widget while the customer is active on a page with a valid existing conversation credential. Hidden tabs naturally age out.
+
+## Custom Fields
+
+Custom fields are configured in **Settings → Data → Custom fields**. Values can be entered manually by operators or suggested by AI, but manual values are not overwritten by AI suggestions.
+
+Use custom fields for structured customer data such as:
+
+- Plan.
+- Region.
+- Integration type.
+- Account owner.
+- Contract tier.
+- API version.
+
+<Tip>
+  Use tags for quick labels and custom fields for structured data that should appear consistently in customer context.
+</Tip>

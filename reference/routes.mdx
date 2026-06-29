@@ -1,0 +1,43 @@
+---
+title: "Route Reference"
+description: "A customer-facing map of important Woes route families and what they are used for."
+---
+
+# Route Reference
+
+This page is a high-level route map. It is not a complete public API contract.
+
+## Workspace Routes
+
+| Route family | Purpose |
+| --- | --- |
+| `/api/account/settings` | Load and save workspace settings. |
+| `/api/account/api-keys` | Create, list, and revoke reserved workspace API keys. |
+| `/api/account/csat` | Compatibility analytics route returning typed survey responses. |
+| `/api/account/surveys/email` | Send enabled email surveys. |
+| `/api/account/widget-analytics` | Load widget event analytics. |
+| `/api/support-agent/runs` | Load support-agent run analytics. |
+| `/api/support-agents` | Manage workspace agents. |
+| `/api/support-agents/[id]/learn` | Run context learning for an agent. |
+| `/api/api-sources` | Manage API context sources. |
+| `/api/clients` | Load aggregated client records. |
+| `/api/client-portal/issues` | Customer-safe portal issue list and creation for valid portal sessions. |
+| `/api/client-portal/issues/[issueId]` | Customer-safe portal issue detail and messages for valid portal sessions. |
+| `/api/issues` | Manage support issues. |
+| `/api/notes` | Manage internal notes. |
+
+## Public Routes
+
+| Route family | Purpose |
+| --- | --- |
+| `/api/widget/messages` | Customer widget conversation flow. |
+| `/api/widget/events` | Widget event tracking. |
+| `/api/widget/presence` | Customer presence heartbeat. |
+| `/api/widget/csat` | Widget survey responses. |
+| `/api/surveys/email-response` | Signed email survey response capture. |
+| `/api/email/inbound/resend` | Inbound email webhook. |
+| `/api/discord/events` | Discord event handling. |
+
+<Note>
+  Routes listed here may require authentication, workspace permissions, signed tokens, provider webhooks, or public widget keys depending on the route family.
+</Note>

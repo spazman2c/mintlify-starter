@@ -1,0 +1,107 @@
+---
+title: "Install the Widget"
+description: "Install Woes live chat and route visitors to the correct workspace or agent."
+---
+
+# Install the Widget
+
+The Woes widget lets customers ask questions from your product or docs site. Public widget access uses a workspace or agent widget key; it does not grant general account access.
+
+## Choose a Widget Key
+
+| Key                  | When to use it                                                                      |
+| -------------------- | ----------------------------------------------------------------------------------- |
+| Workspace widget key | A single support agent and one shared install path.                                 |
+| Agent widget key     | Different agents on different websites, products, docs areas, or customer segments. |
+
+Find widget keys in **Settings → Keys**. Agent widget keys also appear with each agent in **Agents**.
+
+## Basic Install
+
+Add the Woes snippet to the pages where customers should be able to ask for help.
+
+```html
+<script
+  async
+  src="https://cdn.woes.dev/widget.js"
+  data-public-key="YOUR_WIDGET_PUBLIC_KEY"
+  data-api="https://YOUR_APP_ORIGIN/api/widget/messages"
+></script>
+```
+
+<Note>
+  Use the actual snippet from **Settings → Install** because production script
+  URLs and options may vary by workspace.
+</Note>
+
+The widget exposes a queued browser API, so you can call `window.Woes(...)` after
+the snippet is present on the page.
+
+```js
+window.Woes("show");
+window.Woes("hide");
+window.Woes("setTheme", "dark");
+```
+
+## Identify Customers
+
+For signed-in products, identify the customer so conversations are tied to a stable account.
+
+```js
+window.Woes("identify", {
+  email: "ada@example.com",
+  name: "Ada Lovelace",
+  company: "Example API Co",
+  id: "user_123",
+});
+```
+
+For higher-trust installs, use [Widget Identity](/security/widget-identity) with HMAC email verification or JWT.
+
+```js
+window.Woes("identify", {
+  email: "ada@example.com",
+  name: "Ada Lovelace",
+  company: "Example API Co",
+  id: "user_123",
+  email_hash: "SERVER_GENERATED_HMAC",
+});
+
+window.Woes("identify", {
+  jwt: "SERVER_GENERATED_WIDGET_IDENTITY_JWT",
+});
+```
+
+<Warning>
+  Generate identity proofs only on your backend. Never ship the widget identity
+  secret to the browser, logs, analytics tools, or customer-visible pages.
+</Warning>
+
+## Common JavaScript Calls
+
+| Call                                              | Use it for                                             |
+| ------------------------------------------------- | ------------------------------------------------------ |
+| `window.Woes("show")`                             | Open the messenger.                                    |
+| `window.Woes("hide")`                             | Close the messenger.                                   |
+| `window.Woes("hideChatBubble")`                   | Hide the launcher bubble.                              |
+| `window.Woes("showChatBubble")`                   | Show the launcher bubble again.                        |
+| `window.Woes("setTheme", "dark")`                 | Switch the widget theme. Use `"light"` for light mode. |
+| `window.Woes("showNewMessage", text)`             | Open the widget with a draft message.                  |
+| `window.Woes("setNewConversationFields", fields)` | Prefill metadata for the next conversation.            |
+
+## What the Widget Can Show
+
+- Existing conversation history for the verified customer.
+- Agent replies grounded in attached API context.
+- Operator replies after takeover.
+- Delivery, unread, typing, and closed-conversation states.
+- CSAT or NPS surveys after supported resolution events.
+
+## Common Checks
+
+| Symptom                              | Check                                                                               |
+| ------------------------------------ | ----------------------------------------------------------------------------------- |
+| Widget does not load                 | Confirm the public key and script URL.                                              |
+| Conversation is anonymous            | Add an identify call or verified identity mode.                                     |
+| Agent answers from the wrong context | Use the right agent widget key and verify source attachments.                       |
+| Survey does not appear               | Confirm the survey is enabled, uses a widget channel, and triggers on issue solved. |

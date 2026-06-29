@@ -1,0 +1,50 @@
+---
+title: "Agent Routing and Widget Keys"
+description: "Route different websites, products, or docs areas to different Woes agents."
+---
+
+# Agent Routing and Widget Keys
+
+Woes can route customers to different agents using agent-specific widget keys. This is useful for multi-product support, docs segmentation, or teams with specialized API domains.
+
+## Routing Options
+
+| Option | Use it when |
+| --- | --- |
+| Workspace default | One agent should answer most customer questions. |
+| Agent widget key | A page or product should always use a specific agent. |
+| Channel assignment | A channel should map to a specific agent. |
+
+## Install Pattern
+
+Use the agent's widget key in the install snippet for that site or page.
+
+```html
+<script>
+  window.WoesSettings = {
+    publicKey: "trovw_agent_example_key"
+  };
+</script>
+<script async src="https://woes.dev/widget.js"></script>
+```
+
+## Examples
+
+| Site area | Recommended agent |
+| --- | --- |
+| Main app | Default agent. |
+| API reference docs | Docs/API agent. |
+| Billing docs | Billing agent. |
+| Webhooks guide | Webhooks agent. |
+| Enterprise portal | Enterprise agent with restricted context. |
+
+## Verify Routing
+
+1. Open the page with the installed snippet.
+2. Start a test conversation.
+3. Confirm the conversation shows the expected agent label.
+4. Ask an endpoint-specific question and verify the answer cites the expected source.
+
+<Tip>
+  Keep agent names clear. Operators should be able to understand which agent handled a conversation from the inbox and analytics labels.
+</Tip>

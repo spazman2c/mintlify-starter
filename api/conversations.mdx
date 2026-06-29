@@ -1,0 +1,256 @@
+---
+title: "Conversations"
+description: "Create, read, update, and add messages to Woes support conversations."
+---
+
+# Conversations
+
+The Conversations API is the first active Woes REST API resource. It writes to
+the same workspace-scoped conversation and message model used by live chat,
+email, Discord, the operator inbox, and automations.
+
+## Conversation Object
+
+```json
+{
+  "object": "conversation",
+  "id": "6f6b6f9a-1b6a-4e42-9f71-1b9a3f3d2a33",
+  "channel": "api",
+  "status": "open",
+  "priority": "medium",
+  "subject": "Need help with auth",
+  "preview": "Need help with auth",
+  "customer": {
+    "id": "cus_123",
+    "name": "Ada Lovelace",
+    "email": "ada@example.com",
+    "company": "Example API Co",
+    "identitySource": "headers"
+  },
+  "createdAt": "2026-06-28T18:00:00.000Z",
+  "updatedAt": "2026-06-28T18:00:00.000Z",
+  "lastMessageAt": "2026-06-28T18:00:00.000Z",
+  "closedAt": null
+}
+```
+
+## List Conversations
+
+```http
+GET /api/v1/conversations
+```
+
+Query parameters:
+
+| Parameter    | Type   | Description                                |
+| ------------ | ------ | ------------------------------------------ |
+| `limit`      | number | 1-100 conversations. Default: `20`.        |
+| `status`     | string | `open`, `waiting`, or `solved`.            |
+| `channel`    | string | `api`, `live-chat`, `email`, or `discord`. |
+| `customerId` | string | Customer id stored on the conversation.    |
+
+```bash
+curl "https://woes.dev/api/v1/conversations?status=open&limit=10" \
+  -H "Authorization: Bearer $WOES_API_KEY"
+```
+
+```json
+{
+  "object": "list",
+  "hasMore": false,
+  "conversations": [
+    {
+      "object": "conversation",
+      "id": "6f6b6f9a-1b6a-4e42-9f71-1b9a3f3d2a33",
+      "channel": "api",
+      "status": "open",
+      "priority": "medium",
+      "subject": "Need help with auth",
+      "preview": "Need help with auth",
+      "customer": {
+        "id": "cus_123",
+        "name": "Ada Lovelace",
+        "email": "ada@example.com",
+        "company": "Example API Co",
+        "identitySource": "headers"
+      },
+      "createdAt": "2026-06-28T18:00:00.000Z",
+      "updatedAt": "2026-06-28T18:00:00.000Z",
+      "lastMessageAt": "2026-06-28T18:00:00.000Z",
+      "closedAt": null
+    }
+  ]
+}
+```
+
+## Create Conversation
+
+```http
+POST /api/v1/conversations
+```
+
+Request body:
+
+| Field              | Type   | Required | Description                            |
+| ------------------ | ------ | -------- | -------------------------------------- |
+| `customer.id`      | string | Yes      | Stable customer id from your system.   |
+| `customer.name`    | string | No       | Customer display name.                 |
+| `customer.email`   | string | No       | Customer email address.                |
+| `customer.company` | string | No       | Customer company or account name.      |
+| `subject`          | string | Yes      | Conversation subject.                  |
+| `externalId`       | string | No       | Idempotency-style external identifier. |
+| `channel`          | string | No       | Defaults to `api`.                     |
+| `priority`         | string | No       | Defaults to `medium`; 1-32 characters. |
+
+```bash
+curl https://woes.dev/api/v1/conversations \
+  -X POST \
+  -H "Authorization: Bearer $WOES_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "externalId": "ticket_123",
+    "subject": "Need help with auth",
+    "customer": {
+      "id": "cus_123",
+      "name": "Ada Lovelace",
+      "email": "ada@example.com",
+      "company": "Example API Co"
+    }
+  }'
+```
+
+Response: `201 Created`
+
+```json
+{
+  "conversation": {
+    "object": "conversation",
+    "id": "6f6b6f9a-1b6a-4e42-9f71-1b9a3f3d2a33",
+    "channel": "api",
+    "status": "open",
+    "priority": "medium",
+    "subject": "Need help with auth",
+    "preview": "Need help with auth",
+    "customer": {
+      "id": "cus_123",
+      "name": "Ada Lovelace",
+      "email": "ada@example.com",
+      "company": "Example API Co",
+      "identitySource": "headers"
+    },
+    "createdAt": "2026-06-28T18:00:00.000Z",
+    "updatedAt": "2026-06-28T18:00:00.000Z",
+    "lastMessageAt": "2026-06-28T18:00:00.000Z",
+    "closedAt": null
+  }
+}
+```
+
+If `externalId` already exists in the workspace, the API returns `409`.
+
+## Retrieve Conversation
+
+```http
+GET /api/v1/conversations/{conversationId}
+```
+
+```bash
+curl https://woes.dev/api/v1/conversations/6f6b6f9a-1b6a-4e42-9f71-1b9a3f3d2a33 \
+  -H "Authorization: Bearer $WOES_API_KEY"
+```
+
+## Update Conversation
+
+```http
+PATCH /api/v1/conversations/{conversationId}
+```
+
+Supported fields:
+
+| Field      | Type   | Description                     |
+| ---------- | ------ | ------------------------------- |
+| `status`   | string | `open`, `waiting`, or `solved`. |
+| `priority` | string | 1-32 character priority label.  |
+| `subject`  | string | Updated conversation subject.   |
+
+```bash
+curl https://woes.dev/api/v1/conversations/6f6b6f9a-1b6a-4e42-9f71-1b9a3f3d2a33 \
+  -X PATCH \
+  -H "Authorization: Bearer $WOES_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{ "status": "solved" }'
+```
+
+## List Messages
+
+```http
+GET /api/v1/conversations/{conversationId}/messages
+```
+
+```bash
+curl https://woes.dev/api/v1/conversations/6f6b6f9a-1b6a-4e42-9f71-1b9a3f3d2a33/messages \
+  -H "Authorization: Bearer $WOES_API_KEY"
+```
+
+```json
+{
+  "object": "list",
+  "messages": [
+    {
+      "object": "message",
+      "id": "54c57ed8-e8d7-47f6-8907-27d2174c245a",
+      "conversationId": "6f6b6f9a-1b6a-4e42-9f71-1b9a3f3d2a33",
+      "role": "user",
+      "body": "I am getting a 401 from POST /orders.",
+      "deliveryStatus": "delivered",
+      "createdAt": "2026-06-28T18:01:00.000Z"
+    }
+  ]
+}
+```
+
+## Create Message
+
+```http
+POST /api/v1/conversations/{conversationId}/messages
+```
+
+Request body:
+
+| Field  | Type   | Required | Description                                |
+| ------ | ------ | -------- | ------------------------------------------ |
+| `body` | string | Yes      | Message body, up to 8,000 characters.      |
+| `role` | string | No       | `user` or `assistant`. Defaults to `user`. |
+
+```bash
+curl https://woes.dev/api/v1/conversations/6f6b6f9a-1b6a-4e42-9f71-1b9a3f3d2a33/messages \
+  -X POST \
+  -H "Authorization: Bearer $WOES_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "role": "user",
+    "body": "I am getting a 401 from POST /orders."
+  }'
+```
+
+Response: `201 Created`
+
+```json
+{
+  "message": {
+    "object": "message",
+    "id": "54c57ed8-e8d7-47f6-8907-27d2174c245a",
+    "conversationId": "6f6b6f9a-1b6a-4e42-9f71-1b9a3f3d2a33",
+    "role": "user",
+    "body": "I am getting a 401 from POST /orders.",
+    "deliveryStatus": "delivered",
+    "createdAt": "2026-06-28T18:01:00.000Z"
+  }
+}
+```
+
+## Tenant Boundary
+
+Every Conversations API call is scoped to the workspace attached to the API key.
+If a conversation id belongs to another workspace, Woes returns `404` instead of
+revealing that the record exists.
