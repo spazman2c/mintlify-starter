@@ -17,6 +17,53 @@ curl https://woes.dev/api/v1/conversations \
   -H "Authorization: Bearer $WOES_API_KEY"
 ```
 
+## Quick API Examples
+
+These examples use the Conversations API because it is the first public Woes API
+surface. The API key must be a workspace API key that starts with `woesk_`.
+
+### List conversations
+
+```bash
+curl "https://woes.dev/api/v1/conversations?status=open&limit=10" \
+  -H "Authorization: Bearer $WOES_API_KEY"
+```
+
+### Create a conversation
+
+```bash
+curl https://woes.dev/api/v1/conversations \
+  -X POST \
+  -H "Authorization: Bearer $WOES_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "externalId": "ticket_123",
+    "subject": "Need help with auth",
+    "customer": {
+      "id": "cus_123",
+      "name": "Ada Lovelace",
+      "email": "ada@example.com",
+      "company": "Example API Co"
+    }
+  }'
+```
+
+### Add a message
+
+```bash
+curl https://woes.dev/api/v1/conversations/{conversationId}/messages \
+  -X POST \
+  -H "Authorization: Bearer $WOES_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "role": "user",
+    "body": "I am getting a 401 from POST /orders."
+  }'
+```
+
+See [Conversations](/api/conversations) for every supported conversation
+endpoint, request field, and response shape.
+
 ## Security Rules
 
 - Keep `woesk_` keys on your backend.

@@ -12,6 +12,20 @@
     "light": "/images/woes-wordmark.png",
     "dark": "/images/woes-wordmark.png"
   },
+  "redirects": [
+    {
+      "source": "/api-reference",
+      "destination": "/api/overview"
+    },
+    {
+      "source": "/api-authentication",
+      "destination": "/api/authentication"
+    },
+    {
+      "source": "/api-conversations",
+      "destination": "/api/conversations"
+    }
+  ],
   "navbar": {
     "links": [
       {
