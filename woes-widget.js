@@ -35,7 +35,7 @@
 
   var script = document.createElement("script");
   script.async = true;
-  script.src = "https://woes.dev/widget.js";
+  script.src = "https://woes.dev/widget.js?v=20260629-actual-widget";
   script.setAttribute("data-public-key", WIDGET_PUBLIC_KEY);
   script.setAttribute("data-api", "https://woes.dev/api/widget/messages");
   document.head.appendChild(script);
