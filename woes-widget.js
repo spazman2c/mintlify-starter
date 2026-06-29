@@ -6,11 +6,11 @@
  * SET YOUR WIDGET KEY BELOW:
  *   Use your docs agent's widget key (woes.dev → Settings → Agents) so docs
  *   conversations route to the documentation/API support agent, or the
- *   workspace key (Settings → Channels → Live chat). Format: "trovw_..." or
- *   "trovw_agent_...".
+ *   workspace key (Settings → Channels → Live chat). Format: "woesw_..." or
+ *   "woesw_agent_...".
  */
 (function () {
-  var WIDGET_PUBLIC_KEY = "trovw_08296b40f473455e88e1080dbb44e137";
+  var WIDGET_PUBLIC_KEY = "woesw_7caa9909810e4d67a5b7fc5f47f4213b";
 
   if (window.__woesDocsWidgetInstalled) return;
   window.__woesDocsWidgetInstalled = true;
