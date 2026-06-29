@@ -262,22 +262,13 @@
               "api-reference/overview",
               "api/overview",
               "api/authentication",
-              "api/keys",
-              "reference/routes"
+              "api/keys"
             ]
           },
           {
-            "group": "REST resource guides",
+            "group": "Runtime guides",
             "pages": [
-              "api/conversations",
-              "api/issues",
-              "api/clients",
-              "api/agents"
-            ]
-          },
-          {
-            "group": "Widget and survey routes",
-            "pages": [
+              "reference/routes",
               "api/widget",
               "api/surveys"
             ]
