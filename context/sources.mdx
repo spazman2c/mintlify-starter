@@ -27,6 +27,28 @@ Sources are the material Woes uses to answer customer questions. They can be API
   </Step>
 </Steps>
 
+## Ingestion Stages
+
+Woes shows progress while a source is scanned. Website sources use a crawl-first
+flow, while structured sources use an API-shape detection flow.
+
+| Website stage | Meaning |
+| --- | --- |
+| Gathering site | Fetch the starting URL and discover crawlable pages. |
+| Crawling pages | Visit allowed same-origin pages. |
+| Converting to Markdown | Normalize page content into readable source text. |
+| Chunking for retrieval | Split content into retrieval-sized chunks. |
+| Publishing searchable context | Make the source available to attached agents. |
+
+| Structured/API stage | Meaning |
+| --- | --- |
+| Gathering source data | Fetch or read the submitted source material. |
+| Detecting API shape | Identify whether the source is OpenAPI, GraphQL, Postman, docs, gRPC, SOAP, SDK, or mixed content. |
+| Extracting every call | Pull endpoint, operation, schema, example, and auth details where available. |
+| Organizing Markdown docs | Produce endpoint-level Markdown and document summaries. |
+| Building API brain graph | Prepare relationships for retrieval and agent grounding. |
+| Publishing searchable context | Make the source available to attached agents. |
+
 ## Detail View
 
 The source detail view can show:
@@ -54,6 +76,22 @@ High-quality sources include:
 - Webhook and event behavior.
 - SDK snippets.
 - Versioning notes.
+
+## Source Types
+
+Woes can auto-detect or ingest a specific source type:
+
+- Website.
+- OpenAPI.
+- GraphQL.
+- AsyncAPI.
+- Postman.
+- gRPC.
+- WSDL / SOAP.
+- URL.
+- SDK docs.
+- Raw Markdown or text.
+- GitHub repository docs and examples.
 
 <Tip>
   If customers often ask the same question and the agent clarifies or hands off, add that answer to source context instead of weakening the agent's confidence threshold.

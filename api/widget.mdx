@@ -25,6 +25,22 @@ Use the install snippet from **Settings → Install** or **Settings → Keys**.
 The public key can be a workspace widget key or an agent widget key. Agent keys
 route the conversation to that agent's attached context.
 
+## Loader Behavior
+
+`https://woes.dev/widget.js` is a small host-page loader. It fetches
+customer-safe widget configuration, records the install origin for operator
+verification, and mounts the real Woes product widget inside an isolated iframe
+at `/embed/widget`.
+
+The iframe resizes between launcher, teaser, and open-panel footprints so the
+host page does not need to reserve a fixed container. The loader forwards
+`window.Woes(...)` commands into the iframe once it is ready.
+
+The config route returns presentation fields only: colors, logo URLs, welcome
+copy, quick links, position, radius, theme, identity-required state, and enabled
+state. It does not return workspace settings, secrets, operator data, or API key
+material.
+
 ## JavaScript API
 
 The widget exposes a queued `window.Woes(command, payload)` API. Calls made after
@@ -34,6 +50,8 @@ the snippet is added are queued until the widget runtime is ready.
 | ----------------------------- | --------------------- | -------------------------------------------------------------------- |
 | `show`                        | none                  | Opens the messenger.                                                 |
 | `hide`                        | none                  | Closes the messenger.                                                |
+| `open`                        | none                  | Alias for `show`.                                                    |
+| `close`                       | none                  | Alias for `hide`.                                                    |
 | `onShow`                      | callback or `null`    | Runs a callback when the messenger opens. Pass `null` to remove it.  |
 | `onHide`                      | callback or `null`    | Runs a callback when the messenger closes. Pass `null` to remove it. |
 | `hideChatBubble`              | none                  | Hides the launcher bubble.                                           |
@@ -162,6 +180,7 @@ Widget responses must not include:
 
 | Route family           | Purpose                                                       |
 | ---------------------- | ------------------------------------------------------------- |
+| `/api/widget/config`   | Public widget presentation config for a workspace or agent key. |
 | `/api/widget/messages` | Customer message flow and conversation history.               |
 | `/api/widget/events`   | Widget impressions, opens, closes, and engagement events.     |
 | `/api/widget/presence` | Customer presence heartbeat.                                  |

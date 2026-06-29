@@ -12,25 +12,38 @@ Notifications keep operators aware of support work without overwhelming them.
 | Channel | Purpose |
 | --- | --- |
 | In-app | Durable notification feed inside Woes. |
+| Sound | Audible alert for high-attention events. |
 | Browser | Browser notifications for active operators. |
 | Email | Async updates that still deliver during quiet hours where configured. |
 | Push | Device push notifications where available. |
-| Sound | Audible alert for high-attention events. |
 
 ## Events
 
-Common notification events include:
+Notification preferences are a per-event by per-channel matrix.
 
-- Assigned to you.
-- New message.
-- New conversation.
-- Handoff required.
-- Mention or note.
-- SLA risk or breach.
+| Event | What it means |
+| --- | --- |
+| New message | A customer replied in live chat, email, or Discord. |
+| New conversation | A new conversation was started. |
+| Assigned to you | A conversation or issue was assigned to you. |
+| @mention | You were mentioned in an internal note. |
+| AI handoff / escalation | The AI agent handed off or escalated to a human. |
+| Issue status changed | An issue changed lifecycle status. |
+| Issue priority changed | An issue priority changed. |
 
 ## Quiet Hours
 
-Quiet hours can suppress intrusive channels while keeping durable in-app and email delivery available.
+Quiet hours suppress sound, browser, and push notifications during the selected
+time window. In-app and email delivery still remain available so the feed and
+async updates are not lost.
+
+## Delivery Controls
+
+Use the master channel switches to enable or disable an entire delivery channel.
+Use the event matrix to decide exactly which events should use each channel.
+
+Browser notifications may ask for browser permission. Push notifications depend
+on browser support and server push configuration.
 
 ## Best Practices
 
@@ -38,3 +51,5 @@ Quiet hours can suppress intrusive channels while keeping durable in-app and ema
 - Use browser or push notifications for active support shifts.
 - Keep in-app notifications enabled for auditability.
 - Review email notification behavior for on-call operators.
+- Use **Mute all notifications** for temporary focus time instead of disabling
+  individual events one by one.

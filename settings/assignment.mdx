@@ -1,0 +1,65 @@
+---
+title: "Assignment"
+description: "Configure teams, skills, capacity, and routing strategies for Woes issues."
+---
+
+# Assignment
+
+Assignment settings help route issues to the right teammate or team without
+turning every workflow into a manual triage step.
+
+## What Assignment Controls
+
+| Area | Use it for |
+| --- | --- |
+| Assignment rules | Enable or disable automatic issue routing. |
+| User status | Skip away or inactive teammates when routing is configured to respect status. |
+| Capacity | Avoid assigning beyond each member's open issue load. |
+| Skills | Match issues to people by product area, language, or another custom dimension. |
+| Teams | Group members and define ordered routing strategies. |
+| Test routing | Preview who an issue would route to before relying on the rule. |
+
+Capacity counts issues in **New** and **On You** status. This keeps routing
+focused on current support load rather than historical closed work.
+
+## Routing Strategies
+
+Teams can use one or more ordered strategies. Woes tries the first strategy, then
+falls through when it cannot find an eligible member.
+
+| Strategy | Behavior |
+| --- | --- |
+| Skills-based | Routes to members who match required skill dimensions. |
+| Round robin | Rotates work across eligible team members. |
+| Recurring daily | Uses daily time windows for member assignment. |
+| Recurring weekly | Uses day-of-week and time windows for member assignment. |
+
+## Individual Assignment
+
+Use Automations when one issue should be assigned to a specific target:
+
+- AI agent.
+- Account owner.
+- Specific workspace user.
+
+The automation can optionally assign only when the issue is currently
+unassigned.
+
+## Preview Routing
+
+Use **Test routing** after saving assignment changes. Pick a team, priority, and
+optional required skills, then run a preview against the current open-issue
+workload.
+
+The preview shows:
+
+- Assigned member or queued state.
+- Strategy used.
+- Reason.
+- Eligible member count.
+- Current load versus capacity for team members.
+
+<Tip>
+  Keep skill dimensions broad enough to route work. Very narrow skills can make
+  otherwise healthy teams look unavailable.
+</Tip>

@@ -226,6 +226,7 @@
             "group": "Settings",
             "pages": [
               "settings/overview",
+              "settings/assignment",
               "settings/keys",
               "settings/surveys",
               "settings/users-permissions",
@@ -244,6 +245,7 @@
           {
             "group": "Reference",
             "pages": [
+              "reference/keyboard-shortcuts",
               "reference/glossary",
               "reference/troubleshooting"
             ]
