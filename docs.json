@@ -103,6 +103,14 @@
           {
             "label": "Chat Widget",
             "href": "/chat-widget/overview"
+          },
+          {
+            "label": "Website",
+            "href": "https://woes.dev"
+          },
+          {
+            "label": "Blog",
+            "href": "https://woes.dev/blog"
           }
         ]
       },
@@ -156,19 +164,6 @@
             "href": "/security/tenant-isolation"
           }
         ]
-      },
-      {
-        "header": "Company",
-        "items": [
-          {
-            "label": "Website",
-            "href": "https://woes.dev"
-          },
-          {
-            "label": "Blog",
-            "href": "https://woes.dev/blog"
-          }
-        ]
       }
     ]
   },
@@ -199,135 +194,154 @@
         "icon": "book-open",
         "groups": [
           {
-            "group": "Getting started",
+            "group": "Woes documentation",
             "pages": [
-              "index",
-              "quickstart/overview",
-              "quickstart/add-context",
-              "quickstart/invite-team"
-            ]
-          },
-          {
-            "group": "Support workflows",
-            "pages": [
-              "support-workflows/omnichannel-support",
-              "platform/inbox",
-              "platform/issues",
-              "platform/automations",
-              "settings/assignment",
-              "settings/surveys",
-              "channels/email",
-              "channels/discord"
-            ]
-          },
-          {
-            "group": "Platform",
-            "pages": [
-              "platform/overview",
-              "settings/overview",
-              "settings/keys",
-              "settings/users-permissions",
-              "settings/data-macros",
-              "settings/notifications",
-              "reference/keyboard-shortcuts",
-              "reference/troubleshooting"
-            ]
-          },
-          {
-            "group": "AI agents",
-            "pages": [
-              "agents/overview",
-              "agents/create-agents",
-              "agents/context-learning",
-              "agents/routing-widget",
-              "agents/quality-loop"
-            ]
-          },
-          {
-            "group": "Knowledge base",
-            "pages": [
-              "knowledge-base/overview",
-              "context/sources",
-              "context/auth-testing",
-              "context/github",
-              "knowledge-base/gaps"
-            ]
-          },
-          {
-            "group": "Customer portal",
-            "pages": [
-              "platform/client-portal",
-              "customer-portal/access-control"
-            ]
-          },
-          {
-            "group": "Chat widget",
-            "pages": [
-              "chat-widget/overview",
-              "channels/live-chat",
-              "quickstart/install-widget",
-              "quickstart/install-widget-mintlify",
-              "chat-widget/javascript-api",
-              "chat-widget/identity-verification"
-            ]
-          },
-          {
-            "group": "Account intelligence",
-            "pages": [
-              "account-intelligence/overview",
-              "platform/clients",
-              "account-intelligence/presence"
-            ]
-          },
-          {
-            "group": "Product intelligence",
-            "pages": [
-              "product-intelligence/overview",
-              "product-intelligence/feature-requests",
-              "product-intelligence/closing-loop"
-            ]
-          },
-          {
-            "group": "Reporting & analytics",
-            "pages": [
-              "platform/analytics",
-              "reporting/usage-capacity",
-              "reporting/surveys-performance"
-            ]
-          },
-          {
-            "group": "Broadcasts",
-            "pages": [
-              "broadcasts/overview",
-              "broadcasts/create-broadcast",
-              "broadcasts/analytics"
-            ]
-          },
-          {
-            "group": "Integrations",
-            "pages": [
-              "integrations/overview",
-              "integrations/email",
-              "integrations/discord",
-              "integrations/github-context",
-              "integrations/mintlify-widget"
-            ]
-          },
-          {
-            "group": "Security",
-            "pages": [
-              "security/widget-identity",
-              "security/data-privacy",
-              "security/tenant-isolation"
-            ]
-          },
-          {
-            "group": "Developer",
-            "pages": [
-              "developer/overview",
-              "developer/rest-api",
-              "reference/glossary",
-              "developer/route-boundaries"
+              {
+                "group": "Getting started",
+                "pages": [
+                  "index",
+                  "quickstart/overview",
+                  "quickstart/add-context",
+                  "quickstart/invite-team"
+                ],
+                "expanded": false
+              },
+              {
+                "group": "Support workflows",
+                "pages": [
+                  "support-workflows/omnichannel-support",
+                  "platform/inbox",
+                  "platform/issues",
+                  "platform/automations",
+                  "settings/assignment",
+                  "settings/surveys",
+                  "channels/email",
+                  "channels/discord"
+                ],
+                "expanded": false
+              },
+              {
+                "group": "Platform",
+                "pages": [
+                  "platform/overview",
+                  "settings/overview",
+                  "settings/keys",
+                  "settings/users-permissions",
+                  "settings/data-macros",
+                  "settings/notifications",
+                  "reference/keyboard-shortcuts",
+                  "reference/troubleshooting"
+                ],
+                "expanded": false
+              },
+              {
+                "group": "AI agents",
+                "pages": [
+                  "agents/overview",
+                  "agents/create-agents",
+                  "agents/context-learning",
+                  "agents/routing-widget",
+                  "agents/quality-loop"
+                ],
+                "expanded": false
+              },
+              {
+                "group": "Knowledge base",
+                "pages": [
+                  "knowledge-base/overview",
+                  "context/sources",
+                  "context/auth-testing",
+                  "context/github",
+                  "knowledge-base/gaps"
+                ],
+                "expanded": false
+              },
+              {
+                "group": "Customer portal",
+                "pages": [
+                  "platform/client-portal",
+                  "customer-portal/access-control"
+                ],
+                "expanded": false
+              },
+              {
+                "group": "Chat widget",
+                "pages": [
+                  "chat-widget/overview",
+                  "channels/live-chat",
+                  "quickstart/install-widget",
+                  "quickstart/install-widget-mintlify",
+                  "chat-widget/javascript-api",
+                  "chat-widget/identity-verification"
+                ],
+                "expanded": false
+              },
+              {
+                "group": "Account intelligence",
+                "pages": [
+                  "account-intelligence/overview",
+                  "platform/clients",
+                  "account-intelligence/presence"
+                ],
+                "expanded": false
+              },
+              {
+                "group": "Product intelligence",
+                "pages": [
+                  "product-intelligence/overview",
+                  "product-intelligence/feature-requests",
+                  "product-intelligence/closing-loop"
+                ],
+                "expanded": false
+              },
+              {
+                "group": "Reporting & analytics",
+                "pages": [
+                  "platform/analytics",
+                  "reporting/usage-capacity",
+                  "reporting/surveys-performance"
+                ],
+                "expanded": false
+              },
+              {
+                "group": "Broadcasts",
+                "pages": [
+                  "broadcasts/overview",
+                  "broadcasts/create-broadcast",
+                  "broadcasts/analytics"
+                ],
+                "expanded": false
+              },
+              {
+                "group": "Integrations",
+                "pages": [
+                  "integrations/overview",
+                  "integrations/email",
+                  "integrations/discord",
+                  "integrations/github-context",
+                  "integrations/mintlify-widget"
+                ],
+                "expanded": false
+              },
+              {
+                "group": "Security",
+                "pages": [
+                  "security/widget-identity",
+                  "security/data-privacy",
+                  "security/tenant-isolation"
+                ],
+                "expanded": false
+              },
+              {
+                "group": "Developer",
+                "pages": [
+                  "developer/overview",
+                  "developer/rest-api",
+                  "reference/glossary",
+                  "developer/route-boundaries"
+                ],
+                "expanded": false
+              }
             ]
           }
         ]
@@ -351,7 +365,8 @@
               "api/issues",
               "api/clients",
               "api/agents"
-            ]
+            ],
+            "expanded": false
           },
           {
             "group": "Runtime guides",
@@ -359,7 +374,8 @@
               "reference/routes",
               "api/widget",
               "api/surveys"
-            ]
+            ],
+            "expanded": false
           },
           {
             "group": "Endpoint reference",
@@ -440,7 +456,8 @@
                   "GET /api/v1/analytics"
                 ]
               }
-            ]
+            ],
+            "expanded": false
           }
         ]
       }
