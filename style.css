@@ -1,49 +1,65 @@
 :root {
   --woes-orange: #ff7038;
-  --woes-orange-soft: rgba(255, 112, 56, 0.14);
+  --woes-orange-soft: rgba(255, 112, 56, 0.1);
   --woes-border: rgba(255, 112, 56, 0.24);
+  --woes-active-bg: rgba(255, 255, 255, 0.055);
+  --woes-active-border: rgba(255, 255, 255, 0.07);
+  --woes-active-text: #fff0e8;
   --woes-title-dark: #f7f1ea;
   --woes-copy-dark: #b7aea7;
   --woes-copy-muted: #8f8780;
   --woes-link-dark: #ff9a70;
 }
 
+@view-transition {
+  navigation: auto;
+}
+
 /* Mintlify loads root-level CSS on the docs site. Keep this layer visual only:
    docs content and generated API behavior should continue to come from MDX and
    openapi.json. */
 .sidebar-group-header,
-:where(nav, [role="navigation"], [class*="sidebar"], [class*="toc"]) [class*="uppercase"],
-:where(nav, [role="navigation"], [class*="sidebar"], [class*="toc"]) p[class*="uppercase"],
-:where(nav, [role="navigation"], [class*="sidebar"], [class*="toc"]) span[class*="uppercase"] {
+:where(aside, nav, [role="navigation"], [class*="sidebar"], [class*="toc"]) [class*="uppercase"],
+:where(aside, nav, [role="navigation"], [class*="sidebar"], [class*="toc"]) p[class*="uppercase"],
+:where(aside, nav, [role="navigation"], [class*="sidebar"], [class*="toc"]) span[class*="uppercase"] {
   color: var(--woes-orange) !important;
   font-weight: 700 !important;
   letter-spacing: 0.18em !important;
   text-transform: uppercase !important;
 }
 
-:where(nav, [role="navigation"], [class*="sidebar"]) button[aria-expanded],
-:where(nav, [role="navigation"], [class*="sidebar"]) [role="button"][aria-expanded],
-:where(nav, [role="navigation"], [class*="sidebar"]) button[aria-haspopup],
-:where(nav, [role="navigation"], [class*="sidebar"]) [data-state] > button {
+:where(aside, nav, [role="navigation"], [class*="sidebar"]) :where(button, [role="button"])[aria-expanded],
+:where(aside, nav, [role="navigation"], [class*="sidebar"]) :where(button, [role="button"])[aria-haspopup],
+:where(aside, nav, [role="navigation"], [class*="sidebar"]) [data-state] > button {
   color: var(--woes-orange) !important;
   font-weight: 650 !important;
 }
 
-:where(nav, [role="navigation"], [class*="sidebar"]) button[aria-expanded="false"],
-:where(nav, [role="navigation"], [class*="sidebar"]) [role="button"][aria-expanded="false"] {
-  opacity: 0.88;
+:where(aside, nav, [role="navigation"], [class*="sidebar"]) :where(button, [role="button"])[aria-expanded] :where(span, svg),
+:where(aside, nav, [role="navigation"], [class*="sidebar"]) :where(button, [role="button"])[aria-haspopup] :where(span, svg) {
+  color: inherit !important;
+  stroke: currentColor !important;
 }
 
-:where(nav, [role="navigation"], [class*="sidebar"]) a[aria-current="page"],
-:where(nav, [role="navigation"], [class*="sidebar"]) a[data-active="true"],
-a[href][aria-current="page"] {
-  color: var(--woes-orange) !important;
+:where(aside, nav, [role="navigation"], [class*="sidebar"]) :where(button, [role="button"])[aria-expanded="false"] {
+  opacity: 0.92;
 }
 
-:where(nav, [role="navigation"], [class*="sidebar"]) a[aria-current="page"],
+:where(aside, nav, [role="navigation"], [class*="sidebar"]) a[aria-current="page"],
+:where(aside, nav, [role="navigation"], [class*="sidebar"]) a[data-active="true"],
 a[href][aria-current="page"] {
-  background: var(--woes-orange-soft) !important;
-  box-shadow: inset 2px 0 0 var(--woes-orange);
+  color: var(--woes-active-text) !important;
+}
+
+:where(aside, nav, [role="navigation"], [class*="sidebar"]) a[aria-current="page"],
+a[href][aria-current="page"] {
+  background: linear-gradient(90deg, rgba(255, 112, 56, 0.16), transparent 42%),
+    var(--woes-active-bg) !important;
+  border-color: var(--woes-active-border) !important;
+  box-shadow:
+    inset 3px 0 0 rgba(255, 112, 56, 0.9),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.035) !important;
+  text-shadow: none !important;
 }
 
 html[class*="dark"] main h1,
@@ -97,15 +113,45 @@ code {
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  :where(nav, [role="navigation"], [class*="sidebar"]) a {
-    transition:
-      background-color 160ms ease,
-      color 160ms ease,
-      box-shadow 160ms ease,
-      transform 160ms ease;
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: 180ms;
+    animation-timing-function: cubic-bezier(0.2, 0.7, 0.2, 1);
   }
 
-  :where(nav, [role="navigation"], [class*="sidebar"]) a:hover {
+  :where(aside, nav, [role="navigation"], [class*="sidebar"]) a,
+  :where(aside, nav, [role="navigation"], [class*="sidebar"]) :where(button, [role="button"]) {
+    transition:
+      background-color 220ms cubic-bezier(0.2, 0.7, 0.2, 1),
+      border-color 220ms cubic-bezier(0.2, 0.7, 0.2, 1),
+      color 220ms cubic-bezier(0.2, 0.7, 0.2, 1),
+      box-shadow 220ms cubic-bezier(0.2, 0.7, 0.2, 1),
+      opacity 220ms cubic-bezier(0.2, 0.7, 0.2, 1),
+      transform 220ms cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+
+  :where(aside, nav, [role="navigation"], [class*="sidebar"]) a:hover {
     transform: translateX(2px);
+  }
+
+  :where(aside, nav, [role="navigation"], [class*="sidebar"]) a[aria-current="page"],
+  :where(aside, nav, [role="navigation"], [class*="sidebar"]) a[data-active="true"],
+  a[href][aria-current="page"] {
+    animation: woes-active-nav-enter 260ms cubic-bezier(0.16, 1, 0.3, 1);
+    transform: translateX(0);
+  }
+}
+
+@keyframes woes-active-nav-enter {
+  from {
+    background-position: -18px 0;
+    opacity: 0.72;
+    transform: translateX(-5px);
+  }
+
+  to {
+    background-position: 0 0;
+    opacity: 1;
+    transform: translateX(0);
   }
 }
