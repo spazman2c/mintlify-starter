@@ -188,6 +188,7 @@
               "quickstart/overview",
               "quickstart/add-context",
               "quickstart/install-widget",
+              "quickstart/install-widget-mintlify",
               "quickstart/invite-team"
             ]
           },

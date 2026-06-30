@@ -1,0 +1,131 @@
+---
+title: "Install the Widget in Mintlify"
+description: "Add the Woes live chat widget to a Mintlify documentation site."
+---
+
+# Install the Widget in Mintlify
+
+Mintlify can load custom JavaScript from your docs repository. Use that to add
+the Woes widget once, then let it appear across every page in your documentation
+site.
+
+<Note>
+  The widget uses a public widget key such as `woesw_...` or
+  `trovw_agent_...`. Do not use a `woesk_` REST API key in browser code.
+</Note>
+
+## Before You Start
+
+You need:
+
+- Access to your Mintlify docs repository.
+- A Woes workspace or agent widget key from **Settings → Keys**.
+- The production widget endpoint: `https://woes.dev/api/widget/messages`.
+
+Use a workspace widget key when every docs visitor should route to the default
+agent. Use an agent widget key when your docs site should route visitors to a
+specific docs-focused agent.
+
+## Recommended Install
+
+Create a JavaScript file in the root of your Mintlify docs content directory,
+next to `docs.json` or `mint.json`.
+
+For example, create `woes-widget.js`:
+
+```js
+(function () {
+  if (window.__woesDocsWidgetInstalled) return;
+  window.__woesDocsWidgetInstalled = true;
+
+  var script = document.createElement("script");
+  script.async = true;
+  script.src = "https://woes.dev/widget.js";
+  script.setAttribute("data-public-key", "YOUR_WIDGET_PUBLIC_KEY");
+  script.setAttribute("data-api", "https://woes.dev/api/widget/messages");
+
+  document.head.appendChild(script);
+})();
+```
+
+Replace `YOUR_WIDGET_PUBLIC_KEY` with the key copied from Woes.
+
+<Tip>
+  The Woes docs site uses this same pattern with its own public widget key:
+  `woesw_7caa9909810e4d67a5b7fc5f47f4213b`.
+</Tip>
+
+## Deploy the Change
+
+Commit and push the file to the Git repository connected to Mintlify.
+
+```bash
+git add woes-widget.js
+git commit -m "Add Woes docs widget"
+git push
+```
+
+Mintlify will rebuild the docs site from the pushed commit. After the deploy
+finishes, open the public docs site and confirm the Woes launcher appears.
+
+## Direct Snippet
+
+If your Mintlify setup supports adding a raw script directly, use the same
+snippet Woes provides in **Settings → Install**:
+
+```html
+<script
+  async
+  src="https://woes.dev/widget.js"
+  data-public-key="YOUR_WIDGET_PUBLIC_KEY"
+  data-api="https://woes.dev/api/widget/messages"
+></script>
+```
+
+The JavaScript-file approach is usually easier to maintain because it keeps the
+widget install in one reusable file.
+
+## Identify Signed-In Readers
+
+Most public documentation sites can run anonymously. If your Mintlify docs are
+behind authentication and you can safely provide reader identity, call
+`window.Woes("identify", ...)` after the widget loads.
+
+```js
+window.Woes("identify", {
+  email: "reader@example.com",
+  name: "Ada Lovelace",
+  company: "Example API Co",
+  id: "user_123",
+});
+```
+
+For account-specific history or higher-trust routing, use signed identity. See
+[Widget Identity](/security/widget-identity).
+
+<Warning>
+  Generate HMAC proofs or JWTs only on your backend. Never place widget identity
+  secrets, REST API keys, workspace secrets, or customer-private data in the
+  Mintlify repository.
+</Warning>
+
+## Test the Install
+
+After Mintlify deploys:
+
+1. Open the docs site in a private browser window.
+2. Confirm the Woes launcher appears.
+3. Open the widget and send a test question.
+4. In Woes, open **Inbox** and confirm the conversation arrives.
+5. If you used an agent widget key, confirm the conversation is labeled with
+   the expected agent.
+
+## Troubleshooting
+
+| Problem | Check |
+| --- | --- |
+| Launcher does not appear | Confirm `woes-widget.js` is in the Mintlify content root and was pushed. |
+| Browser console shows a script error | Confirm the script URL is exactly `https://woes.dev/widget.js`. |
+| Conversation goes to the wrong agent | Use the correct agent widget key from **Agents** or **Settings → Keys**. |
+| Reader appears anonymous | Add `window.Woes("identify", ...)` or configure signed widget identity. |
+| Widget key is rejected | Confirm you used a public widget key, not a `woesk_` REST API key. |
