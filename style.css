@@ -4,6 +4,8 @@
   --woes-border: rgba(255, 112, 56, 0.24);
   --woes-title-dark: #f7f1ea;
   --woes-copy-dark: #b7aea7;
+  --woes-copy-muted: #8f8780;
+  --woes-link-dark: #ff9a70;
 }
 
 /* Mintlify loads root-level CSS on the docs site. Keep this layer visual only:
@@ -17,6 +19,19 @@
   font-weight: 700 !important;
   letter-spacing: 0.18em !important;
   text-transform: uppercase !important;
+}
+
+:where(nav, [role="navigation"], [class*="sidebar"]) button[aria-expanded],
+:where(nav, [role="navigation"], [class*="sidebar"]) [role="button"][aria-expanded],
+:where(nav, [role="navigation"], [class*="sidebar"]) button[aria-haspopup],
+:where(nav, [role="navigation"], [class*="sidebar"]) [data-state] > button {
+  color: var(--woes-orange) !important;
+  font-weight: 650 !important;
+}
+
+:where(nav, [role="navigation"], [class*="sidebar"]) button[aria-expanded="false"],
+:where(nav, [role="navigation"], [class*="sidebar"]) [role="button"][aria-expanded="false"] {
+  opacity: 0.88;
 }
 
 :where(nav, [role="navigation"], [class*="sidebar"]) a[aria-current="page"],
@@ -37,20 +52,44 @@ html[class*="dark"] main h3 {
   color: var(--woes-title-dark) !important;
 }
 
-html[class*="dark"] main h1 + p,
-html[class*="dark"] main h2 + p,
-html[class*="dark"] main p {
-  color: var(--woes-copy-dark);
+html[class*="dark"] main :where(p, li, td, dd, blockquote, figcaption) {
+  color: var(--woes-copy-dark) !important;
 }
 
-html[class*="dark"] main :is(p, span, div):has(+ h1),
-html[class*="dark"] main :is(p, span, div):has(+ h2) {
-  color: var(--woes-orange) !important;
+html[class*="dark"] main :where(p, li, td, dd) :where(span, strong) {
+  color: inherit !important;
+}
+
+html[class*="dark"] main :where(a) {
+  color: var(--woes-link-dark) !important;
+  text-decoration-color: rgba(255, 112, 56, 0.55) !important;
+  text-underline-offset: 0.18em;
+}
+
+html[class*="dark"] main :where(a:hover) {
+  color: #ffc2a5 !important;
+  text-decoration-color: var(--woes-orange) !important;
+}
+
+html[class*="dark"] main :where(table) {
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+html[class*="dark"] main :where(th) {
+  color: var(--woes-title-dark) !important;
+}
+
+html[class*="dark"] main :where(.steps, [class*="step"]) :where(p, div, span):not(a):not(button) {
+  color: var(--woes-copy-dark);
 }
 
 .card,
 [class*="card"] {
   border-color: var(--woes-border);
+}
+
+html[class*="dark"] main :where(.card, [class*="card"]) :where(p, span, div):not(a):not(button) {
+  color: var(--woes-copy-muted);
 }
 
 code {
