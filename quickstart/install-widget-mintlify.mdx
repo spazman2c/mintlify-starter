@@ -132,7 +132,10 @@ window.Woes("identify", {
 ```
 
 For account-specific history or higher-trust routing, use signed identity. See
-[Widget Identity](/security/widget-identity).
+[Widget Identity](/security/widget-identity). In Woes, open
+**Settings → Security**, select the agent widget key installed on Mintlify, then
+use **Copy prompt for AI install** if you want a coding assistant to wire the
+server-side HMAC or JWT endpoint.
 
 <Warning>
   Generate HMAC proofs or JWTs only on your backend. Never place widget identity

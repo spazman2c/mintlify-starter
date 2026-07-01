@@ -6,8 +6,9 @@ description: "Choose anonymous, display-only, HMAC, or JWT identity for the Woes
 # Widget Identity Verification
 
 Widget identity determines whether Woes treats a visitor as anonymous,
-display-only, or verified. Choose the lowest trust mode that still supports the
-customer experience you want.
+display-only, or verified. It is configured per agent widget key from
+**Settings → Security**, so each site can use the agent and trust model that
+matches that install.
 
 ## Identity Modes
 
@@ -20,9 +21,16 @@ customer experience you want.
 
 ## Recommended Path
 
-1. Start anonymous for public docs.
-2. Add display identity for signed-in product pages.
-3. Use HMAC or JWT before showing account-specific history.
-4. Keep signing secrets only on your backend.
+1. Select the agent widget key installed on the site.
+2. Start anonymous for public docs or marketing pages.
+3. Add display identity for signed-in product pages.
+4. Use HMAC or JWT before showing account-specific history.
+5. Use **Copy prompt for AI install** to generate implementation instructions for your codebase.
+6. Keep signing secrets only on your backend.
+
+<Tip>
+  Use a different agent widget key and identity secret for each site when the
+  agent behavior, data access, or customer trust level differs.
+</Tip>
 
 Read the full security guide in [Widget Identity](/security/widget-identity).

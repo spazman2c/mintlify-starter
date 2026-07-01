@@ -36,13 +36,23 @@ without locking out anonymous ones:
   visitors entirely (everyone must be verified). Leave it off for a public
   widget that still welcomes leads.
 
-Enable a mode, generate the **identity secret**, and (optionally) toggle strict
-mode from **Settings → Channels → Live chat → Identity verification**. The secret
-is a hex string — keep it on your server only.
+Enable a mode from **Settings → Security**. Choose the agent widget key first,
+then set that agent's verification mode, generate its **identity secret**, and
+(optionally) toggle strict mode.
+
+Use separate agent widget keys and secrets when Woes is installed on different
+sites. For example, your docs site can use a docs-focused agent and JWT, while a
+marketing site can use a lead-support agent with anonymous chat.
+
+The identity secret is private signing material. Keep it on your server only.
+Do not paste it into client JavaScript, mobile apps, documentation, or AI
+coding prompts.
 
 ## HMAC Email
 
-In HMAC mode, your backend signs the normalized customer email using the workspace identity secret. The browser sends the email and hash to Woes.
+In HMAC mode, your backend signs the normalized customer email using the
+selected agent widget's identity secret. The browser sends the email and hash
+to Woes.
 
 Only the email is signed. Other fields such as name or company are treated as display metadata.
 
@@ -115,6 +125,26 @@ window.Woes("identify", {
 JWT identity tokens must use `HS256`, include an `email` claim, and set `aud` to
 the widget public key used by the install snippet. Keep token lifetimes short;
 Woes accepts verified widget identity JWTs up to 15 minutes from issue to expiry.
+
+## Copy Prompt for AI Install
+
+Settings → Security includes **Copy prompt for AI install** after you select an
+agent widget key. Paste that prompt into your coding assistant to install the
+widget and create the server endpoint that mints the HMAC hash or JWT.
+
+The copied prompt intentionally includes:
+
+- The public widget key for the selected agent.
+- The selected verification mode.
+- Server-only environment variable guidance.
+- The required browser `window.Woes("identify", ...)` call.
+
+The copied prompt intentionally excludes:
+
+- The private identity secret.
+- Workspace API keys.
+- Supabase or Stripe keys.
+- Operator-only account data.
 
 ## Security Rules
 
