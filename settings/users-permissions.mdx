@@ -13,6 +13,7 @@ The Users page shows:
 
 - Member identity.
 - Role.
+- Whether access is inherited from the role or customized for that user.
 - Status.
 - Current viewing target where available.
 - Links to jump to the item a user is viewing.
@@ -28,8 +29,55 @@ Woes uses section-specific permissions. This keeps broad settings access from be
 | Surveys | Configure CSAT and NPS surveys. |
 | Widget | Configure widget install and behavior. |
 | Keys | Manage API keys and widget key surfaces. |
+| Billing | Open subscription management and change paid capacity through workspace write access. |
 | Data | Tags, statuses, custom fields, and priority labels. |
 | Macros | Create, update, or delete macros. |
+
+## Roles And Per-User Access
+
+Most users should inherit permissions from a role. Roles are easier to audit and
+make access predictable across the workspace.
+
+Admins can also customize access for a specific user when one person needs a
+temporary or exceptional permission set. Per-user access overrides the selected
+role's permissions for that member until the override is removed.
+
+Use per-user access for cases like:
+
+- Temporarily giving an operator billing or keys access.
+- Letting a support lead configure surveys without changing every Admin.
+- Removing a sensitive write permission from one user while keeping their role.
+- Testing a new permission profile before creating a new role.
+
+<Warning>
+  Per-user access is powerful. Prefer role defaults for normal team structure
+  and reserve direct overrides for exceptions that are reviewed regularly.
+</Warning>
+
+### Customize A User
+
+<Steps>
+  <Step title="Open Users">
+    Go to **Settings -> Users**.
+  </Step>
+  <Step title="Open the user menu">
+    Choose **Customize user access** or **Edit user access** from the row menu.
+  </Step>
+  <Step title="Copy role access">
+    If the user inherits role permissions, copy the role access first to start
+    from the current role defaults.
+  </Step>
+  <Step title="Adjust permissions">
+    Expand permission categories, toggle read/write/execute/delete permissions,
+    or bulk enable and disable a category.
+  </Step>
+  <Step title="Return to role defaults">
+    Use **Use role defaults** when the user should inherit the role again.
+  </Step>
+</Steps>
+
+Changing per-user access requires permission to manage both users and roles.
+The workspace owner profile cannot be stripped through per-user overrides.
 
 ## Current Viewing State
 
@@ -48,6 +96,7 @@ the Users table to open the same item.
 ## Recommended Access
 
 - Give Owners full setup and permission access.
-- Give Admins channel, agent, automation, and workspace configuration access.
+- Give Admins channel, agent, billing, automation, and workspace configuration access.
 - Give Members inbox and issue workflow access.
 - Give Viewers read-only access for audits or leadership visibility.
+- Review direct user overrides during security and billing reviews.

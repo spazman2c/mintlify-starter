@@ -1,0 +1,178 @@
+---
+title: "Billing"
+description: "Manage Woes plans, Stripe subscriptions, usage meters, add-ons, and Bring Your Own AI billing."
+---
+
+# Billing
+
+Billing is where workspace admins review the active plan, watch usage against
+plan limits, add capacity, and manage the Stripe subscription for the workspace.
+
+## What Billing Controls
+
+| Area | What it manages |
+| --- | --- |
+| Current plan | Starter, Growth, Scale, or Bring Your Own AI. |
+| Subscription status | Stripe subscription state such as trialing, active, past due, unpaid, or canceled. |
+| Usage meters | AI resolutions, operator seats, agents, API sources, indexed endpoints, public API calls, and live API checks. |
+| Add-ons | Extra operator seats, extra agent/widget capacity, and multi-workflow add-ons. |
+| Payment details | Payment method, invoices, cancellation, and supported subscription edits through Stripe Billing Portal. |
+
+<Note>
+  Billing changes are workspace-scoped. The subscription belongs to the Woes
+  workspace, not to an individual operator.
+</Note>
+
+## Current Plan Card
+
+The top of **Settings -> Billing** shows the workspace's current plan and a
+projected monthly total. The current plan card uses the workspace's selected
+plan plus active add-ons and usage overages.
+
+When Stripe is connected, the card also shows the Stripe subscription status.
+
+Common statuses:
+
+| Status | Meaning |
+| --- | --- |
+| `trialing` | The subscription is active in a trial period. |
+| `active` | The subscription is active and billing normally. |
+| `past_due` | Stripe has a payment issue, but the subscription has not been canceled. |
+| `unpaid` | Stripe has exhausted retry behavior or marked the invoice unpaid. |
+| `canceled` | The subscription is canceled. Features may be reduced after sync. |
+
+## Manage Subscription
+
+Use **Manage subscription** to open the Stripe Billing Portal for the workspace.
+The portal can be used to:
+
+- Update payment methods.
+- Review invoice history.
+- Update billing contact and tax information.
+- Cancel the subscription according to the portal policy.
+- Adjust supported subscription prices or quantities.
+
+Woes creates the portal session server-side. Operators never handle Stripe
+secret keys, webhook secrets, or internal billing identifiers.
+
+## Changing Plans
+
+Plan changes from Woes use Stripe Checkout.
+
+<Steps>
+  <Step title="Open Billing">
+    Go to **Settings -> Billing**.
+  </Step>
+  <Step title="Choose a plan">
+    Select Starter, Growth, Scale, or Bring Your Own AI.
+  </Step>
+  <Step title="Complete Checkout">
+    Stripe Checkout collects payment details and starts the subscription.
+  </Step>
+  <Step title="Return to Woes">
+    Woes syncs the confirmed subscription through Stripe webhooks and updates
+    workspace limits after Stripe confirms the billing state.
+  </Step>
+</Steps>
+
+Before Woes opens Checkout, it checks whether the target plan can support the
+workspace's current usage and enabled features. For example, Woes will block a
+plan downgrade if the workspace has more agents, sources, endpoints, seats, or
+enabled channels than the target plan allows.
+
+## Add Capacity
+
+Use **Browse add-ons** when you need more capacity without changing the base
+plan.
+
+| Add-on | What it does |
+| --- | --- |
+| Extra operator seat | Adds one more human workspace seat. |
+| Extra AI agent + widget | Adds one more named agent and public widget key. It also enables multi-agent behavior. |
+| Multi add-on | Unlocks multi-agent and multi-channel workflows for lower tiers. |
+| Extra API source bundles | Adds source capacity according to the active plan's add-on pricing. |
+| Extra AI resolutions | Billed as usage overage according to the active plan's rate. |
+
+Plan-specific add-on prices are used when available. Woes falls back to generic
+add-on prices only when a plan-specific Stripe price is not configured.
+
+## Bring Your Own AI Plan
+
+Bring Your Own AI is its own plan. It is shown in Billing and priced per user.
+When active, the Billing page labels the workspace as **Bring Your Own AI** and
+the AI agent can route model calls through the customer's connected provider
+key.
+
+Bring Your Own AI includes:
+
+- Scale-grade support capacity.
+- Provider-key setup in **Settings -> Bring Your Own AI**.
+- Unlimited Woes-side AI resolutions routed through the customer's own provider.
+- Customer-paid model usage through the connected OpenAI, Anthropic, or Google
+  account.
+
+See [Bring Your Own AI](/settings/bring-your-own-ai).
+
+## Usage Meters
+
+Billing shows usage for the current month.
+
+| Meter | How to read it |
+| --- | --- |
+| AI resolutions | AI-handled customer-facing answers counted against the monthly allowance. |
+| Operator seats | Active workspace members consuming human operator capacity. |
+| AI agents | Configured support agents and widget routing surfaces. |
+| API sources | API context sources attached to the workspace. |
+| Indexed endpoints | Endpoint-level records extracted from API context sources. |
+| Public API calls | Successful authenticated REST API requests by workspace API key. |
+| Live API checks | Authenticated source tests run by operators. |
+
+Monthly public API and live API check meters reset at the start of each UTC
+month.
+
+## Public API Usage By Key
+
+Billing includes a **Public API by key** section. This shows current-month REST
+API usage grouped by API key prefix.
+
+This helps admins answer:
+
+- Which integration is driving API traffic?
+- Are revoked keys still visible historically?
+- Which server-side job should be investigated when API usage spikes?
+
+Only key prefixes and usage counts are shown. Full `woesk_` secrets and key
+hashes are never returned.
+
+## Stripe Sync
+
+Woes uses Stripe as the billing source of truth.
+
+| Stripe event | Woes behavior |
+| --- | --- |
+| Checkout completed | Reads the confirmed subscription and syncs workspace plan or add-on state. |
+| Subscription updated | Reconciles subscription status, plan price, and supported quantity changes. |
+| Subscription deleted | Marks subscription status and turns off canceled add-on capacity where applicable. |
+
+The Woes app stores only the Stripe customer id, subscription id, subscription
+status, and workspace entitlement values needed to enforce limits. It does not
+store card numbers or Stripe secret keys in workspace settings.
+
+## Permissions
+
+Billing actions require workspace admin-level access. A user needs workspace
+write permission to change plans, buy add-ons, or open subscription management.
+
+Use [Users and Permissions](/settings/users-permissions) to limit Billing
+access to admins who should manage paid capacity.
+
+## Troubleshooting
+
+| Symptom | Check |
+| --- | --- |
+| Manage subscription does not open | Confirm Stripe is configured and the workspace has or can create a Stripe customer. |
+| Plan still looks unchanged after Checkout | Wait for Stripe webhook sync, then refresh Billing. |
+| Downgrade is blocked | Current usage or enabled features exceed the target plan. Remove extras or choose a larger plan. |
+| Add-on quantity looks wrong | Confirm the active Stripe subscription item quantity and wait for the subscription update webhook. |
+| BYO AI settings are hidden | Switch to the Bring Your Own AI plan from Billing first. |
+

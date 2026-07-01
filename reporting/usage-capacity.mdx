@@ -6,7 +6,8 @@ description: "Track workspace usage, API capacity, AI resolutions, keys, and pla
 # Usage and Capacity
 
 Usage reporting helps admins understand whether the workspace is staying within
-its plan and where support load is growing.
+its plan and where support load is growing. The live plan meters are shown in
+[Billing](/settings/billing); analytics pages focus on operational performance.
 
 ## Usage Areas
 
@@ -20,6 +21,14 @@ its plan and where support load is growing.
 | Public API calls | Requests made with workspace API keys. |
 | Live API checks | Authenticated checks run through Woes source testing. |
 
+## Where Usage Appears
+
+| Surface | Use it for |
+| --- | --- |
+| Settings -> Billing | Current plan, Stripe subscription status, included capacity, add-ons, public API usage by key, and projected monthly total. |
+| Analytics | Support performance, surveys, customer behavior, agent quality, and operational trends. |
+| API Reference -> Usage | Server-side usage reads through the authenticated REST API. |
+
 ## How To Use Usage Data
 
 - Review usage before large docs or source imports.
@@ -27,9 +36,12 @@ its plan and where support load is growing.
 - Keep agent count aligned with real product or docs segmentation.
 - Use indexed endpoint counts to understand API context growth.
 - Review overage and plan limits before launch periods.
+- Use **Manage subscription** from Billing when payment details, invoices, or
+  supported subscription edits need to be handled in Stripe.
 
 ## Related Pages
 
 - [Analytics](/platform/analytics)
+- [Billing](/settings/billing)
 - [Keys](/settings/keys)
 - [API Reference: Usage](/api/usage)

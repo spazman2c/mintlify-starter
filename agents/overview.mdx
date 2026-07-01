@@ -55,6 +55,26 @@ When a customer asks a question, Woes:
 5. Asks a focused clarification question when key details are missing.
 6. Hands off to an operator when confidence is too low.
 
+## Model Routing
+
+By default, Woes routes agent model calls through the platform-managed AI
+runtime. Provider selection and fallback behavior are backend concerns, not a
+normal customer-facing agent setting.
+
+Workspaces on the [Bring Your Own AI](/settings/bring-your-own-ai) plan can
+connect their own OpenAI, Anthropic, or Google key. When a BYO AI provider is
+active, agent execution uses that customer-owned provider key and selected
+supported model.
+
+BYO AI does not change:
+
+- Workspace tenant isolation.
+- Source retrieval boundaries.
+- Confidence thresholds.
+- Clarification and handoff behavior.
+- Customer-visible redaction rules.
+- Operator evidence and feedback loops.
+
 ## Operator Evidence Loop
 
 Operators can inspect why an agent answered, skipped, or asked for
@@ -74,5 +94,7 @@ message feedback, or take over the conversation when a human answer is safer.
 - Increase answer rate by ignoring low-confidence rules.
 
 <Note>
-  Provider and model routing are backend platform concerns. They are not exposed as customer-facing agent settings.
+  Provider and model routing are backend platform concerns unless the workspace
+  is on the Bring Your Own AI plan. Even then, customers choose from supported
+  provider/model options rather than free-form runtime internals.
 </Note>

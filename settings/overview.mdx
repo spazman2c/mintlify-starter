@@ -1,6 +1,6 @@
 ---
 title: "Settings Overview"
-description: "Understand the Woes settings areas for workspace identity, channels, agents, keys, users, roles, data, surveys, and notifications."
+description: "Understand the Woes settings areas for workspace identity, billing, BYO AI, channels, agents, keys, users, roles, data, surveys, and notifications."
 ---
 
 # Settings Overview
@@ -15,6 +15,8 @@ Settings controls workspace behavior, team access, channels, install snippets, s
 | Channels | Live chat, email, and Discord channel settings. |
 | Install | Widget install snippets and setup instructions. |
 | Assignment | Teams, skills, capacity, schedules, and routing previews. |
+| Billing | Plan selection, Stripe subscription status, usage meters, add-ons, and subscription management. |
+| Bring Your Own AI | Customer-owned model-provider keys for workspaces on the BYO AI plan. |
 | Keys | Workspace widget key, agent widget keys, and private REST API keys. |
 | Users | Members, roles, and current viewing state. |
 | Permissions | Section-specific access controls. |
@@ -22,7 +24,6 @@ Settings controls workspace behavior, team access, channels, install snippets, s
 | Data | Custom fields, tags, statuses, and priority labels. |
 | Macros | Reusable operator replies and ticket actions. |
 | Surveys | CSAT and NPS survey configuration. |
-| Billing | Plan usage, public API call counts, live API checks, and add-ons. |
 | Security | Widget identity and workspace access controls. |
 
 ## Permission Model
@@ -34,6 +35,10 @@ Examples:
 - Editing macros requires macro permissions.
 - Editing automations requires automation permissions.
 - Changing company identity requires workspace write access.
+- Changing plans, add-ons, or subscription management requires workspace write
+  access.
+- Customizing a user's direct permissions requires user and role management
+  access.
 - Reading settings requires authenticated workspace access.
 
 ## Usage Visibility
@@ -52,10 +57,36 @@ support operations:
 Monthly public API and live API check meters reset at the start of each UTC
 month.
 
+## Billing And Subscription Management
+
+Admins manage the active plan from [Billing](/settings/billing). Billing shows
+the selected plan, Stripe subscription status, projected monthly total, usage
+meters, public API calls by key, and active add-ons.
+
+When Stripe is configured:
+
+- Plan changes open Stripe Checkout.
+- The **Manage subscription** button opens Stripe Billing Portal.
+- Subscription updates sync back into Woes through Stripe webhooks.
+- Stripe customer and subscription identifiers are stored server-side for the
+  workspace.
+
+## Bring Your Own AI
+
+[Bring Your Own AI](/settings/bring-your-own-ai) appears only for workspaces on
+the Bring Your Own AI plan. It lets admins connect a customer-owned OpenAI,
+Anthropic, or Google key and choose from supported frontier models.
+
+Provider keys are stored server-side and returned to the UI only as redacted
+status hints. They are never exposed to customers, docs pages, widget scripts,
+or REST API responses.
+
 ## Safe Configuration Principles
 
 - Keep credentials in the correct secret settings, not in prompts or docs.
 - Use role-based permissions for changes that affect customers.
+- Use per-user permission overrides only when a user needs access that differs
+  from their role.
 - Prefer a narrow role for operators who do not manage setup.
 - Review keys before installing widgets on public pages.
 - Use the API Reference tab for REST API behavior, request examples, and

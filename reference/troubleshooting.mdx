@@ -49,6 +49,25 @@ Use this page when a workspace setup or support workflow does not behave as expe
 | Live chat views are low | Some reports infer views from widget opens when launcher views are unavailable. |
 | No survey responses | Enable surveys and confirm customers have submitted feedback. |
 
+## Billing
+
+| Symptom | Check |
+| --- | --- |
+| Manage subscription fails | Confirm Stripe is configured and the workspace has permission to manage billing. |
+| Subscription status is missing | Confirm Checkout or Stripe Portal has completed and webhook sync has run. |
+| Plan downgrade is blocked | Current features or usage exceed the target plan's limits. |
+| Add-on capacity is not reflected | Confirm the Stripe subscription item quantity and wait for the subscription update webhook. |
+| Public API usage looks high | Review the Public API by key section in Billing and rotate unused API keys. |
+
+## Bring Your Own AI
+
+| Symptom | Check |
+| --- | --- |
+| BYO AI settings are hidden | The workspace must be on the Bring Your Own AI plan. |
+| Provider key does not verify | Confirm the provider key, account permissions, and selected supported model. |
+| Agent still uses platform AI | Activate a verified provider in Settings -> Bring Your Own AI. |
+| Model changed unexpectedly | Unsupported or stale model ids are coerced to the provider default model. |
+
 ## Assignment
 
 | Symptom | Check |

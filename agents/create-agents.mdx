@@ -45,3 +45,21 @@ Every workspace should have a default agent. If the current default is deleted, 
 Each agent can have its own widget public key. Use this when you want a different agent on each site, docs area, or product.
 
 Find all agent keys in **Settings → Keys**.
+
+## Billing And Capacity
+
+Agent capacity is plan-aware. The active plan includes a fixed number of agents
+and widgets, and extra agent/widget capacity can be added from
+[Billing](/settings/billing).
+
+If the workspace reaches its effective agent limit, Woes blocks new agent
+creation until an admin removes unused agents, upgrades the plan, or adds
+capacity.
+
+## Bring Your Own AI
+
+Agent creation and source attachment are separate from model-provider billing.
+If the workspace is on the [Bring Your Own AI](/settings/bring-your-own-ai)
+plan and has an active provider, saved agents use the same grounding and
+confidence rules while model execution routes through the customer's provider
+key.

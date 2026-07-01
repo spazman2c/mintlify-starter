@@ -1,0 +1,141 @@
+---
+title: "Bring Your Own AI"
+description: "Connect customer-owned OpenAI, Anthropic, or Google model keys for Woes support agents."
+---
+
+# Bring Your Own AI
+
+Bring Your Own AI lets a workspace route Woes support-agent model calls through
+the customer's own model-provider account. It is a dedicated plan, not a normal
+feature toggle.
+
+## Availability
+
+Bring Your Own AI appears in Settings only after the workspace is on the
+**Bring Your Own AI** plan.
+
+If the workspace is not on that plan, Woes shows a plan-required state and links
+admins back to [Billing](/settings/billing).
+
+## Supported Providers
+
+Woes supports a curated provider list:
+
+| Provider | Where to get a key |
+| --- | --- |
+| OpenAI | `platform.openai.com` |
+| Claude (Anthropic) | `console.anthropic.com` |
+| Google (Gemini) | `aistudio.google.com` |
+
+Each provider entry can have one stored key. A workspace can connect multiple
+providers, but only one provider is active for support-agent routing at a time.
+
+## Frontier Model Selection
+
+Woes exposes a curated list of frontier model ids for each provider. The model
+picker prevents unsupported free-form model strings from being routed at
+runtime.
+
+If a stored or submitted model id is empty, stale, or unsupported, Woes falls
+back to the default model for that provider.
+
+Current default models:
+
+| Provider | Default model |
+| --- | --- |
+| Claude (Anthropic) | Claude Opus 4.8 |
+| OpenAI | GPT-5.5 |
+| Google (Gemini) | Gemini 3.1 Pro |
+
+## Setup Flow
+
+<Steps>
+  <Step title="Switch to the plan">
+    Open **Settings -> Billing** and switch to **Bring Your Own AI**.
+  </Step>
+  <Step title="Open Bring Your Own AI">
+    After the plan is active, open **Settings -> Bring Your Own AI**.
+  </Step>
+  <Step title="Choose a provider">
+    Select OpenAI, Claude, or Google.
+  </Step>
+  <Step title="Paste the provider key">
+    Paste the provider API key from the provider console. Woes never shows the
+    full key again after it is saved.
+  </Step>
+  <Step title="Pick a model">
+    Choose one of the supported frontier models. If no model is selected, Woes
+    uses the provider default.
+  </Step>
+  <Step title="Verify and activate">
+    Woes verifies the key and can activate the first connected provider so the
+    support agent has a provider to use.
+  </Step>
+</Steps>
+
+## BYO AI Onboarding
+
+When a workspace is on the Bring Your Own AI plan and has not connected a
+provider, Woes can guide admins through a focused setup wizard. The wizard:
+
+- Explains the plan and provider routing behavior.
+- Walks through OpenAI, Claude, and Google key setup.
+- Verifies connected keys.
+- Activates the first connected provider by default.
+- Lets admins skip setup for the current session.
+
+Until a provider is active, Woes uses the platform AI routing path.
+
+## Runtime Behavior
+
+When an active BYO AI provider exists, the support agent uses:
+
+- The customer's active provider.
+- The customer's decrypted provider key on the server.
+- The selected supported model, or the provider default.
+- The same Woes retrieval, grounding, confidence, clarification, and handoff
+  rules.
+
+BYO AI changes the model execution account. It does not change tenant
+boundaries, source retrieval, redaction, confidence rules, or what customers are
+allowed to see.
+
+## Key Security
+
+Provider keys are private credentials.
+
+Woes stores provider keys server-side and returns only a redacted key hint such
+as the last four characters. Customer-facing widgets, REST API responses,
+operator debug traces, and public docs must never expose the full key.
+
+Do not paste provider keys into:
+
+- Agent prompts.
+- Source documentation.
+- Macros.
+- Customer replies.
+- Public docs or screenshots.
+- Browser-side widget configuration.
+
+## Operations
+
+Admins can:
+
+- Connect a provider key.
+- Test a provider key.
+- Activate a provider.
+- Pause BYO routing by returning to platform AI.
+- Remove a provider key.
+- Update the model for a connected provider.
+
+If a provider key fails verification, Woes can save the status as failed and
+show an operator-safe error. The full key remains hidden.
+
+## Billing Notes
+
+Bring Your Own AI is billed by Woes as a plan. Model usage itself is billed by
+the customer's provider account according to that provider's pricing.
+
+Review [Billing](/settings/billing) for plan status, subscription management,
+and workspace capacity.
+

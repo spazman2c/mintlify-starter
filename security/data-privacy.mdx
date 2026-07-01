@@ -28,11 +28,12 @@ These surfaces must never expose:
 
 ## Credentials
 
-API credentials, source auth settings, provider keys, and integration secrets
-must stay server-side and must remain separate from source documentation
-content, customer-visible messages, and model prompts. Source auth credentials
-are handled through the application's secure credential mechanism; workspace
-REST API keys are shown once at creation, then stored only as hashes.
+API credentials, source auth settings, Bring Your Own AI provider keys, Stripe
+secrets, webhook secrets, and integration secrets must stay server-side and must
+remain separate from source documentation content, customer-visible messages,
+and model prompts. Source auth credentials are handled through the
+application's secure credential mechanism; workspace REST API keys are shown
+once at creation, then stored only as hashes.
 
 Secrets must never be returned in plaintext after creation, included in model
 context, or exposed through customer-facing surfaces.
@@ -45,6 +46,38 @@ Do not put credentials in:
 - Survey messages.
 - Customer replies.
 - Screenshots in public docs.
+
+## Bring Your Own AI Provider Keys
+
+Bring Your Own AI provider keys are customer-owned model-provider credentials.
+They are used only from server-side agent execution when the workspace is on the
+Bring Your Own AI plan and has an active provider.
+
+Woes returns only redacted provider-key status to the UI:
+
+- Provider name.
+- Active/inactive state.
+- Verification status.
+- Last verification time.
+- Last-four-character key hint.
+- Operator-safe error state.
+
+Woes must never return the full provider key to customer-facing surfaces,
+browser widget code, REST API responses, public docs, or operator debug traces.
+
+## Stripe Billing Data
+
+Stripe handles payment details, subscription billing, invoices, and payment
+methods. Woes stores only workspace-scoped billing references and entitlement
+state needed to enforce plan limits:
+
+- Stripe customer id.
+- Stripe subscription id.
+- Stripe subscription status.
+- Plan and add-on entitlement values.
+
+Card numbers, Stripe secret keys, webhook signing secrets, and payment-method
+details are not stored in workspace settings.
 
 ## AI Context
 

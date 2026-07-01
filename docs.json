@@ -225,6 +225,8 @@
                 "pages": [
                   "platform/overview",
                   "settings/overview",
+                  "settings/billing",
+                  "settings/bring-your-own-ai",
                   "settings/keys",
                   "settings/users-permissions",
                   "settings/data-macros",

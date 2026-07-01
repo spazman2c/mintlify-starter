@@ -61,9 +61,14 @@ right permissions.
 | --- | --- |
 | `/api/account/settings` | Load and save workspace settings. |
 | `/api/account/api-keys` | Create, list, and revoke workspace API keys. |
+| `/api/account/billing/usage` | Load plan usage, API key usage, add-ons, and subscription status. |
+| `/api/account/billing/plan` | Start a plan-change Checkout flow or update plan state when Stripe is not configured. |
+| `/api/account/billing/add-ons` | Start add-on Checkout flows or update add-on entitlement state when Stripe is not configured. |
+| `/api/account/billing/portal` | Create a Stripe Billing Portal session for subscription management. |
 | `/api/account/csat` | Compatibility analytics route returning typed survey responses. |
 | `/api/account/surveys/email` | Send enabled email surveys. |
 | `/api/account/widget-analytics` | Load widget event analytics. |
+| `/api/account/ai-providers` | Manage Bring Your Own AI provider keys for entitled workspaces. |
 | `/api/support-agent/runs` | Load support-agent run analytics. |
 | `/api/support-agents` | Manage workspace agents. |
 | `/api/support-agents/[id]/learn` | Run context learning for an agent. |
@@ -73,6 +78,17 @@ right permissions.
 | `/api/client-portal/issues/[issueId]` | Customer-safe portal issue detail and messages for valid portal sessions. |
 | `/api/issues` | Manage support issues. |
 | `/api/notes` | Manage internal notes. |
+
+## Webhook Routes
+
+Webhook routes are server-to-server integration endpoints. They do not accept
+workspace API keys.
+
+| Route family | Purpose |
+| --- | --- |
+| `/api/stripe/webhook` | Receives Stripe subscription events and syncs billing entitlements. |
+| `/api/email/inbound/resend` | Receives inbound email events from Resend. |
+| `/api/discord/events` | Receives Discord interaction and message events. |
 
 <Note>
   Routes listed here may require authentication, workspace permissions, signed
