@@ -11,7 +11,7 @@
   script.src = "https://woes.dev/widget.js";
   script.setAttribute(
     "data-public-key",
-    "trovw_agent_0569335271704cd594b3900a5448cc43"
+    "trovw_agent_07f3655b89074d4cb7763725fcfafc64"
   );
   document.head.appendChild(script);
 
